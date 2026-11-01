@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coin</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYCH COIN MINER</title>
     <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #111827, #1f2937);
-        color: #f9fafb;
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-      }
-
-      .container {
-        text-align: center;
-        padding: 2rem;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-      }
-
-      p {
-        font-size: 1.1rem;
-        color: #d1d5db;
-      }
+        :root {
+            --bg-dark: #0b0e11;
+            --card-bg: #151b22;
+            --accent-green: #00ffcc;
+            --accent-gold: #f3ba2f;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #30363d;
+            text-align: center;
+        }
+        h1 { font-size: 22px; color: var(--accent-green); margin-bottom: 5px; }
+        p { color: var(--text-muted); font-size: 14px; }
+        .btn {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 16px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1>Bienvenido a Coin</h1>
-      <p>Tu página de inicio ha sido creada correctamente.</p>
+        <h1>VYCH COIN MINER</h1>
+        <p>Versión de Producción - Servidores Automine & Ruleta Activos</p>
+        <div style="margin: 20px 0; background: #0b0e11; padding: 15px; border-radius: 8px;">
+            <span style="font-size: 24px; font-weight: bold; color: var(--accent-gold);">69.42 $VYCH</span>
+            <p style="margin: 5px 0 0 0;">Balance Acumulado</p>
+        </div>
+        <p>Energía de Estación: <strong>410 / 600</strong> (10 pts/min)</p>
+        <button class="btn" onclick="alert('¡Bloque minado! +0.5 $VYCH sumados con éxito.')">MINAR BLOQUE (+0.5)</button>
     </div>
-  </body>
+</body>
 </html>

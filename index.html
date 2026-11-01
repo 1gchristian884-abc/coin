@@ -1,471 +1,154 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coin | Tu futuro financiero</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYCH COIN MINER</title>
     <style>
-      :root {
-        --bg: #07111f;
-        --bg-soft: #101b2d;
-        --panel: rgba(15, 23, 42, 0.82);
-        --primary: #38bdf8;
-        --secondary: #22c55e;
-        --text: #e5f1ff;
-        --muted: #9fb3c8;
-        --accent: #fbbf24;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background:
-          radial-gradient(circle at top, rgba(56, 189, 248, 0.15), transparent 25%),
-          linear-gradient(135deg, var(--bg), #0f172a 40%, #111827);
-        color: var(--text);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .container {
-        width: min(1100px, calc(100% - 2rem));
-        margin: 0 auto;
-      }
-
-      header {
-        position: sticky;
-        top: 0;
-        backdrop-filter: blur(14px);
-        background: rgba(7, 17, 31, 0.75);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        z-index: 10;
-      }
-
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        min-height: 72px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-      }
-
-      .brand-mark {
-        width: 36px;
-        height: 36px;
-        display: grid;
-        place-items: center;
-        border-radius: 12px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: #03131d;
-        font-weight: 900;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        color: var(--muted);
-        font-size: 0.96rem;
-      }
-
-      .nav-links a:hover {
-        color: var(--text);
-      }
-
-      .cta {
-        padding: 0.8rem 1.4rem;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--primary), #2563eb);
-        color: white;
-        font-weight: 700;
-        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);
-      }
-
-      .hero {
-        padding: 5rem 0 4rem;
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        align-items: center;
-        gap: 2rem;
-      }
-
-      .eyebrow {
-        display: inline-block;
-        padding: 0.45rem 0.8rem;
-        border-radius: 999px;
-        background: rgba(56, 189, 248, 0.12);
-        color: var(--primary);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      h1 {
-        font-size: clamp(2.7rem, 5vw, 5rem);
-        line-height: 1.05;
-        margin: 1rem 0 1rem;
-      }
-
-      .gradient-text {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .subtitle {
-        max-width: 620px;
-        color: var(--muted);
-        font-size: 1.08rem;
-        line-height: 1.8;
-      }
-
-      .hero-actions {
-        margin-top: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .primary-btn,
-      .secondary-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem 1.5rem;
-        border-radius: 14px;
-        font-weight: 700;
-        transition: transform 0.2s ease;
-      }
-
-      .primary-btn {
-        background: linear-gradient(135deg, var(--secondary), #16a34a);
-        color: #03130a;
-      }
-
-      .secondary-btn {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: var(--text);
-      }
-
-      .primary-btn:hover,
-      .secondary-btn:hover,
-      .cta:hover {
-        transform: translateY(-2px);
-      }
-
-      .stats {
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
-        margin-top: 2.2rem;
-      }
-
-      .stat strong {
-        display: block;
-        font-size: 1.7rem;
-        margin-bottom: 0.3rem;
-      }
-
-      .stat span {
-        color: var(--muted);
-      }
-
-      .card {
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 22px;
-        box-shadow: 0 30px 60px rgba(2, 6, 23, 0.45);
-      }
-
-      .wallet-card {
-        padding: 1.2rem;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .wallet-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.2), transparent 35%);
-      }
-
-      .wallet-header,
-      .balance-row,
-      .mini-row {
-        position: relative;
-        z-index: 1;
-      }
-
-      .wallet-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        color: var(--muted);
-      }
-
-      .chip {
-        width: 42px;
-        height: 28px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, var(--accent), #f59e0b);
-      }
-
-      .balance-box {
-        position: relative;
-        z-index: 1;
-        padding: 1.5rem 1.2rem;
-        border-radius: 18px;
-        background: rgba(15, 23, 42, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-      }
-
-      .label {
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      .amount {
-        margin-top: 0.7rem;
-        font-size: clamp(2rem, 4vw, 3.2rem);
-        font-weight: 800;
-      }
-
-      .trend {
-        margin-top: 0.75rem;
-        color: var(--secondary);
-        font-weight: 700;
-      }
-
-      .mini-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-        margin-top: 1.2rem;
-      }
-
-      .mini-box {
-        padding: 1rem;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-      }
-
-      .mini-box .value {
-        display: block;
-        margin-top: 0.45rem;
-        font-size: 1.4rem;
-        font-weight: 800;
-      }
-
-      .features {
-        padding: 2rem 0 5rem;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 2.2rem;
-      }
-
-      .section-title h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        margin: 0 0 0.75rem;
-      }
-
-      .section-title p {
-        color: var(--muted);
-        margin: 0 auto;
-        max-width: 700px;
-        line-height: 1.8;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.4rem;
-      }
-
-      .feature-item {
-        padding: 1.6rem;
-      }
-
-      .feature-icon {
-        width: 52px;
-        height: 52px;
-        display: grid;
-        place-items: center;
-        border-radius: 14px;
-        background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(34, 197, 94, 0.18));
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .feature-item h3 {
-        margin: 0 0 0.6rem;
-        font-size: 1.2rem;
-      }
-
-      .feature-item p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      footer {
-        padding: 1.25rem 0 3rem;
-        color: var(--muted);
-        text-align: center;
-      }
-
-      @media (max-width: 840px) {
-        .hero {
-          grid-template-columns: 1fr;
-          padding-top: 3rem;
+        :root {
+            --bg-dark: #0b0e11;
+            --card-bg: #151b22;
+            --accent-green: #00ffcc;
+            --accent-gold: #f3ba2f;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
         }
-
-        .feature-grid {
-          grid-template-columns: 1fr;
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .nav-links {
-          display: none;
+        .top-bar {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
         }
-      }
+        select {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid #30363d;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #30363d;
+            text-align: center;
+        }
+        h1 { font-size: 22px; color: var(--accent-green); margin-bottom: 5px; }
+        p { color: var(--text-muted); font-size: 14px; }
+        .btn {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 16px;
+        }
     </style>
-  </head>
-  <body>
-    <header>
-      <div class="container nav">
-        <div class="brand">
-          <div class="brand-mark">C</div>
-          <span>Coin</span>
+</head>
+<body>
+
+    <!-- Selector de Idioma -->
+    <div class="top-bar">
+        <select id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="pt">🇧🇷 Português</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <h1 id="t-title">VYCH COIN MINER</h1>
+        <p id="t-subtitle">Production Version - Automine & Roulette Active</p>
+        <div style="margin: 20px 0; background: #0b0e11; padding: 15px; border-radius: 8px;">
+            <span style="font-size: 24px; font-weight: bold; color: var(--accent-gold);">69.42 $VYCH</span>
+            <p id="t-balance" style="margin: 5px 0 0 0;">Accumulated Balance</p>
         </div>
+        <p><span id="t-energy-label">Station Energy</span>: <strong>410 / 600</strong> (10 pts/min)</p>
+        <button class="btn" id="t-btn" onclick="mineBlock()">MINE BLOCK (+0.5)</button>
+    </div>
 
-        <nav class="nav-links" aria-label="Menú de navegación">
-          <a href="#inicio">Inicio</a>
-          <a href="#features">Funciones</a>
-          <a href="#seguridad">Seguridad</a>
-          <a href="#precio">Precio</a>
-        </nav>
+    <script>
+        const translations = {
+            en: {
+                subtitle: "Production Version - Automine & Roulette Active",
+                balance: "Accumulated Balance",
+                energyLabel: "Station Energy",
+                btnText: "MINE BLOCK (+0.5)",
+                alertText: "Block mined! +0.5 $VYCH successfully added."
+            },
+            es: {
+                subtitle: "Versión de Producción - Servidores Automine & Ruleta Activos",
+                balance: "Balance Acumulado",
+                energyLabel: "Energía de Estación",
+                btnText: "MINAR BLOQUE (+0.5)",
+                alertText: "¡Bloque minado! +0.5 $VYCH sumados con éxito."
+            },
+            zh: {
+                subtitle: "生产版本 - 自动挖矿和轮盘激活",
+                balance: "累计余额",
+                energyLabel: "站能量",
+                btnText: "开采区块 (+0.5)",
+                alertText: "区块开采成功！+0.5 $VYCH 已添加。"
+            },
+            ru: {
+                subtitle: "Производственная версия - Автомайнинг и рулетка активны",
+                balance: "Накопленный баланс",
+                energyLabel: "Энергия станции",
+                btnText: "ДОБЫТЬ БЛОК (+0.5)",
+                alertText: "Блок добыт! Успешно добавлено +0.5 $VYCH."
+            },
+            pt: {
+                subtitle: "Versão de Produção - Automine & Roleta Ativos",
+                balance: "Saldo Acumulado",
+                energyLabel: "Energia da Estação",
+                btnText: "MINERAR BLOCO (+0.5)",
+                alertText: "Bloco minerado! +0.5 $VYCH adicionados com sucesso."
+            }
+        };
 
-        <a class="cta" href="#precio">Comenzar</a>
-      </div>
-    </header>
+        function changeLanguage(lang) {
+            document.getElementById('t-subtitle').innerText = translations[lang].subtitle;
+            document.getElementById('t-balance').innerText = translations[lang].balance;
+            document.getElementById('t-energy-label').innerText = translations[lang].energyLabel;
+            document.getElementById('t-btn').innerText = translations[lang].btnText;
+            
+            // Guardar preferencia del usuario
+            localStorage.setItem('vych_lang', lang);
+        }
 
-    <main id="inicio" class="container hero">
-      <section>
-        <span class="eyebrow">Nueva generación</span>
-        <h1>
-          Haz crecer tu dinero con
-          <span class="gradient-text">Coin</span>
-        </h1>
-        <p class="subtitle">
-          La plataforma inteligente para invertir, guardar y administrar tu capital con total
-          seguridad, rapidez y claridad.
-        </p>
+        function mineBlock() {
+            const lang = document.getElementById('langSelect').value;
+            alert(translations[lang].alertText);
+        }
 
-        <div class="hero-actions">
-          <a class="primary-btn" href="#precio">Abrir cuenta</a>
-          <a class="secondary-btn" href="#features">Ver funciones</a>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>2.4M+</strong>
-            <span>Usuarios activos</span>
-          </div>
-          <div class="stat">
-            <strong>$8.2B</strong>
-            <span>Volumen mensual</span>
-          </div>
-          <div class="stat">
-            <strong>99.9%</strong>
-            <span>Disponibilidad</span>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card wallet-card" aria-label="Vista de cartera">
-        <div class="wallet-header">
-          <span>Mi cartera</span>
-          <div class="chip" aria-hidden="true"></div>
-        </div>
-
-        <div class="balance-box">
-          <div class="label">Saldo total</div>
-          <div class="amount">$24,860.42</div>
-          <div class="trend">+12.8% este mes</div>
-        </div>
-
-        <div class="mini-row">
-          <div class="mini-box">
-            <div class="label">Bitcoin</div>
-            <span class="value">1.42 BTC</span>
-          </div>
-          <div class="mini-box">
-            <div class="label">Ethereum</div>
-            <span class="value">8.31 ETH</span>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <section id="features" class="features">
-      <div class="container">
-        <div class="section-title">
-          <h2>Todo lo que necesitas para invertir con confianza</h2>
-          <p>
-            Diseñada para principiantes y expertos, Coin combina tecnología avanzada, análisis claro
-            y seguridad de nivel institucional.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="card feature-item">
-            <div class="feature-icon">⚡</div>
-            <h3>Movimientos instantáneos</h3>
-            <p>Invierte, retira y transfiere fondos con tiempos de ejecución ultra rápidos.</p>
-          </article>
-
-          <article class="card feature-item">
-            <div class="feature-icon">🔒</div>
-            <h3>Seguridad avanzada</h3>
-            <p>Protección con autenticación, cifrado y monitoreo constante de tu actividad.</p>
-          </article>
-
-          <article class="card feature-item">
-            <div class="feature-icon">📈</div>
-            <h3>Analítica inteligente</h3>
-            <p>Visualiza tendencias, rendimiento y oportunidades con reportes sencillos.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="container">© 2026 Coin. Todos los derechos reservados.</div>
-    </footer>
-  </body>
+        // Cargar idioma guardado o por defecto inglés
+        window.onload = function() {
+            const savedLang = localStorage.getItem('vych_lang') || 'en';
+            document.getElementById('langSelect').value = savedLang;
+            changeLanguage(savedLang);
+        }
+    </script>
+</body>
 </html>

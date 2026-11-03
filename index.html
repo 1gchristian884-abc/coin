@@ -834,6 +834,7 @@
       const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
     }
     function resetDemo() {
+      localStorage.removeItem("vych-coin-miner-demo-v1");
       localStorage.clear();
       location.reload();
     }

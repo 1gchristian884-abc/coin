@@ -833,12 +833,12 @@
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
       const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
     }
-    function resetDemo() {localStorage.clear();location.reload();}
+    function resetDemo() {
+      localStorage.clear();
+      location.reload();
+    }
     document.getElementById("resetBtn").onclick=resetDemo;
     document.getElementById("resetBtnMobile").onclick=resetDemo;
-    if(window.Telegram&&window.Telegram.WebApp){
-      try{const tg=window.Telegram.WebApp;tg.ready();tg.expand();if(tg.isVersionAtLeast&&tg.isVersionAtLeast("6.1")){if(tg.setHeaderColor)tg.setHeaderColor("#07090c");if(tg.setBackgroundColor)tg.setBackgroundColor("#07090c")}}catch(e){}
-    }
     render();
     setInterval(()=>{
       const dailyReset=updateEnergy();

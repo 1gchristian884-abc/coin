@@ -833,9 +833,7 @@
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
       const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
     }
-    async function resetDemo(){localStorage.clear();location.reload();
-      const ok=await dialog(t("dialogResetTitle"),t("dialogResetBody"),t("confirmReset"));
-      if(ok){try{localStorage.removeItem(STORE)}catch(e){}state=seed();active="minar";openPanel=null;spinBusy=false;save();render();showToast(t("dialogResetTitle"))}
+    function resetDemo(){localStorage.clear();location.reload();}
     }
     document.getElementById("resetBtn").onclick=resetDemo;
     document.getElementById("resetBtnMobile").onclick=resetDemo;

@@ -833,7 +833,6 @@
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
       const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
     }
-    function resetDemo() {
     function rD(){localStorage.clear();location.reload();}  
     document.getElementById("resetBtn").onclick=rD;
     document.getElementById("resetBtnMobile").onclick=rD;

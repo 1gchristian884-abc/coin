@@ -500,7 +500,7 @@
     function seed(){
       const t=now();
       return {lang:"en",balance:0,lifetime:0,today:0,todayKey:utcDay(),energy:600,energyAt:t,referrals:0,claimedTiers:[],refCapacity:0,
-        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:2,walletConnected:false,blocksTotal:0,blocks:[]};
+        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:1,walletConnected:false,blocksTotal:0,blocks:[]};
     }
     function normalize(raw){
       const d=seed(); if(!raw||typeof raw!=="object")return d;
@@ -636,7 +636,6 @@
       const lvl=levelFor(state.balance),prog=levelProgress(state.balance),energy=state.energy,limit=cap(state),nextTarget=levelThresholds[Math.min(100,lvl+1)],until=lvl>=100?t("maxLevel"):t("nextLevel",{amount:fmtInt(Math.max(0,nextTarget-state.balance)),level:lvl+1});
       const blocks=state.blocks.slice(0,25),job=state.autoMine,jobActive=!!(job&&job.endsAt>now()),jobProgress=job?Math.min(100,Math.max(0,(job.paid||0)/job.rewardTotal*100)):0;
       
-      // Hitos compactos específicos para N10, N50, N100 debajo de automine
       const compactMilestones=[10,50,100].map(targetLvl=>{
         const tokenVal=levelMilestones.find(m=>m.level===targetLvl)?.tokens||0;
         const isDone=lvl>=targetLvl;
@@ -702,4 +701,175 @@
     function renderRefsView(){
       const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
       return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
-      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.
+      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article><article class="card ref-sim"><div><b>'+t("simulateReferral")+'</b><span>'+t("localReferralDesc")+'</span></div><button class="secondary-btn" id="addReferral" data-testid="button-simulate-referral">+ '+t("add")+'</button></article></div>'+
+      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
+    }
+    function spinRewardText(spin){
+      if(!spin)return t("spinResultFallback");
+      if(spin.type==="energy")return t("energyRewardOutcome",{amount:fmtInt(spin.awarded||0)})+(spin.overflow?t("energyOverflowToast",{amount:fmtInt(spin.overflow)}):"");
+      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH";
+      return spin.rewardLabel||t("spinResultFallback");
+    }
+    function renderTasksView(){
+      const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
+      return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
+      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
+      '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
+      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+(prize.type==="energy"?t("energyPrize"):prize.label)+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
+    }
+    function prizeCenter(index){
+      let degrees=0;
+      for(let i=0;i<index;i++)degrees+=prizes[i].probability*3.6;
+      return degrees+prizes[index].probability*1.8;
+    }
+    function render(){
+      updateEnergy();applyLanguageShell();setupNav();
+      const view=document.getElementById("view");
+      view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderWalletView();
+      bindActions();
+    }
+    function earn(amount){
+      state.balance+=amount;state.lifetime+=amount;state.today+=amount;save();
+    }
+    function claimTiers(){
+      const newly=[];
+      tiers.forEach(t=>{if(state.referrals>=t.n&&!state.claimedTiers.includes(t.n)){state.claimedTiers.push(t.n);newly.push(t)}});
+      newly.forEach(t=>{earn(t.reward);if(t.capacity){state.refCapacity+=t.capacity;state.energy=Math.min(cap(state),state.energy)}});save();
+      return newly;
+    }
+    async function doMine(){
+      updateEnergy();if(state.energy<10){showToast(t("insufficientEnergy"));return}
+      state.energy-=10;state.energyAt=now();const reward=.5*state.multiplier;
+      earn(reward);const block={id:"b"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:state.multiplier,server:currentServer(),reward,time:now()};
+      state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||5)+1;save();render();showToast(t("blockMined",{amount:fmt(reward)}));
+    }
+    async function buyServer(serverId,days){
+      const server=servers.find(s=>s.id===serverId),duration=durations.find(d=>d.days===Number(days));if(!server||!duration)return;
+      const index=durations.indexOf(duration),price=server.prices[index],rewardTotal=server.dailyReward*duration.days;
+      const replacing=state.autoMine&&state.autoMine.endsAt>now();
+      const detail=t("serverDialogBody",{server:serverLabel(server),duration:duration.label,price:fmtInt(price),reward:fmtInt(rewardTotal)})+(replacing?" "+t("replaceRental"):"");
+      const ok=await dialog(t("serverDialogTitle"),detail,t("activateDemo"));
+      if(!ok)return;
+      updateEnergy();
+      const startedAt=now(),endsAt=startedAt+duration.days*86400000;
+      state.autoMine={serverId:server.id,serverName:server.name,dailyReward:server.dailyReward,days:duration.days,priceStars:price,rewardTotal,startedAt,endsAt,paid:0,todayPaid:0};
+      openPanel=null;save();render();showToast(t("serverActivated",{server:serverLabel(server)}));
+    }
+    async function buyMultiplier(value){
+      if(state.multiplier===value){showToast(t("multiplierAlreadyActive"));return}
+      const item=mults.find(m=>m.x===value);if(!item)return;
+      const ok=await dialog(t("multiplierDialogTitle"),t("multiplierDialogBody",{value,price:fmtInt(item.stars)}),t("activateMultiplier",{value}));
+      if(ok){state.multiplier=value;openPanel=null;save();render();showToast(t("multiplierActivated",{value}))}
+    }
+    async function copyInvite(){
+      const link="https://t.me/VYCHCoinMinerBot?start=demo-local";
+      try{await navigator.clipboard.writeText(link);showToast(t("inviteCopied"));}
+      catch(e){const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast(t("inviteCopied"))}catch(err){showToast(link)}ta.remove()}
+    }
+    function addReferral(){
+      state.referrals++;const gained=claimTiers();save();render();
+      showToast(gained.length?t("milestoneToast",{amount:fmtInt(gained.reduce((a,tier)=>a+tier.reward,0))}):t("simReferralAdded"));
+    }
+    function claimEnergy(){
+      syncDaily();if(state.adEnergyCount>=100){showToast(t("energyAdLimit"));return}
+      updateEnergy();const gained=300+Math.floor(Math.random()*201);
+      state.energy+=gained;
+      state.energyAt=now();state.adEnergyCount++;save();render();
+      showToast(t("energyRewardOutcome",{amount:fmtInt(gained)})+" · "+t("simulateReward"));
+    }
+    async function buyEnergyPack(index){
+      updateEnergy();const pack=energyPacks[index];if(!pack)return;
+      const detail=t("energyPurchaseBody",{amount:fmtInt(pack.amount),price:fmtInt(pack.stars),capacity:fmtInt(cap(state))});
+      const ok=await dialog(t("energyPurchaseTitle"),detail,t("buyDemo")+" · "+fmtInt(pack.stars)+"⭐ Stars");
+      if(!ok)return;
+      updateEnergy();
+      state.energy+=pack.amount;
+      state.energyAt=now();openPanel=null;save();render();
+      showToast(t("energyPurchaseToast",{amount:fmtInt(pack.amount)}));
+    }
+    function weightedPrize(){
+      const roll=Math.random()*100;let total=0;
+      for(const p of prizes){total+=p.probability;if(roll<total)return p}
+      return prizes[0];
+    }
+    async function spin(isAd){
+      syncDaily();if(spinBusy)return;
+      if(isAd){if(state.adSpinCount>=15){showToast(t("adSpinLimit"));return}state.adSpinCount++}
+      else{if(state.freeSpinUsed){showToast(t("freeSpinUsedToast"));return}state.freeSpinUsed=true}
+      updateEnergy();
+      const prize=weightedPrize(),index=prizes.indexOf(prize);let result;
+      if(prize.type==="energy"){
+        const amount=prize.min+Math.floor(Math.random()*(prize.max-prize.min+1));
+        state.energy+=amount;state.energyAt=now();
+        result={nameKey:prize.nameKey,type:"energy",awarded:amount,overflow:0,time:now()};
+      }else{
+        state.balance+=prize.amount;state.lifetime+=prize.amount;state.today+=prize.amount;result={nameKey:prize.nameKey,type:"vych",amount:prize.amount,time:now()};
+      }
+      const center=prizeCenter(index),target=(360-center+360)%360,previous=Number(state.wheelRotation)||0,previousMod=((previous%360)+360)%360,delta=(target-previousMod+360)%360,endRotation=previous+360*5+delta;
+      state.wheelRotation=endRotation;state.lastSpin=result;save();spinBusy=true;
+      const freeButton=document.getElementById("spinWheel"),adButton=document.getElementById("adSpin"),wheel=document.getElementById("wheelRing");
+      if(freeButton){freeButton.disabled=true;freeButton.textContent=t("spinning")}
+      if(adButton)adButton.disabled=true;
+      if(wheel){wheel.style.transition="transform 4.8s cubic-bezier(.12,.72,.12,1)";void wheel.offsetWidth;requestAnimationFrame(()=>{wheel.style.transform="rotate("+endRotation+"deg)"})}
+      const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      await new Promise(resolve=>setTimeout(resolve,reduced?100:4950));
+      spinBusy=false;render();showToast(t("spinResultToast",{prize:t(prize.nameKey),reward:spinRewardText(result)}));
+    }
+    function bindActions(){
+      const language=document.getElementById("languageSelect");
+      if(language)language.onchange=()=>{if(LANGUAGE_CODES.includes(language.value)){state.lang=language.value;save();render()}};
+      const mine=document.getElementById("mineBtn");if(mine)mine.onclick=doMine;
+      const openServers=document.getElementById("openServers");if(openServers)openServers.onclick=()=>{openPanel=openPanel==="servers"?null:"servers";render()};
+      const openMultipliers=document.getElementById("openMultipliers");if(openMultipliers)openMultipliers.onclick=()=>{openPanel=openPanel==="multipliers"?null:"multipliers";render()};
+      const openEnergyStore=document.getElementById("openEnergyStore");if(openEnergyStore)openEnergyStore.onclick=()=>{openPanel=openPanel==="energy"?null:"energy";render()};
+      document.querySelectorAll("[data-close-menu]").forEach(b=>b.onclick=()=>{openPanel=null;render()});
+      document.querySelectorAll("[data-server-id]").forEach(b=>b.onclick=()=>buyServer(b.dataset.serverId,Number(b.dataset.days)));
+      document.querySelectorAll("[data-mult]").forEach(b=>b.onclick=()=>buyMultiplier(Number(b.dataset.mult)));
+      document.querySelectorAll("[data-energy-pack]").forEach(b=>b.onclick=()=>buyEnergyPack(Number(b.dataset.energyPack)));
+      const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
+      const add=document.getElementById("addReferral");if(add)add.onclick=addReferral;
+      const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
+      const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
+      const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
+      const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
+    }
+    async function resetDemo(){
+      const ok=await dialog(t("dialogResetTitle"),t("dialogResetBody"),t("confirmReset"));
+      if(ok){try{localStorage.removeItem(STORE)}catch(e){}state=seed();active="minar";openPanel=null;spinBusy=false;save();render();showToast(t("dialogResetTitle"))}
+    }
+    document.getElementById("resetBtn").onclick=resetDemo;
+    document.getElementById("resetBtnMobile").onclick=resetDemo;
+    if(window.Telegram&&window.Telegram.WebApp){
+      try{const tg=window.Telegram.WebApp;tg.ready();tg.expand();if(tg.isVersionAtLeast&&tg.isVersionAtLeast("6.1")){if(tg.setHeaderColor)tg.setHeaderColor("#07090c");if(tg.setBackgroundColor)tg.setBackgroundColor("#07090c")}}catch(e){}
+    }
+    render();
+    setInterval(()=>{
+      const dailyReset=updateEnergy();
+      if(dailyReset&&active==="tareas"){render();return}
+      if(active==="minar"){
+        const currentCap=Math.max(cap(state),state.energy);
+        const el=document.querySelector('[data-testid="value-energy"]');
+        if(el){el.innerHTML=fmtInt(state.energy)+' <small>/ '+fmtInt(currentCap)+'</small>';const fill=document.querySelector(".energy-fill");if(fill)fill.style.width=Math.min(100,state.energy/currentCap*100)+"%";const btn=document.getElementById("mineBtn");if(btn)btn.disabled=state.energy<10}
+        const balance=document.querySelector('[data-testid="value-balance"]');if(balance)balance.textContent=fmt(state.balance);
+        const level=levelFor(state.balance),levelEl=document.querySelector('[data-testid="value-level"]'),levelFill=document.getElementById("levelProgressFill"),nextEl=document.getElementById("nextLevelText");
+        if(levelEl)levelEl.textContent=String(level);if(levelFill)levelFill.style.width=levelProgress(state.balance)+"%";
+        const levelLabel=document.getElementById("levelLabel");if(levelLabel)levelLabel.textContent=t("level")+" "+level+" "+t("of100");
+        [10,50,100].forEach(targetLvl=>{const item=document.getElementById("compact-milestone-"+targetLvl);if(item)item.classList.toggle("done",level>=targetLvl)});
+        if(nextEl)nextEl.textContent=level>=100?t("maxLevel"):t("nextLevel",{amount:fmtInt(Math.max(0,levelThresholds[level+1]-state.balance)),level:level+1});
+        const job=state.autoMine,activeJob=!!(job&&job.endsAt>now()),progress=job?Math.min(100,Math.max(0,(job.paid||0)/job.rewardTotal*100)):0;
+        const autoFill=document.getElementById("autoFill"),autoPaid=document.getElementById("autoPaid"),autoPercent=document.getElementById("autoPercent"),autoLabel=document.getElementById("autoLabel"),autoRemaining=document.getElementById("autoRemaining"),autoStatus=document.getElementById("autoStatus"),server=document.querySelector('[data-testid="value-server"]');
+        if(autoFill)autoFill.style.width=progress+"%";if(autoPaid)autoPaid.textContent=fmt(job?job.paid:0)+" / "+fmt(job?job.rewardTotal:0)+" VYCH";if(autoPercent)autoPercent.textContent=activeJob?fmt(progress,1)+"%":t("localProgress");
+        if(autoLabel)autoLabel.textContent=activeJob?t("inProgress"):job?t("finished"):t("notActivated");if(autoRemaining)autoRemaining.textContent=activeJob?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease");if(autoStatus)autoStatus.textContent=activeJob?t("serverActiveStatus"):t("serverBaseStatus");if(server&&server.firstChild)server.firstChild.textContent=currentServer();
+      }
+      if(active==="stats"){
+        const today=document.querySelector('[data-testid="value-today-earnings"]');if(today)today.textContent=fmt(state.today);
+        const total=document.querySelector('[data-testid="value-lifetime-earnings"]');if(total)total.textContent=fmt(state.lifetime);
+        const personal=document.querySelector('[data-testid="value-personal-mining-progress"]');if(personal)personal.textContent=fmt(state.balance)+" / "+fmtInt(MINING_ALLOC)+" VYCH · "+fmt(Math.min(100,state.balance/MINING_ALLOC*100),4)+"%";
+        const personalFill=document.querySelector(".personal-fill");if(personalFill)personalFill.style.width=Math.min(100,state.balance/MINING_ALLOC*100)+"%";
+      }
+    },1000);
+    window.addEventListener("storage",e=>{if(e.key===STORE){state=load();render()}});
+  })();
+  </script>
+</body>
+</html>

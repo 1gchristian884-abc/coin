@@ -77,8 +77,10 @@
     .global-fill{background:linear-gradient(90deg,#30835d,#53bd89)}
     .personal-fill{background:linear-gradient(90deg,#9b783b,#e2bd72)}
     .progress-foot{font-size:8px;line-height:1.5;color:#88939b;margin-top:9px}
-    @media(max-width:850px){.topbar{height:auto;min-height:45px}}
-    @media(max-width:600px){.topbar{height:auto;min-height:40px;margin-bottom:19px}.top-brand{gap:8px}.top-brand .brand-mark{width:34px;height:34px;font-size:14px}.top-brand-copy strong{font-size:11px;letter-spacing:.045em}.top-brand-copy small{display:none}.top-meta{gap:5px}.avatar{display:none}.live-pill{font-size:8px}.balance-line .balance-value{font-size:29px}.balance-line .coin-label{font-size:15px}.manage-actions{gap:7px}.manage-tile{min-height:55px;padding:8px 9px}.manage-tile strong{font-size:8px}.manage-tile span{font-size:7px}.manage-tile .tile-arrow{right:8px}.manage-menu{padding:11px}.server-offers{grid-template-columns:1fr}.offer-grid{gap:5px}.offer-btn{padding:7px 2px}.offer-btn strong{font-size:9px}.offer-btn span,.offer-btn small{font-size:7px}.multiplier-offers{grid-template-columns:repeat(3,minmax(0,1fr))}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(78vw,280px)}.wheel-card{padding:17px}.wheel-ring{border-width:7px}.wheel-center b{font-size:17px}}
+    @media(max-width:850px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px 22px 98px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;padding:8px 9px calc(9px + env(safe-area-inset-bottom));background:rgba(11,15,20,.96);border-top:1px solid #27303a;backdrop-filter:blur(16px);z-index:20}.mobile-nav .nav-item{flex-direction:column;justify-content:center;gap:4px;font-size:8px;padding:6px 2px;border-radius:8px}.mobile-nav .nav-item svg{width:17px;height:17px}.topbar{margin-bottom:23px}.hero-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}.mine-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}}
+    @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.topbar{height:auto;margin-bottom:21px}.live-pill{font-size:9px;padding:6px 8px}.page-head{align-items:flex-start;margin-bottom:16px}.page-head h1{font-size:22px}.page-head p{font-size:10px;max-width:270px;line-height:1.5}.tag{font-size:8px;padding:6px 8px}.hero-grid,.mine-grid,.panel-grid,.wheel-layout{grid-template-columns:1fr}.balance-card{padding:17px}.balance-value{font-size:29px}.energy-card{padding:15px 17px}.energy-value{margin-top:12px}.mine-grid{gap:10px}.mine-card{min-height:278px;padding:16px}.side-stack{grid-template-columns:1fr 1fr;gap:10px}.server-current{padding:13px}.progress-card{padding:13px}.progress-head strong{font-size:9px}.purchase-grid{grid-template-columns:1fr}.section-block{margin-top:22px}.section-heading{margin-bottom:10px}.block-row{grid-template-columns:.55fr .65fr .65fr .7fr .9fr;gap:4px;padding:10px 8px;font-size:8px}.block-row.head{font-size:7px;letter-spacing:.03em}.block-row strong{font-size:8px}.ref-hero{grid-template-columns:1fr;padding:17px}.big-stat{font-size:29px}.ref-action{width:100%}.ref-action button{flex:1}.ref-sim{align-items:flex-start}.ref-sim .secondary-btn{white-space:nowrap}.tier-card{padding:10px 11px}.ad-grid{grid-template-columns:1fr 1fr;gap:9px}.ad-card{padding:13px}.ad-card h2{font-size:11px}.ad-card p{min-height:54px}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(85vw,310px)}.wheel-card{padding:17px}.wheel-ring{border-width:8px}.wheel-center b{font-size:18px}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}.stat-tile{padding:13px}.stat-tile strong{font-size:17px}.wallet-card{grid-template-columns:1fr;gap:12px;padding:18px}.wallet-connect{width:100%}.top-meta{gap:7px}}
+    @media(max-width:360px){.main{padding-left:10px;padding-right:10px}.block-row{font-size:7px}.block-row.head{font-size:6px}.side-stack{grid-template-columns:1fr}.tag{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
   <style>
     .language-select{height:31px;max-width:92px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
@@ -144,10 +146,11 @@
   <script>
   (function(){
     "use strict";
-    const STORAGE_KEY = "vych-coin-miner-demo-v3", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
+    // Mantenemos tu llave de almacenamiento previa para respetar balances, servidores y multiplicadores
+    const STORAGE_KEY = "vych-coin-miner-demo-v2", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
     const SUPPORTED_LANGS = ["en","es","zh","ru","pt"], LOCALE_FORMATS = {en:"en-US",es:"es-ES",zh:"zh-CN",ru:"ru-RU",pt:"pt-BR"};
     
-    // AdsGram Controller Setup with your new block ID 58047
+    // AdsGram Controller Setup with block ID 58047
     const ADSGRAM_BLOCK_ID = "58047"; 
     let adController = null;
 
@@ -314,9 +317,6 @@
       ["simulatedReferrals","Total referrals","Total de referidos","总推荐人数","Total de indicações"],
       ["rewardsClaimed","VYCH from claimed milestones: {amount}","VYCH por hitos reclamados: {amount}","已领取里程碑奖励：{amount} VYCH","VYCH por marcos resgatados: {amount}"],
       ["copyInvite","Copy invite","Copiar invitación","复制邀请","Copiar convite"],
-      ["simulateReferral","Add referral","Añadir referido","添加推荐","Adicionar indicação"],
-      ["localReferralDesc","Adds 1 referral and applies each milestone once.","Suma 1 referido y aplica cada hito una sola vez.","增加 1 位推荐，并且每个里程碑只能领取一次。","Adiciona 1 indicação e aplica cada marco uma vez."],
-      ["add","Add","Añadir","添加","Adicionar"],
       ["referral","referral","referido","位推荐","indicação"],
       ["referrals","referrals","referidos","位推荐","indicações"],
       ["toUnlock","to unlock","para desbloquear","解锁还需","para desbloquear"],
@@ -350,7 +350,7 @@
       ["special","Special","Especial","特殊","Especial"],
       ["legendary","Legendary","Legendario","传奇","Lendário"],
       ["energyPrize","⚡ 300–500 energy","⚡ 300–500 energía","⚡ 300–500 能量","⚡ 300–500 energia"],
-      ["spinIndependent","Common prize is random energy, subject to capacity. Other prizes are VYCH (Token conversion: 1:1). Every spin is independent.","El premio común es energía aleatoria, limitada por la capacidad. Los demás son VYCH (Conversión 1:1). Cada giro es independiente.","普通奖励为随机能量，受容量限制。其他奖励为 VYCH（兑换比例 1:1）。每次抽奖独立。","O prêmio comum é energias aleatórias, limitadas pela capacidade. Os demais são VYCH (Conversão 1:1). Cada giro é independente."],
+      ["spinIndependent","Common prize is random energy, subject to capacity. Other prizes are VYCH (Token conversion: 1:1). Every spin is independent.","El premio común es energía aleatoria, limitada por la capacidad. Los demás son VYCH (Conversión 1:1). Cada giro es independiente.","普通奖励为随机能量，受容量限制。其他奖励为 VYCH（兑换比例 1:1）。每次抽奖独立。","O prêmio comum é energia aleatória, limitada pela capacidade. Os demais são VYCH (Conversão 1:1). Cada giro é independente."],
       ["spinning","Spinning…","Girando…","转动中…","Girando…"],
       ["freeUsed","Free spin used","Giro gratuito usado","免费次数已用","Giro grátis usado"],
       ["freeSpinButton","Spin free","Girar gratis","免费抽奖","Girar grátis"],
@@ -425,7 +425,7 @@
       ["spinResultFallback","Prize odds apply on each spin.","Se aplican las probabilidades indicadas en cada giro.","每次抽奖均按显示概率进行。","As probabilidades indicadas valem para cada giro."],
       ["wheelAria","Prize wheel with five sectors","Ruleta de premios con cinco sectores","含五个奖励区域的转盘","Roleta de prêmios com cinco setores"],
       ["freeSpinUsedToast","Today's free spin was already used.","El giro gratuito de hoy ya se utilizó.","今日免费抽奖已使用。","O giro grátis de hoje já foi usado."],
-      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplier já está ativo."],
+      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplier já foi ativo."],
       ["noPayments","Telegram Stars payment integration active. Token conversion is 1:1.","Integración de pagos con Telegram Stars activa. Conversión 1:1.","Telegram Stars 支付集成已启用。代币兑换 1:1。","Integração de pagamentos Telegram Stars ativa. Conversão 1:1."],
       ["informative","INFORMATION","INFORMATIVO","信息","INFORMATIVO"],
       ["referralCapacityBonus","+400 capacity","+400 capacidad","+400 容量","+400 de capacidade"],
@@ -464,9 +464,7 @@
       refKicker:"Круг VYCH",refTitle:"Растите вместе с командой",
       refDesc:"Приглашайте людей и открывайте награды за этапы.",refTag:"Награды за этапы",
       simulatedReferrals:"Всего рефералов",rewardsClaimed:"VYCH за полученные награды этапов: {amount}",
-      copyInvite:"Скопировать приглашение",simulateReferral:"Добавить реферала",
-      localReferralDesc:"Добавляет 1 реферала и начисляет награды за каждый этап.",
-      add:"Добавить",referral:"реферал",referrals:"рефералов",toUnlock:"до открытия",
+      copyInvite:"Скопировать приглашение",
       claimed:"ПОЛУЧЕНО",available:"ДОСТУПНО",pending:"ОЖИДАНИЕ",
       referralUnverified:"Ссылка для отслеживания рефералов активна.",tasksKicker:"Ежедневная активность",
       tasksTitle:"Награды и задания",tasksDesc:"Выполняйте ежедневные действия. Лимиты сбрасываются в 00:00 UTC.",resetUtc:"Сброс в 00:00 UTC",
@@ -508,7 +506,7 @@
       activateDemo:"Запустить сервер",multiplierDialogTitle:"Множитель",
       multiplierDialogBody:"Активировать ×{value} за {price}⭐ Stars. Меняет награды за ручные блоки. Конвертация 1:1.",
       activateMultiplier:"Активировать ×{value}",inviteCopied:"Ссылка скопирована.",
-      simReferralAdded:"Реферал добавлен.",milestoneToast:"Этап достигнут · +{amount} VYCH (1:1)",
+      milestoneToast:"Этап достигнут · +{amount} VYCH (1:1)",
       energyFullToast:"Энергия уже на максимуме.",energyPurchaseTitle:"Покупка энергии (Постоянный лимит)",
       energyPurchaseBody:"Увеличьте максимальный лимит энергии на +{amount} за {price}⭐ Stars навсегда. Новый лимит: {capacity}/{capacity}.",
       energyPurchaseToast:"Постоянный лимит увеличен: +{amount} (Макс: {capacity})",serverActivated:"AutoMine {server} запущен.",
@@ -599,7 +597,6 @@
       const todayTarget=job.rewardTotal*overlap/duration,todayDelta=Math.max(0,todayTarget-job.todayPaid);
       if(delta>0){
         state.balance+=delta;state.lifetime+=delta;state.today+=todayDelta;job.paid=earnedTarget;job.todayPaid=todayTarget;
-        // Also register AutoMine rewards into the last 25 blocks history
         const blockReward=delta;
         const block={id:"am"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:1,server:job.serverName||"Server",reward:blockReward,time:now()};
         state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;
@@ -726,7 +723,7 @@
     function renderRefsView(){
       const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
       return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
-      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article><article class="card ref-sim"><div><b>'+t("simulateReferral")+'</b><span>'+t("localReferralDesc")+'</span></div><button class="secondary-btn" id="addReferral" data-testid="button-simulate-referral">+ '+t("add")+'</button></article></div>'+
+      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article></div>'+
       '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
     }
     function spinRewardText(spin){
@@ -837,10 +834,6 @@
       try{await navigator.clipboard.writeText(link);showToast(t("inviteCopied"));}
       catch(e){const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast(t("inviteCopied"))}catch(err){showToast(link)}ta.remove()}
     }
-    function addReferral(){
-      state.referrals++;const gained=claimTiers();save();render();
-      showToast(gained.length?t("milestoneToast",{amount:fmtInt(gained.reduce((a,tier)=>a+tier.reward,0))}):t("simReferralAdded"));
-    }
     async function claimEnergy(){
       syncDaily();if(state.adEnergyCount>=100){showToast(t("energyAdLimit"));return}
       showToast("Loading ad...");
@@ -912,7 +905,6 @@
       document.querySelectorAll("[data-mult]").forEach(b=>b.onclick=()=>buyMultiplier(Number(b.dataset.mult)));
       document.querySelectorAll("[data-energy-pack]").forEach(b=>b.onclick=()=>buyEnergyPack(Number(b.dataset.energyPack)));
       const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
-      const add=document.getElementById("addReferral");if(add)add.onclick=addReferral;
       const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
       const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);

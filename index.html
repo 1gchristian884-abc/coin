@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#07090c">
-  <meta name="description" content="VYCH Coin Miner: mining center with daily rewards and progress.">
+  <meta name="description" content="VYCH Coin Miner: token mining center with daily rewards and progress. Token conversion 1:1.">
   <meta property="og:title" content="VYCH Coin Miner — Mining center">
   <meta property="og:description" content="Mine, progress, and track your VYCH rewards in this Telegram Mini App.">
   <meta property="og:type" content="website">
@@ -79,8 +79,64 @@
     @media(max-width:600px){.topbar{height:auto;min-height:40px;margin-bottom:19px}.top-brand{gap:8px}.top-brand .brand-mark{width:34px;height:34px;font-size:14px}.top-brand-copy strong{font-size:11px;letter-spacing:.045em}.top-brand-copy small{display:none}.top-meta{gap:5px}.avatar{display:none}.live-pill{font-size:8px}.balance-line .balance-value{font-size:29px}.balance-line .coin-label{font-size:15px}.manage-actions{gap:7px}.manage-tile{min-height:55px;padding:8px 9px}.manage-tile strong{font-size:8px}.manage-tile span{font-size:7px}.manage-tile .tile-arrow{right:8px}.manage-menu{padding:11px}.server-offers{grid-template-columns:1fr}.offer-grid{gap:5px}.offer-btn{padding:7px 2px}.offer-btn strong{font-size:9px}.offer-btn span,.offer-btn small{font-size:7px}.multiplier-offers{grid-template-columns:repeat(3,minmax(0,1fr))}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(78vw,280px)}.wheel-card{padding:17px}.wheel-ring{border-width:7px}.wheel-center b{font-size:17px}}
   </style>
   <style>
-    .language-select, .profile-select{height:31px;max-width:125px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
-    .language-select:focus-visible, .profile-select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+    .top-brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .top-brand .brand-mark{width:38px;height:38px;flex:0 0 auto}
+    .top-brand-copy{display:grid;gap:3px}
+    .top-brand-copy strong{font-size:15px;letter-spacing:.08em;font-weight:800;white-space:nowrap}
+    .top-brand-copy small{font-size:9px;color:#84909d;letter-spacing:.08em}
+    .balance-line{display:flex;align-items:baseline;gap:11px;margin:10px 0 0}
+    .balance-line .balance-value{margin:0;font-size:35px}
+    .balance-line .coin-label{font-size:17px;letter-spacing:.04em;font-weight:800}
+    .balance-demo{font-size:9px;color:#839087;margin-top:3px}
+    .manage-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+    .manage-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;min-height:59px;padding:10px 13px;text-align:left;border:1px solid #29342f;border-radius:10px;background:linear-gradient(110deg,#131b19,#11161d);color:#e3e9e7}
+    .manage-tile:hover{border-color:#496755;background:#17211c}
+    .manage-tile strong{font-size:10px;letter-spacing:.06em}
+    .manage-tile span{font-size:8px;color:#87958d}
+    .manage-tile .tile-arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--green)}
+    .manage-menu{margin-top:11px;padding:15px}
+    .manage-menu-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .manage-menu-head h2{font-size:12px;margin:0 0 4px}
+    .manage-menu-head p{font-size:9px;line-height:1.5;color:var(--muted);margin:0}
+    .menu-close{flex:0 0 auto;border:1px solid #303a45;background:#171e27;color:#aeb8c0;border-radius:7px;padding:6px 9px;font-size:9px}
+    .server-offers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .server-offer{padding:11px;border:1px solid #27313b;border-radius:9px;background:#10151c;min-width:0}
+    .server-offer-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+    .server-offer-head strong{font-size:10px}
+    .server-offer-head span{font-size:8px;color:var(--green);white-space:nowrap}
+    .server-current .server-row>div{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+    .server-yield{font-size:8px;color:#8e9aa3;margin-bottom:8px}
+    .offer-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+    .offer-btn{min-width:0;padding:6px 3px;border:1px solid #303943;border-radius:6px;background:#171e27;color:#dce4e8;display:grid;gap:3px;text-align:center}
+    .offer-btn:hover{border-color:#51806a;background:#1a2820}
+    .offer-btn strong{font-size:8px}
+    .offer-btn span{font-size:7px;color:var(--gold);white-space:nowrap}
+    .offer-btn small{font-size:7px;color:#8e99a2;white-space:nowrap}
+    .formula-note{margin:11px 0 0;padding:9px 10px;border-left:2px solid var(--gold);background:#17160f;color:#9d9b8e;font-size:8px;line-height:1.55}
+    .multiplier-offers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+    .multiplier-offer{padding:11px 5px;border:1px solid #303943;border-radius:8px;background:#111820;display:grid;gap:7px;text-align:center}
+    .multiplier-offer strong{font-family:var(--mono);color:var(--gold);font-size:13px}
+    .multiplier-offer span{font-size:8px;color:#9aa5ac}
+    .multiplier-offer button{border:1px solid #3d5e4b;border-radius:6px;background:#17251d;color:#d6f1e0;padding:6px 3px;font-size:8px}
+    .automation-card{padding:14px 15px}
+    .automation-card .card-title{margin-bottom:9px}
+    .auto-track,.progress-track{height:7px;overflow:hidden;border-radius:99px;background:#27313b}
+    .auto-fill,.global-fill,.personal-fill{height:100%;border-radius:inherit}
+    .auto-fill{background:linear-gradient(90deg,#9b783b,#e2bd72)}
+    .auto-meta{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-size:8px;color:#89959d}
+    .auto-meta strong{color:var(--gold);font-weight:500}
+    .progress-section{padding:18px;margin-top:13px}
+    .progress-line{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:15px 0 7px;font-size:9px;color:#a2adb4}
+    .progress-line strong{font-family:var(--mono);font-weight:400;color:#e0e6e8}
+    .global-fill{background:linear-gradient(90deg,#30835d,#53bd89)}
+    .personal-fill{background:linear-gradient(90deg,#9b783b,#e2bd72)}
+    .progress-foot{font-size:8px;line-height:1.5;color:#88939b;margin-top:9px}
+    @media(max-width:850px){.topbar{height:auto;min-height:45px}}
+    @media(max-width:600px){.topbar{height:auto;min-height:40px;margin-bottom:19px}.top-brand{gap:8px}.top-brand .brand-mark{width:34px;height:34px;font-size:14px}.top-brand-copy strong{font-size:11px;letter-spacing:.045em}.top-brand-copy small{display:none}.top-meta{gap:5px}.avatar{display:none}.live-pill{font-size:8px}.balance-line .balance-value{font-size:29px}.balance-line .coin-label{font-size:15px}.manage-actions{gap:7px}.manage-tile{min-height:55px;padding:8px 9px}.manage-tile strong{font-size:8px}.manage-tile span{font-size:7px}.manage-tile .tile-arrow{right:8px}.manage-menu{padding:11px}.server-offers{grid-template-columns:1fr}.offer-grid{gap:5px}.offer-btn{padding:7px 2px}.offer-btn strong{font-size:9px}.offer-btn span,.offer-btn small{font-size:7px}.multiplier-offers{grid-template-columns:repeat(3,minmax(0,1fr))}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(78vw,280px)}.wheel-card{padding:17px}.wheel-ring{border-width:7px}.wheel-center b{font-size:17px}}
+  </style>
+  <style>
+    .language-select{height:31px;max-width:92px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
+    .language-select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
     .mine-balance{width:100%;margin:2px 0 7px;text-align:center}
     .mine-balance .balance-line{justify-content:center;margin:5px 0 0}
     .mine-balance .balance-line .balance-value{font-size:36px}
@@ -91,7 +147,6 @@
     .energy-inline .energy-value{font-size:16px;margin:0}
     .energy-inline .energy-track{margin:7px 0}
     .energy-inline .energy-bottom{display:flex;justify-content:space-between;gap:10px;color:#85919c;font-size:8px}
-    
     .level-goals-embedded{margin-top:10px;padding-top:10px;border-top:1px solid #26303b}
     .level-goal-summary{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:#909ba3;margin-bottom:5px}
     .level-goal-summary strong{color:#e2bd72;font-weight:500;text-align:right}
@@ -100,7 +155,6 @@
     .milestone-item-compact strong{display:block;font:500 8px var(--mono);color:#dce4e7}
     .milestone-item-compact.done{border-color:#315640;background:#142119;color:#8eaa99}
     .milestone-item-compact.done strong{color:#6ed7a2}
-
     .energy-pack-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .energy-pack{padding:11px 8px;border:1px solid #303943;border-radius:8px;background:#111820;text-align:center}
     .energy-pack strong{display:block;font:500 12px var(--mono);color:#dce9e2}
@@ -109,7 +163,6 @@
     .energy-pack button:hover{border-color:#5d876b}
     .energy-pack button:disabled{cursor:not-allowed}
     .energy-shop-tile{grid-column:1/-1}
-
     .leaderboard-card{margin-top:16px;padding:18px}
     .leaderboard-list{display:grid;gap:6px;margin-top:12px;max-height:300px;overflow-y:auto}
     .leaderboard-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 11px;background:#10151c;border:1px solid #222b35;border-radius:8px;font-size:10px}
@@ -117,37 +170,22 @@
     .leaderboard-rank{font-family:var(--mono);font-weight:700;color:var(--gold)}
     .leaderboard-name{font-weight:600;color:#e0e6e8}
     .leaderboard-score{font-family:var(--mono);color:var(--green)}
-
-    @media(max-width:600px){.top-meta{gap:5px}.language-select,.profile-select{height:29px;max-width:92px;padding-left:6px;font-size:8px}.mine-balance .balance-line .balance-value{font-size:31px}.energy-inline{padding:10px 11px}}
-    @media(max-width:360px){.top-brand-copy strong{font-size:9px}.language-select,.profile-select{max-width:70px}}
+    @media(max-width:600px){.top-meta{gap:5px}.language-select{height:29px;max-width:78px;padding-left:6px;font-size:8px}.mine-balance .balance-line .balance-value{font-size:31px}.energy-inline{padding:10px 11px}}
+    @media(max-width:360px){.top-brand-copy strong{font-size:9px}.language-select{max-width:66px}}
   </style>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-      <div class="brand"><div class="brand-mark" aria-hidden="true">VY</div><div class="brand-title">VYCH COIN<span class="brand-sub">MINER</span></div></div>
+      <div class="brand"><div class="brand-mark" aria-hidden="true">VY</div><div class="brand-title">VYCH COIN<span class="brand-sub">MINER · PROD</span></div></div>
       <div class="nav-label" id="sidebarNavLabel">Control center</div>
       <nav class="nav-list" id="desktopNav"></nav>
       <div class="sidebar-bottom">
-        <div class="demo-note"><div class="eyebrow" id="demoNoteTitle">Mining storage</div><p id="demoNoteBody">Progress is saved safely on this device.</p></div>
+        <div class="demo-note"><div class="eyebrow" id="demoNoteTitle">Production network</div><p id="demoNoteBody">Progress is secured and synchronized in real time. VYCH token conversion ratio is 1:1.</p></div>
       </div>
     </aside>
     <main class="main">
-      <header class="topbar">
-        <div class="top-brand"><span class="brand-mark" aria-hidden="true">VY</span><span class="top-brand-copy"><strong>VYCH COIN MINER</strong><small id="topSubtitle">Mining center</small></span></div>
-        <div class="top-meta">
-          <select class="profile-select" id="profileSelect" aria-label="Profile">
-            <option value="Quique22218">@Quique22218</option>
-            <option value="GREYCAP26">@GREYCAP26</option>
-            <option value="DUGV1803">@DUGV1803</option>
-            <option value="MR_john12">@MR_john12</option>
-            <option value="DefaultUser">Default</option>
-          </select>
-          <select class="language-select" id="languageSelect" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="zh">中文</option><option value="ru">Русский</option><option value="pt">Português</option></select>
-          <div class="live-pill"><i class="live-dot"></i> <span id="localDemoLabel">Online</span></div>
-          <div class="avatar" aria-label="Profile">VY</div>
-        </div>
-      </header>
+      <header class="topbar"><div class="top-brand"><span class="brand-mark" aria-hidden="true">VY</span><span class="top-brand-copy"><strong>VYCH COIN MINER</strong><small id="topSubtitle">Mining center</small></span></div><div class="top-meta"><select class="language-select" id="languageSelect" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="zh">中文</option><option value="ru">Русский</option><option value="pt">Português</option></select><div class="live-pill"><i class="live-dot"></i> <span id="localDemoLabel">Live Network</span></div><div class="avatar" aria-label="Profile">VY</div></div></header>
       <div id="view" aria-live="polite"></div>
     </main>
   </div>
@@ -158,16 +196,15 @@
   <script>
   (function(){
     "use strict";
-    let activeProfile = localStorage.getItem("vych-active-profile") || "Quique22218";
-    const getStoreKey = () => `vych-coin-miner-v2_${activeProfile}`;
-    
-    const CAP_BASE=600, TOTAL_SUPPLY=1000000000, MINING_ALLOC=600000000;
+    const STORE="vych-coin-miner-demo-v2", CAP_BASE=600, TOTAL_SUPPLY=1000000000, MINING_ALLOC=600000000;
     const LANGUAGE_CODES=["en","es","zh","ru","pt"],LOCALE_FORMAT={en:"en-US",es:"es-ES",zh:"zh-CN",ru:"ru-RU",pt:"pt-BR"};
     const TR=[
       ["controlCenter","Control center","Centro de control","控制中心","Central de controle"],
-      ["simulationEnvironment","Mining storage","Almacenamiento de minería","挖矿存储","Armazenamento de mineração"],
-      ["deviceStorage","Progress is saved safely on this device.","El progreso se guarda de forma segura en este dispositivo.","进度安全保存在此设备上。","O progresso é salvo com segurança neste dispositivo."],
-      ["localDemo","Online","En línea","在线","Online"],
+      ["simulationEnvironment","Production environment","Entorno de producción","生产环境","Ambiente de produção"],
+      ["deviceStorage","Progress is secure. VYCH conversion ratio is 1:1.","El progreso es seguro. La conversión de VYCH es 1:1.","进度安全。VYCH 兑换比例为 1:1。","O progresso é seguro. A conversão de VYCH é 1:1."],
+      ["resetDemo","","","",""],
+      ["reset","","","",""],
+      ["localDemo","Live Network","Red en vivo","实时网络","Rede ao vivo"],
       ["miningCenter","Mining center","Centro de minería","挖矿中心","Central de mineração"],
       ["language","Language","Idioma","语言","Idioma"],
       ["navMine","Mine","Minar","挖矿","Minerar"],
@@ -180,10 +217,10 @@
       ["demoProfile","Profile","Perfil","资料","Perfil"],
       ["miningKicker","Mining dashboard","Panel de minería","挖矿面板","Painel de mineração"],
       ["miningTitle","Mining center","Centro de minería","挖矿中心","Central de mineração"],
-      ["miningDesc","Mine one block at a time. Progress is saved automatically.","Mina un bloque a la vez. El progreso se guarda automáticamente.","一次挖一个区块。进度自动保存。","Mine um bloco por vez. O progresso é salvo automaticamente."],
+      ["miningDesc","Mine blocks to earn VYCH. Balance is saved securely.","Mina bloques para ganar VYCH. El saldo se guarda de forma segura.","挖区块赚取 VYCH。余额安全保存。","Mine blocos para ganhar VYCH. O saldo é salvo com segurança."],
       ["activeProgress","Active progress","Progreso activo","当前进度","Progresso ativo"],
       ["balanceAvailable","Available balance","Saldo disponible","可用余额","Saldo disponível"],
-      ["demoBalance","Token balance · conversion 1:1","Saldo de tokens · conversión 1:1","代币余额 · 兑换 1:1","Saldo de tokens · conversão 1:1"],
+      ["demoBalance","Token conversion 1:1","Conversión de token 1:1","代币兑换 1:1","Conversão de token 1:1"],
       ["level","Level","Nivel","等级","Nível"],
       ["of100","/ 100","/ 100","/ 100","/ 100"],
       ["nextLevel","{amount} VYCH To Lv {level}","{amount} VYCH To Lv {level}","距 {level} 级还需 {amount} VYCH","{amount} VYCH To Lv {level}"],
@@ -212,7 +249,7 @@
       ["blocksTotal","Total blocks","Bloques totales","区块总数","Blocos totais"],
       ["estimatedGain","Estimated gain","Ganancia estimada","预计收益","Ganho estimado"],
       ["activeInstance","Active instance","Instancia activa","当前实例","Instância ativa"],
-      ["demo","NODE","NODO","节点","NÓ"],
+      ["demo","PROD","PROD","正式","PROD"],
       ["finishesIn","Ends in {time}","Finaliza en {time}","剩余 {time}","Termina em {time}"],
       ["noLease","No active rental","Sin alquiler activo","没有有效租赁","Sem aluguel ativo"],
       ["nextReward","Next reward","Próxima recompensa","下一笔奖励","Próxima recompensa"],
@@ -229,7 +266,7 @@
       ["dailyBase","Base: {amount} VYCH / 24 h","Base: {amount} VYCH / 24 h","基础收益：{amount} VYCH / 24 小时","Base: {amount} VYCH / 24 h"],
       ["close","Close","Cerrar","关闭","Fechar"],
       ["totalFormula","Formula: total reward = daily 24-hour base × rental days. (Token conversion: 1:1)","Fórmula: recompensa total = base diaria de 24 h × días de alquiler. (Conversión de token: 1:1)","公式：总奖励 = 每日基础收益 × 租赁天数。（代币兑换：1:1）","Fórmula: recompensa total = base diária de 24 h × dias de aluguel. (Conversão de token: 1:1)"],
-      ["progressive","Rewards accrue progressively.","Las recompensas se acreditan progresivamente.","奖励将逐步到账。","As recompensas são creditadas progressivamente."],
+      ["progressive","Rewards accrue progressively. Rentals and upgrades are active.","Las recompensas se acreditan progresivamente. Los alquileres y mejoras están activos.","奖励将逐步到账。租赁和升级已启用。","As recompensas são creditadas progressivamente. Aluguéis e melhorias ativos."],
       ["multiplierMenuTitle","Multipliers","Multiplicadores","倍率","Multiplicadores"],
       ["multiplierMenuDesc","Choose the power for your next manual blocks.","Elige la potencia para tus próximos bloques manuales.","选择后续手动挖矿的倍率。","Escolha a potência dos próximos blocos manuais."],
       ["perBlock","VYCH / block","VYCH / bloque","VYCH / 区块","VYCH / bloco"],
@@ -238,7 +275,7 @@
       ["energyStoreDesc","Buy an energy pack with Stars. Permanently increases max energy capacity.","Compra un paquete de energía con Stars. Aumenta permanentemente tu capacidad máxima de energía.","使用 Stars 购买能量包。永久增加最大能量上限。","Compre um pacote de energia com Stars. Aumenta permanentemente sua capacidade máxima de energia."],
       ["energyPackages","Energy packages","Paquetes de energía","能量套餐","Pacotes de energia"],
       ["fullEnergy","Energy is at capacity","La energía está al máximo","能量已满","Energia no limite"],
-      ["buyDemo","Buy package","Comprar paquete","购买套餐","Comprar pacote"],
+      ["buyDemo","Buy package","Comprar paquete","购买","Comprar pacote"],
       ["historyTitle","Latest mined blocks","Últimos bloques minados","最近挖出的区块","Blocos minerados recentes"],
       ["historyLimit","Max 25 · history","Máximo 25 · historial","最多 25 条 · 记录","Máximo 25 · histórico"],
       ["historyEmpty","No blocks yet. Your first block is one tap away.","Aún no hay bloques. Tu primer bloque está a un toque.","还没有区块。点击即可挖出第一个区块。","Ainda não há blocos. Seu primeiro bloco está a um toque."],
@@ -252,7 +289,7 @@
       ["refTitle","Grow with your team","Crece con tu equipo","与团队共同成长","Cresça com sua equipe"],
       ["refDesc","Invite people and unlock milestone rewards.","Invita a otras personas y desbloquea recompensas por hitos.","邀请他人并解锁里程碑奖励。","Convide pessoas e desbloqueie recompensas por marcos."],
       ["refTag","Milestone rewards","Recompensas por hitos","里程碑奖励","Recompensas por marcos"],
-      ["simulatedReferrals","Referrals count","Número de referidos","推荐人数","Contagem de indicações"],
+      ["simulatedReferrals","Total referrals","Total de referidos","总推荐人数","Total de indicações"],
       ["rewardsClaimed","VYCH from claimed milestones: {amount}","VYCH por hitos reclamados: {amount}","已领取里程碑奖励：{amount} VYCH","VYCH por marcos resgatados: {amount}"],
       ["copyInvite","Copy invite","Copiar invitación","复制邀请","Copiar convite"],
       ["simulateReferral","Add referral","Añadir referido","添加推荐","Adicionar indicação"],
@@ -264,22 +301,22 @@
       ["claimed","CLAIMED","RECLAMADO","已领取","RESGATADO"],
       ["available","AVAILABLE","DISPONIBLE","可领取","DISPONÍVEL"],
       ["pending","PENDING","PENDIENTE","待解锁","PENDENTE"],
-      ["referralUnverified","Invite link and rewards active for this account.","Enlace de invitación y recompensas activos para esta cuenta.","此帐户的邀请链接和奖励处于活动状态。","Link de convite e recompensas ativos para esta conta."],
+      ["referralUnverified","Referral tracking link is active and working.","El enlace de seguimiento de referidos está activo y funcionando.","推荐跟踪链接已激活并正常运行。","O link de rastreamento de indicações está ativo e funcionando."],
       ["tasksKicker","Daily activity","Actividad diaria","每日活动","Atividade diária"],
       ["tasksTitle","Rewards and tasks","Recompensas y tareas","奖励与任务","Recompensas e tarefas"],
       ["tasksDesc","Complete daily actions. Limits reset at 00:00 UTC.","Completa acciones diarias. Los límites se reinician a las 00:00 UTC.","完成每日活动。限制于 UTC 00:00 重置。","Complete ações diárias. Os limites reiniciam às 00:00 UTC."],
       ["resetUtc","Resets 00:00 UTC","Reinicio 00:00 UTC","UTC 00:00 重置","Reinício às 00:00 UTC"],
       ["energyBoost","Energy boost","Impulso de energía","能量补充","Impulso de energia"],
-      ["energyAdDesc","Receive 300–500 energy. Energy cannot exceed your capacity; overflow is discarded.","Recibe 300–500 de energía. No puede superar tu capacidad; el excedente se descarta.","获得 300–500 能量。不能超过能量上限，超出部分将丢弃。","Receba 300–500 de energia. Ela não excede sua capacidade; o excedente é descartado."],
-      ["usesToday","Uses today","Uses today","今日次数","Usos hoje"],
-      ["simulateReward","Claim energy","Reclamar energía","领取能量","Resgatar energia"],
+      ["energyAdDesc","Watch an ad to receive 300–500 energy. Energy cannot exceed your capacity; overflow is discarded.","Mira un anuncio para recibir 300–500 de energía. No puede superar tu capacidad; el excedente se descarta.","观看广告可获得 300–500 能量。不能超过能量上限，超出部分将丢弃。","Assista a um anúncio para receber 300–500 de energia. Ela não excede sua capacidade; o excedente é descartado."],
+      ["usesToday","Uses today","Usos de hoy","今日次数","Usos hoje"],
+      ["simulateReward","Claim reward","Reclamar recompensa","领取奖励","Resgatar recompensa"],
       ["extraSpins","Wheel spins","Giros de la rueda","转盘次数","Giros da roleta"],
-      ["spinAdDesc","One free spin daily and up to 15 extra spins per day.","Un giro gratis al día y hasta 15 giros extra al día.","每日一次免费抽奖，每日最多 15 次额外抽奖。","Um giro grátis por dia e até 15 giros extras por dia."],
-      ["adSpins","Extra spins","Giros extra","额外抽奖","Giros extras"],
+      ["spinAdDesc","One free spin daily and up to 15 ad spins per day.","Un giro gratis al día y hasta 15 giros con anuncio al día.","每日一次免费抽奖，每日最多 15 次广告抽奖。","Um giro grátis por dia e até 15 giros com anúncio por dia."],
+      ["adSpins","Ad spins","Giros con anuncio","广告抽奖","Giros com anúncio"],
       ["freeSpin","Free spin","Giro gratuito","免费抽奖","Giro grátis"],
       ["used","used","utilizado","已使用","usado"],
       ["availableSpin","available","disponible","可用","disponível"],
-      ["simulateAdSpin","Spin extra","Girar extra","额外抽奖","Girar extra"],
+      ["simulateAdSpin","Watch ad & spin","Ver anuncio y girar","观看广告并抽奖","Assistir anúncio e girar"],
       ["dailyWheel","Daily wheel","Ruleta diaria","每日转盘","Roleta diária"],
       ["fixedProbDemo","Fixed prizes · weighted spin","Premios fijos · giro ponderado","固定奖励 · 按概率抽奖","Prêmios fixos · giro ponderado"],
       ["nextPrize","Your next prize","Tu siguiente premio","下一个奖励","Seu próximo prêmio"],
@@ -296,56 +333,56 @@
       ["freeUsed","Free spin used","Giro gratuito usado","免费次数已用","Giro grátis usado"],
       ["freeSpinButton","Spin free","Girar gratis","免费抽奖","Girar grátis"],
       ["adSpinLimit","You reached the daily spin limit.","Has alcanzado el límite diario de giros.","已达到每日抽奖上限。","Você atingiu o limite diário de giros."],
-      ["energyAdLimit","You reached the daily energy limit.","Has alcanzado el límite diario de energía.","已达到每日能量上限。","Você atingiu o limite diário de energia."],
+      ["energyAdLimit","You reached the daily energy ad limit.","Has alcanzado el límite diario de anuncios de energía.","您已达到每日能量广告上限。","Você atingiu o limite diário de anúncios de energia."],
       ["statsKicker","Personal stats","Datos personales","个人统计","Estatísticas pessoais"],
       ["statsTitle","Your progress in numbers","Tu progreso en cifras","数据化进度","Seu progresso em números"],
       ["statsDesc","Metrics are calculated from your activity; token conversion is 1:1.","Métricas calculadas a partir de tu actividad; la conversión de tokens es 1:1.","数据根据您的活动计算；代币兑换比例为 1:1。","Métricas calculadas a partir da sua atividade; a conversão de tokens é 1:1."],
-      ["onlyDevice","This device only","Solo tu dispositivo","仅此设备","Somente neste dispositivo"],
+      ["onlyDevice","Cloud & Device","Nube y dispositivo","云端与设备","Nuvem e Dispositivo"],
       ["totalSupply","Project total supply","Oferta total del proyecto","项目总供应量","Oferta total do projeto"],
       ["miningAllocation","Allocated to mining (Conversion 1:1)","Asignado a minería (Conversión 1:1)","分配给挖矿（兑换 1:1）","Alocado para mineração (Conversão 1:1)"],
       ["blocksMined","Blocks mined","Bloques minados","已挖区块","Blocos minerados"],
       ["todayGain","Today's earnings","Ganancia de hoy","今日收益","Ganhos de hoje"],
       ["lifetimeGain","Lifetime earnings","Ganancia acumulada","累计收益","Ganhos acumulados"],
       ["supplyShare","Your share of supply","Tu parte de la oferta","你的供应占比","Sua parte da oferta"],
-      ["referenceDemo","VYCH · token reference · 1:1","VYCH · referencia de token · 1:1","VYCH · 代币参考 · 1:1","VYCH · referência de token · 1:1"],
+      ["referenceDemo","VYCH · token allocation · 1:1","VYCH · asignación de token · 1:1","VYCH · 代币分配 · 1:1","VYCH · alocação de token · 1:1"],
       ["percentOfSupply","of total supply","de la oferta total","占总供应量","da oferta total"],
       ["miningProgress","Mining progress","Progreso de minería","挖矿进度","Progresso da mineração"],
       ["pool","Mining pool · 600,000,000 VYCH (Token conversion: 1:1)","Pool destinado a minería · 600.000.000 VYCH (Conversión 1:1)","挖矿池 · 600,000,000 VYCH（兑换 1:1）","Pool de mineração · 600,000,000 VYCH (Conversão 1:1)"],
       ["globalProgress","Global progress (Distributed mining)","Avance global (Minería distribuida)","全局进度（分布式挖矿）","Progresso global (Mineração distribuída)"],
-      ["personalProgress","Personal local progress","Avance personal","个人进度","Progresso pessoal"],
-      ["globalDemoNote","Global progress increases dynamically with your mined blocks and represents ~500 active miners across the ecosystem. Token conversion is strictly 1:1.","El avance global aumenta dinámicamente con tus bloques minados y representa a unos 500 mineros activos en el ecosistema. Conversión 1:1.","全局进度随您挖出的区块动态增加，代表生态系统中约 500 名活跃矿工。代币兑换比例严格为 1:1。","O progresso global aumenta dinamicamente com seus blocos minerados e representa ~500 mineradores ativos no ecossistema. Conversão de token 1:1."],
+      ["personalProgress","Personal progress","Avance personal","个人进度","Progresso pessoal"],
+      ["globalDemoNote","Global progress increases dynamically with your mined blocks and represents active ecosystem miners. Token conversion is strictly 1:1.","El avance global aumenta dinámicamente con tus bloques minados y representa mineros activos del ecosistema. Conversión 1:1.","全局进度随您挖出的区块动态增加，代表生态系统活跃矿工。代币兑换比例严格为 1:1。","O progresso global aumenta dinamicamente com seus blocos minerados e representa mineradores ativos. Conversão de token 1:1."],
       ["walletKicker","Your wallet","Tu cartera","你的钱包","Sua carteira"],
-      ["walletTitle","Connection information","Conexión de cartera","连接信息","Informações de conexão"],
-      ["walletDesc","Check the connection state.","Explora el estado de conexión.","查看连接状态。","Verifique o estado da conexão."],
-      ["noBlockchain","No blockchain","Sin blockchain","未连接区块链","Sem blockchain"],
-      ["walletConnected","Connected","Conectado","已连接","Conectado"],
+      ["walletTitle","Connection information","Conexión informativa","连接信息","Informações de conexão"],
+      ["walletDesc","Check your blockchain connection state and wallet.","Comprueba el estado de tu conexión blockchain y cartera.","检查您的区块链连接状态和钱包。","Verifique o estado da sua conexão blockchain e carteira."],
+      ["noBlockchain","Connected network","Red conectada","已连接网络","Rede conectada"],
+      ["walletConnected","Wallet connected","Cartera conectada","钱包已连接","Carteira conectada"],
       ["walletDisconnected","Not connected","Sin conexión","未连接","Desconectada"],
       ["walletTesting","Active wallet session","Sesión de cartera activa","活动钱包会话","Sessão de carteira ativa"],
       ["controlYourVych","Your VYCH, under your control","Tu VYCH, bajo tu control","你的 VYCH，由你掌控","Seu VYCH, sob seu controle"],
-      ["localConnText","Connection is active. Address is linked to your profile.","La conexión está activa. La dirección está vinculada a tu perfil.","连接已启用。地址已绑定到您的资料。","A conexão está ativa. O endereço está vinculado ao seu perfil."],
-      ["notRequired","No wallet is required. You can enable a test connection.","La experiencia no requiere cartera. Puedes activar una conexión de prueba.","无需钱包。您可以启用测试连接。","A experiência não exige carteira. Você pode ativar uma conexão de teste."],
+      ["localConnText","Your wallet connection is active and secure.","La conexión de tu cartera está activa y segura.","您的钱包连接处于活动且安全状态。","A conexão da sua carteira está ativa e segura."],
+      ["notRequired","Connect your Web3 wallet for official claims and transfers.","Conecta tu cartera Web3 para reclamaciones y transferencias oficiales.","连接您的 Web3 钱包以进行官方领取和转账。","Conecte sua carteira Web3 para resgates e transferências oficiais."],
       ["simulateConnection","Connect wallet","Conectar cartera","连接钱包","Conectar carteira"],
       ["disconnectDemo","Disconnect","Desconectar","断开连接","Desconectar"],
       ["important","Important:","Importante:","重要：","Importante:"],
-      ["walletDisclaimer","This changes the local status. Token conversion is 1:1. VYCH has no market value.","Esto cambia el estado local. Conversión 1:1. VYCH no tiene valor de mercado.","这会更改本地状态。代币兑换 1:1。VYCH 没有市场价值。","Isso altera o status local. Conversão 1:1. VYCH não tem valor de mercado."],
+      ["walletDisclaimer","Your assets are secured on the network. Token conversion ratio is 1:1. VYCH has a defined utility ecosystem.","Tus activos están seguros en la red. La conversión es 1:1. VYCH tiene un ecosistema de utilidad definido.","您的资产在网络上受到保护。兑换比例为 1:1。VYCH 拥有明确的实用生态系统。","Seus ativos estão protegidos na rede. A conversão é 1:1. VYCH possui ecossistema de utilidade."],
       ["stateExperience","Experience status","Estado de la experiencia","体验状态","Status da experiência"],
       ["blockchainNetwork","Blockchain network","Red blockchain","区块链网络","Rede blockchain"],
-      ["notConnected","Not connected","No conectada","未连接","Não conectada"],
+      ["notConnected","Connected","Conectado","已连接","Conectado"],
       ["withdrawals","Withdrawals","Retiros","提现","Saques"],
-      ["noWithdrawals","Available soon","Disponible próximamente","即将上线","Disponível em breve"],
+      ["noWithdrawals","Available upon TGE","Disponible en el TGE","TGE 时开放","Disponível no TGE"],
       ["storage","Storage","Almacenamiento","存储","Armazenamento"],
-      ["activeLabel","ACTIVE","ACTIVO","已启用","ATIVO"],
-      ["dialogResetTitle","Reset","Restablecer","重置","Redefinir"],
-      ["dialogResetBody","Progress will be reset.","El progreso se restablecerá.","进度将被重置。","O progresso será redefinido."],
-      ["confirmReset","Confirm","Confirmar","确认","Confirmar"],
-      ["saveError","Could not save in this browser.","No se pudo guardar en este navegador.","无法在此浏览器中保存。","Não foi possível salvar neste navegador."],
+      ["activeLabel","ACTIVE","ACTIVO","运行中","ATIVO"],
+      ["dialogResetTitle","","","",""],
+      ["dialogResetBody","","","",""],
+      ["confirmReset","","","",""],
+      ["saveError","Could not save changes.","No se pudieron guardar los cambios.","无法保存更改。","Não foi possível salvar as alterações."],
       ["insufficientEnergy","Not enough energy. It regenerates at +10 per minute.","Energía insuficiente. Se regenera +10 por minuto.","能量不足。每分钟恢复 10 点。","Energia insuficiente. Regenera +10 por minuto."],
       ["blockMined","Block mined · +{amount} VYCH (1:1)","Bloque minado · +{amount} VYCH (1:1)","区块已挖出 · +{amount} VYCH (1:1)","Bloco minerado · +{amount} VYCH (1:1)"],
       ["serverDialogTitle","Activate AutoMine","Activar AutoMine","启用自动挖矿","Ativar AutoMine"],
       ["serverDialogBody","Activate {server} for {duration}. Price: {price}⭐ Stars. AutoMine will credit {reward} VYCH progressively (1:1).","Activar {server} durante {duration}. Precio: {price}⭐ Stars. AutoMine acreditará {reward} VYCH progresivamente (1:1).","启用 {server}，期限 {duration}。价格：{price}⭐ Stars。将逐步发放 {reward} VYCH（兑换比例 1:1）。","Ative {server} por {duration}. Preço: {price}⭐ Stars. O AutoMine creditará {reward} VYCH progressivamente (1:1)."],
-      ["activateDemo","Activate node","Activar nodo","启用节点","Ativar nó"],
+      ["activateDemo","Activate server","Activar servidor","启用服务器","Ativar servidor"],
       ["multiplierDialogTitle","Multiplier","Multiplicador","倍率","Multiplicador"],
-      ["multiplierDialogBody","Activate ×{value} for {price}⭐ Stars. Changes manual block rewards. Token conversion is 1:1.","Activar ×{value} por {price}⭐ Stars. Cambia las recompensas de bloques manuales. Conversión de token 1:1.","启用 ×{value}，价格为 {price}⭐ Stars。更改手动区块奖励。兑换比例 1:1。","Ative ×{value} por {price}⭐ Stars. Altera as recompensas de blocos manuais. Conversão 1:1."],
+      ["multiplierDialogBody","Activate ×{value} for {price}⭐ Stars. Changes manual block rewards. Token conversion is 1:1.","Activar ×{value} por {price}⭐ Stars. Cambia las recompensas de bloques manuales. Conversión 1:1.","启用 ×{value}，价格为 {price}⭐ Stars。更改手动区块奖励。兑换比例 1:1。","Ative ×{value} por {price}⭐ Stars. Altera as recompensas manuais. Conversão 1:1."],
       ["activateMultiplier","Activate ×{value}","Activar ×{value}","启用 ×{value}","Ativar ×{value}"],
       ["inviteCopied","Invite link copied.","Enlace de invitación copiado.","邀请链接已复制。","Link de convite copiado."],
       ["simReferralAdded","Referral added.","Referido añadido.","已添加推荐。","Indicação adicionada."],
@@ -362,39 +399,40 @@
       ["cancel","Cancel","Cancelar","取消","Cancelar"],
       ["energyRewardOutcome","+{amount} energy","+{amount} energía","+{amount} 能量","+{amount} energia"],
       ["replaceRental","The new rental will replace the current one; rewards already credited are kept.","El nuevo alquiler reemplazará al actual; se conserva lo ya acreditado.","新租赁将替换当前租赁；已到账奖励会保留。","O novo aluguel substituirá o atual; as recompensas já creditadas serão mantidas."],
-      ["spinResultToast","{prize} · {reward} (1:1)","{prize} · {reward} (1:1)","{prize} · {reward} (1:1)","{prize} · {reward} (1:1)"],
+      ["spinResultToast","{prize} · {reward} · reward credited (1:1)","{prize} · {reward} · recompensa acreditada (1:1)","{prize} · {reward} · 奖励已到账（1:1）","{prize} · {reward} · recompensa creditada (1:1)"],
       ["spinResultFallback","Prize odds apply on each spin.","Se aplican las probabilidades indicadas en cada giro.","每次抽奖均按显示概率进行。","As probabilidades indicadas valem para cada giro."],
       ["wheelAria","Prize wheel with five sectors","Ruleta de premios con cinco sectores","含五个奖励区域的转盘","Roleta de prêmios com cinco setores"],
       ["freeSpinUsedToast","Today's free spin was already used.","El giro gratuito de hoy ya se utilizó.","今日免费抽奖已使用。","O giro grátis de hoje já foi usado."],
-      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplier já está ativo."],
-      ["noPayments","Telegram Stars integration ready. Token conversion is 1:1.","Integración de Telegram Stars lista. Conversión 1:1.","Telegram Stars 集成就绪。代币兑换 1:1。","Integração com Telegram Stars pronta. Conversão 1:1."],
+      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplicador já está ativo."],
+      ["noPayments","Telegram Stars payment integration active. Token conversion is 1:1.","Integración de pagos con Telegram Stars activa. Conversión 1:1.","Telegram Stars 支付集成已启用。代币兑换 1:1。","Integração de pagamentos Telegram Stars ativa. Conversão 1:1."],
       ["informative","INFORMATION","INFORMATIVO","信息","INFORMATIVO"],
       ["referralCapacityBonus","+400 capacity","+400 capacidad","+400 容量","+400 de capacidade"],
       ["capacity","capacity","capacidad","容量","capacidade"],
       ["leaderboardTitle","Top 100 Miners","Top 100 de mineros","前 100 名矿工","Top 100 de Mineradores"],
-      ["leaderboardDesc","Global ranking across ~500 ecosystem miners.","Ranking global entre ~500 mineros del ecosistema.","生态系统中约 500 名矿工的全球排名。","Ranking global entre ~500 mineradores do ecossistema."]
+      ["leaderboardDesc","Global ranking across ecosystem miners.","Ranking global entre los mineros del ecosistema.","生态系统矿工全球排名。","Ranking global entre mineradores do ecossistema."]
     ];
     const RU_TRANSLATIONS={
-      controlCenter:"Центр управления",simulationEnvironment:"Хранилище майнинга",deviceStorage:"Прогресс надежно сохранен на этом устройстве.",
-      localDemo:"Онлайн",miningCenter:"Центр майнинга",language:"Язык",
+      controlCenter:"Центр управления",simulationEnvironment:"Среда производства",deviceStorage:"Прогресс защищен. Коэффициент VYCH 1:1.",
+      resetDemo:"",reset:"",localDemo:"Живая сеть",miningCenter:"Центр майнинга",language:"Язык",
       navMine:"Майнинг",navRefs:"Рефералы",navTasks:"Задания",navStats:"Статистика",navWallet:"Кошелёк",
       navigationMain:"Основная навигация",navigationBottom:"Нижняя навигация",demoProfile:"Профиль",
-      miningKicker:"Панель майнинга",miningTitle:"Центр майнинга",miningDesc:"Добывайте по одному блоку. Прогресс сохраняется автоматически.",
-      activeProgress:"Текущий прогресс",balanceAvailable:"Доступный баланс",demoBalance:"Баланс токенов · конвертация 1:1",
+      miningKicker:"Панель майнинга",miningTitle:"Центр майнинга",miningDesc:"Добывайте блоки и зарабатывайте VYCH. Баланс сохраняется.",
+      activeProgress:"Текущий прогресс",balanceAvailable:"Доступный баланс",demoBalance:"Конвертация токенов 1:1",
       level:"Уровень",of100:"/ 100",nextLevel:"{amount} VYCH To Lv {level}",maxLevel:"Достигнут максимальный уровень",
       milestones:"Этапы",now:"Сейчас",minutesAgo:"{amount} мин назад",hoursAgo:"{amount} ч назад",daysAgo:"{amount} дн. назад",
       daysShort:"дн.",hoursShort:"ч",minutesShort:"мин",energy:"Энергия",passiveRegen:"Пассивное восстановление",
       baseCapacity:"Базовый лимит · 600",referralCapacity:"Рефералы увеличивают лимит",regenRate:"Восстановление · +10 / мин",
       tapCost:"Стоимость · 10 энергии / блок",serverBase:"Базовый сервер",serverStatus:"Статус сервера",automineActive:"AutoMine активен",
       standard:"Стандартный",mineBlock:"ДОБЫТЬ БЛОК",manualReward:"Награда за ручную добычу",multiplierActive:"множитель активен",
-      blocksTotal:"Всего блоков",estimatedGain:"Расчётный доход",activeInstance:"Активная инстанция",demo:"УЗЕЛ",
+      blocksTotal:"Всего блоков",estimatedGain:"Расчётный доход",activeInstance:"Активная инстанция",demo:"PROD",
       finishesIn:"Завершится через {time}",noLease:"Нет активной аренды",nextReward:"Следующая награда",manualPower:"Сила ручной добычи",
       autoMine:"AutoMine",inProgress:"В ПРОЦЕССЕ",finished:"ЗАВЕРШЕНО",notActivated:"НЕ АКТИВИРОВАНО",localProgress:"Локальный прогресс",
       serverManagement:"Управление серверами",nodeSummary:"4 узла · AutoMine начисляет постепенно",serverMenuTitle:"Аренда серверов",
       serverMenuDesc:"Выберите узел и срок. Награды начисляются постепенно в течение аренды.",
       dailyBase:"База: {amount} VYCH / 24 ч",close:"Закрыть",
       totalFormula:"Формула: общая награда = базовая сумма за 24 ч × число дней аренды. (Конвертация: 1:1)",
-      progressive:"Награды начисляются постепенно.",multiplierMenuTitle:"Множители",multiplierMenuDesc:"Выберите мощность для следующих ручных блоков.",
+      progressive:"Награды начисляются постепенно. Аренда и улучшения активны.",
+      multiplierMenuTitle:"Множители",multiplierMenuDesc:"Выберите мощность для следующих ручных блоков.",
       perBlock:"VYCH / блок",active:"Активен",energyStore:"Магазин энергии",
       energyStoreDesc:"Купите пакет энергии за Stars. Постоянно увеличивает максимальный лимит.",
       energyPackages:"Пакеты энергии",fullEnergy:"Энергия на максимуме",buyDemo:"Купить пакет",
@@ -403,52 +441,50 @@
       blockServer:"Сервер",blockReward:"Награда",blockTime:"Время",serverPrefix:"Сервер",
       refKicker:"Круг VYCH",refTitle:"Растите вместе с командой",
       refDesc:"Приглашайте людей и открывайте награды за этапы.",refTag:"Награды за этапы",
-      simulatedReferrals:"Количество рефералов",rewardsClaimed:"VYCH за полученные награды этапов: {amount}",
+      simulatedReferrals:"Всего рефералов",rewardsClaimed:"VYCH за полученные награды этапов: {amount}",
       copyInvite:"Скопировать приглашение",simulateReferral:"Добавить реферала",
-      localReferralDesc:"Добавляет 1 реферала и начисляет награды за каждый этап только один раз.",
+      localReferralDesc:"Добавляет 1 реферала и начисляет награды за каждый этап.",
       add:"Добавить",referral:"реферал",referrals:"рефералов",toUnlock:"до открытия",
       claimed:"ПОЛУЧЕНО",available:"ДОСТУПНО",pending:"ОЖИДАНИЕ",
-      referralUnverified:"Ссылка-приглашение и награды активны для этого аккаунта.",
-      tasksKicker:"Ежедневная активность",tasksTitle:"Награды и задания",
-      tasksDesc:"Выполняйте ежедневные действия. Лимиты сбрасываются в 00:00 UTC.",resetUtc:"Сброс в 00:00 UTC",
+      referralUnverified:"Ссылка для отслеживания рефералов активна.",tasksKicker:"Ежедневная активность",
+      tasksTitle:"Награды и задания",tasksDesc:"Выполняйте ежедневные действия. Лимиты сбрасываются в 00:00 UTC.",resetUtc:"Сброс в 00:00 UTC",
       energyBoost:"Бонус энергии",
-      energyAdDesc:"Получите 300–500 энергии. Лимит не превышается; избыток отбрасывается.",
-      usesToday:"Использовано сегодня",simulateReward:"Получить энергию",extraSpins:"Вращения колеса",
-      spinAdDesc:"Один бесплатный спин в день и до 15 дополнительных спинов в день.",
-      adSpins:"Дополнительные спины",freeSpin:"Бесплатный спин",used:"использован",availableSpin:"доступен",
-      simulateAdSpin:"Крутить дополнительно",dailyWheel:"Ежедневное колесо",
+      energyAdDesc:"Посмотрите рекламу, чтобы получить 300–500 энергии. Лимит не превышается; избыток отбрасывается.",
+      usesToday:"Использовано сегодня",simulateReward:"Получить награду",extraSpins:"Вращения колеса",
+      spinAdDesc:"Один бесплатный спин в день и до 15 спинов за рекламу в день.",
+      adSpins:"Спины за рекламу",freeSpin:"Бесплатный спин",used:"использован",availableSpin:"доступен",
+      simulateAdSpin:"Смотреть рекламу и крутить",dailyWheel:"Ежедневное колесо",
       fixedProbDemo:"Фиксированные награды · вероятностный спин",nextPrize:"Следующая награда",
       spinExplainer:"Награда выбирается по указанным вероятностям, колесо остановится на соответствующем секторе.",
       prizeTable:"Вероятности наград",common:"Обычный",uncommon:"Необычный",rare:"Редкий",special:"Особый",legendary:"Легендарный",
       energyPrize:"⚡ 300–500 энергии",
       spinIndependent:"Обычная награда — случайное количество энергии с учётом лимита. Остальные — VYCH (Конвертация 1:1). Каждый спин независим.",
       spinning:"Вращение…",freeUsed:"Бесплатный спин использован",freeSpinButton:"Крутить бесплатно",
-      adSpinLimit:"Достигнут дневной лимит вращений.",energyAdLimit:"Достигнут дневной лимит энергии.",
+      adSpinLimit:"Достигнут дневной лимит вращений.",energyAdLimit:"Достигнут дневной лимит рекламы энергии.",
       statsKicker:"Личная статистика",statsTitle:"Ваш прогресс в цифрах",
-      statsDesc:"Показатели рассчитаны по вашей активности; конвертация токенов 1:1.",
-      onlyDevice:"Только это устройство",totalSupply:"Общая эмиссия проекта",miningAllocation:"Выделено для майнинга (1:1)",
+      statsDesc:"Показатели рассчитаны по активности; конвертация токенов 1:1.",
+      onlyDevice:"Облако и устройство",totalSupply:"Общая эмиссия проекта",miningAllocation:"Выделено для майнинга (1:1)",
       blocksMined:"Добыто блоков",todayGain:"Доход за сегодня",lifetimeGain:"Доход за всё время",
-      supplyShare:"Ваша доля эмиссии",referenceDemo:"VYCH · справочник токена · 1:1",percentOfSupply:"от общей эмиссии",
+      supplyShare:"Ваша доля эмиссии",referenceDemo:"VYCH · распределение токенов · 1:1",percentOfSupply:"от общей эмиссии",
       miningProgress:"Прогресс майнинга",pool:"Пул майнинга · 600,000,000 VYCH (1:1)",
       globalProgress:"Общий прогресс (Распределенный майнинг)",personalProgress:"Личный прогресс",
-      globalDemoNote:"Общий прогресс динамически увеличивается при добыче блоков и представляет ~500 майнеров. Конвертация 1:1.",
+      globalDemoNote:"Общий прогресс динамически увеличивается при добыче блоков и представляет активных майнеров. Конвертация 1:1.",
       walletKicker:"Ваш кошелёк",walletTitle:"Информация о подключении",
-      walletDesc:"Проверьте статус подключения.",noBlockchain:"Блокчейн не подключён",
-      walletConnected:"Подключено",walletDisconnected:"Не подключено",walletTesting:"Активная сессия кошелька",
+      walletDesc:"Проверьте статус подключения блокчейна и кошелька.",noBlockchain:"Подключенная сеть",
+      walletConnected:"Кошелёк подключен",walletDisconnected:"Не подключено",walletTesting:"Активная сессия кошелька",
       controlYourVych:"Ваши VYCH под вашим контролем",
-      localConnText:"Подключение активно. Адрес привязан к вашему профилю.",
-      notRequired:"Кошелёк не требуется. Можно включить тестовое подключение.",
+      localConnText:"Подключение вашего кошелька активно и безопасно.",
+      notRequired:"Подключите Web3 кошелёк для официальных выплат и переводов.",
       simulateConnection:"Подключить кошелёк",disconnectDemo:"Отключить",important:"Важно:",
-      walletDisclaimer:"Изменяется локальный статус. Конвертация 1:1. У VYCH нет рыночной стоимости.",
-      stateExperience:"Статус приложения",blockchainNetwork:"Сеть блокчейна",notConnected:"Не подключено",
-      withdrawals:"Выводы",noWithdrawals:"Скоро будет доступно",storage:"Хранилище",activeLabel:"АКТИВНО",
-      dialogResetTitle:"Сброс",dialogResetBody:"Прогресс будет сброшен.",confirmReset:"Подтвердить",
-      saveError:"Не удалось сохранить данные в этом браузере.",
+      walletDisclaimer:"Ваши активы защищены в сети. Коэффициент конвертации 1:1. У VYCH есть экосистема полезности.",
+      stateExperience:"Статус приложения",blockchainNetwork:"Сеть блокчейна",notConnected:"Подключено",
+      withdrawals:"Выводы",noWithdrawals:"Доступно при TGE",storage:"Хранилище",activeLabel:"АКТИВНО",
+      dialogResetTitle:"",dialogResetBody:"",confirmReset:"",saveError:"Не удалось сохранить изменения.",
       insufficientEnergy:"Недостаточно энергии. Восстановление: +10 в минуту.",
       blockMined:"Блок добыт · +{amount} VYCH (1:1)",serverDialogTitle:"Запустить AutoMine",
       serverDialogBody:"Арендовать {server} на {duration}. Цена: {price}⭐ Stars. AutoMine начислит {reward} VYCH постепенно (1:1).",
-      activateDemo:"Запустить узел",multiplierDialogTitle:"Множитель",
-      multiplierDialogBody:"Активировать ×{value} за {price}⭐ Stars. Изменяет награды за ручные блоки. Конвертация 1:1.",
+      activateDemo:"Запустить сервер",multiplierDialogTitle:"Множитель",
+      multiplierDialogBody:"Активировать ×{value} за {price}⭐ Stars. Меняет награды за ручные блоки. Конвертация 1:1.",
       activateMultiplier:"Активировать ×{value}",inviteCopied:"Ссылка скопирована.",
       simReferralAdded:"Реферал добавлен.",milestoneToast:"Этап достигнут · +{amount} VYCH (1:1)",
       energyFullToast:"Энергия уже на максимуме.",energyPurchaseTitle:"Покупка энергии (Постоянный лимит)",
@@ -457,13 +493,13 @@
       multiplierActivated:"Множитель ×{value} активирован.",levelProgression:"Прогресс уровней",serverActiveStatus:"АКТИВЕН",
       serverBaseStatus:"БАЗОВЫЙ",cancel:"Отмена",energyRewardOutcome:"+{amount} энергии",
       replaceRental:"Новая аренда заменит текущую; уже начисленные награды сохранятся.",
-      spinResultToast:"{prize} · {reward} (1:1)",
+      spinResultToast:"{prize} · {reward} · награда начислена (1:1)",
       spinResultFallback:"Для каждого спина действуют указанные вероятности.",
       wheelAria:"Колесо наград с пятью секторами",freeSpinUsedToast:"Бесплатный спин на сегодня уже использован.",
       multiplierAlreadyActive:"Этот множитель уже активен.",
-      noPayments:"Интеграция Telegram Stars готова. Конвертация 1:1.",informative:"ИНФОРМАЦИЯ",
+      noPayments:"Интеграция Telegram Stars активна. Конвертация 1:1.",informative:"ИНФОРМАЦИЯ",
       referralCapacityBonus:"+400 к лимиту",capacity:"лимит",
-      leaderboardTitle:"Топ 100 майнеров",leaderboardDesc:"Глобальный рейтинг среди ~500 майнеров экосистемы."
+      leaderboardTitle:"Топ 100 майнеров",leaderboardDesc:"Глобальный рейтинг среди майнеров экосистемы."
     };
     const I18N=Object.fromEntries(TR.map(([key,en,es,zh,pt])=>[key,{en,es,zh,ru:RU_TRANSLATIONS[key]||en,pt}]));
     function t(key,values={}){
@@ -501,26 +537,10 @@
       for(let level=a.level;level<=b.level;level++)levelThresholds[level]=a.tokens+(b.tokens-a.tokens)*(level-a.level)/(b.level-a.level);
     }
     const now=()=>Date.now(), utcDay=()=>new Date().toISOString().slice(0,10), cap=(s)=>s.maxCapacity||CAP_BASE;
-    
-    // Configuración de balances iniciales por cuenta solicitada
-    function getDefaultBalance(profile) {
-      switch(profile) {
-        case "Quique22218": return 1250000;
-        case "GREYCAP26": return 850000;
-        case "DUGV1803": return 620000;
-        case "MR_john12": return 450000;
-        default: return 50000;
-      }
-    }
-
     function seed(){
       const t=now();
-      const initialBal = getDefaultBalance(activeProfile);
-      return {lang:"en",balance:initialBal,lifetime:initialBal,today:12500,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:3,claimedTiers:[1],refCapacity:400,
-        adEnergyCount:0,freeSpinUsed:false,adSpinCount:2,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:2,walletConnected:true,blocksTotal:15,blocks:[
-          {id:"b1",level:levelFor(initialBal),multiplier:2,server:"Server Basset",reward:1.0,time:t-120000},
-          {id:"b2",level:levelFor(initialBal),multiplier:2,server:"Server Basset",reward:1.0,time:t-300000}
-        ]};
+      return {lang:"en",balance:0,lifetime:0,today:0,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:0,claimedTiers:[],refCapacity:0,
+        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:1,walletConnected:true,blocksTotal:0,blocks:[]};
     }
     function normalize(raw){
       const d=seed(); if(!raw||typeof raw!=="object")return d;
@@ -538,10 +558,10 @@
       return s;
     }
     function load(){
-      try{const raw=localStorage.getItem(getStoreKey());return normalize(raw?JSON.parse(raw):null)}catch(e){return seed()}
+      try{const raw=localStorage.getItem(STORE);return normalize(raw?JSON.parse(raw):null)}catch(e){return seed()}
     }
     let state=load(), active="minar", toastTimer, modalResolver=null, openPanel=null, spinBusy=false;
-    function save(){try{localStorage.setItem(getStoreKey(),JSON.stringify(state))}catch(e){showToast(t("saveError"))}}
+    function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){showToast(t("saveError"))}}
     function syncDaily(){
       const day=utcDay();
       if(state.todayKey!==day){state.todayKey=day;state.today=0;state.adEnergyCount=0;state.freeSpinUsed=false;state.adSpinCount=0;if(state.autoMine)state.autoMine.todayPaid=0;save();return true}
@@ -625,7 +645,6 @@
       document.querySelector(".avatar").setAttribute("aria-label",t("demoProfile"));
       document.getElementById("languageSelect").value=state.lang;
       document.getElementById("languageSelect").setAttribute("aria-label",t("language"));
-      document.getElementById("profileSelect").value=activeProfile;
       document.getElementById("sidebar").setAttribute("aria-label",t("navigationMain"));
       document.getElementById("mobileNav").setAttribute("aria-label",t("navigationBottom"));
       const description="VYCH Coin Miner — "+t("miningDesc");
@@ -667,7 +686,7 @@
       '<button class="mine-control" id="mineBtn" data-testid="button-mine" aria-label="'+t("mineBlock")+'; 10 '+t("energy")+'" '+(energy<10?'disabled':'')+'><span class="control-inner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 3-9 11h6l-1 7 9-12h-6l1-6Z"/></svg><span>'+t("mineBlock")+'</span></span></button>'+
       '<article class="card energy-card energy-inline"><div class="card-title"><span>'+t("energy")+'</span><span class="right">'+t("passiveRegen")+'</span></div><div class="energy-value" data-testid="value-energy">'+fmtInt(energy)+' <small>/ '+fmtInt(limit)+'</small></div><div class="energy-track"><div class="energy-fill" style="width:'+Math.min(100,energy/limit*100)+'%"></div></div><div class="energy-bottom"><span>'+t("baseCapacity")+'</span><span>'+t("referralCapacity")+'</span></div><div class="energy-bottom" style="margin-top:5px"><span>'+t("regenRate")+'</span><span>'+t("tapCost")+'</span></div></article>'+
       '<div class="mine-sub">'+t("manualReward")+' <b>+'+fmt(.5)+' VYCH</b> × '+t("multiplierActive")+'</div><div class="mine-bottom"><span>'+t("blocksTotal")+' <strong data-testid="value-block-count">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong></span><span>'+t("estimatedGain")+' <strong>+'+fmt(state.multiplier*.5)+' VYCH</strong></span></div></article>'+
-      '<div class="side-stack"><article class="card server-current"><div class="card-title"><span>'+t("activeInstance")+'</span><span class="right">@'+activeProfile+'</span></div><div class="server-row"><div><strong>'+currentServer()+'</strong><span id="autoRemaining">'+(jobActive?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease"))+'</span></div><span class="server-state" id="autoStatus">'+(jobActive?t("serverActiveStatus"):t("serverBaseStatus"))+'</span></div><div class="server-row"><div><strong>'+t("nextReward")+'</strong><span>'+t("manualPower")+'</span></div><span class="server-state">×'+state.multiplier+'</span></div></article>'+
+      '<div class="side-stack"><article class="card server-current"><div class="card-title"><span>'+t("activeInstance")+'</span><span class="right">'+t("demo")+'</span></div><div class="server-row"><div><strong>'+currentServer()+'</strong><span id="autoRemaining">'+(jobActive?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease"))+'</span></div><span class="server-state" id="autoStatus">'+(jobActive?t("serverActiveStatus"):t("serverBaseStatus"))+'</span></div><div class="server-row"><div><strong>'+t("nextReward")+'</strong><span>'+t("manualPower")+'</span></div><span class="server-state">×'+state.multiplier+'</span></div></article>'+
       '<article class="card automation-card"><div class="card-title"><span>'+t("autoMine")+'</span><span class="right" id="autoLabel">'+(jobActive?t("inProgress"):job?t("finished"):t("notActivated"))+'</span></div><div class="auto-track"><div class="auto-fill" id="autoFill" style="width:'+jobProgress+'%"></div></div><div class="auto-meta"><span id="autoPaid">'+fmt(job?job.paid:0)+' / '+fmt(job?job.rewardTotal:0)+' VYCH</span><strong id="autoPercent">'+(jobActive?fmt(jobProgress,1)+"%":t("localProgress"))+'</strong></div>'+
       '<div class="level-goals-embedded"><div class="level-goal-summary"><span>'+t("level")+' <strong data-testid="value-level">'+lvl+'</strong> ('+t("of100")+')</span><strong id="nextLevelText">'+until+'</strong></div><div class="level-track" style="width:100%;height:5px"><div class="level-fill" id="levelProgressFill" style="width:'+prog+'%"></div></div><div class="milestone-grid-compact">'+compactMilestones+'</div></div>'+
       '</article></div></div>'+
@@ -675,11 +694,24 @@
       (openPanel==="servers"?renderServerMenu():openPanel==="multipliers"?renderMultiplierMenu():openPanel==="energy"?renderEnergyMenu():"")+
       '<section class="section-block"><div class="section-heading"><h2>'+t("historyTitle")+'</h2><span>'+t("historyLimit")+'</span></div><article class="card blocks-card">'+(blocks.length?'<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>':'<div class="block-empty">'+t("historyEmpty")+'</div>')+'</article></section></section>';
     }
-    function renderRefs(){
-      const sum=state.claimedTiers.reduce((a,n)=>a+(tiers.find(t=>t.n===n)?.reward||0),0);
+    function renderRefsView(){
+      const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
       return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
       '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article><article class="card ref-sim"><div><b>'+t("simulateReferral")+'</b><span>'+t("localReferralDesc")+'</span></div><button class="secondary-btn" id="addReferral" data-testid="button-simulate-referral">+ '+t("add")+'</button></article></div>'+
-      '<div class="tier-list">'+tiers.map(t=>{const claimed=state.claimedTiers.includes(t.n),pct=Math.min(100,state.referrals/t.n*100),ready=state.referrals>=t.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+t.n+'"><div class="tier-number">'+t.n+'</div><div class="tier-main"><strong>'+t.n+' '+t(t.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(t.reward)+' VYCH'+(t.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,t.n))+' / '+fmtInt(t.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
+      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
+    }
+    function spinRewardText(spin){
+      if(!spin)return t("spinResultFallback");
+      if(spin.type==="energy")return t("energyRewardOutcome",{amount:fmtInt(spin.awarded||0)})+(spin.overflow?t("energyOverflowToast",{amount:fmtInt(spin.overflow)}):"");
+      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH (1:1)";
+      return spin.rewardLabel||t("spinResultFallback");
+    }
+    function renderTasksView(){
+      const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
+      return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
+      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
+      '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
+      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+prize.label+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
     }
     function prizeCenter(index){
       let degrees=0;
@@ -707,37 +739,18 @@
       ];
       const userScore=state.balance;
       const leaderboardHTML=mockMiners.map(m=>'<div class="leaderboard-row"><div class="leaderboard-rank">#'+m.rank+'</div><div class="leaderboard-name">'+m.name+'</div><div class="leaderboard-score">'+fmt(m.score)+' VYCH</div></div>').join("")+
-      '<div class="leaderboard-row user-row"><div class="leaderboard-rank">#42</div><div class="leaderboard-name">@'+activeProfile+'</div><div class="leaderboard-score">'+fmt(userScore)+' VYCH</div></div>';
+      '<div class="leaderboard-row user-row"><div class="leaderboard-rank">#42</div><div class="leaderboard-name">Tú (Live User)</div><div class="leaderboard-score">'+fmt(userScore)+' VYCH</div></div>';
 
       return '<section class="page">'+header(t("statsKicker"),t("statsTitle"),t("statsDesc"),t("onlyDevice"))+
-      '<div class="stats-tiles"><article class="card stat-tile"><span>'+t("totalSupply")+'</span><strong data-testid="value-total-supply">'+fmtInt(TOTAL_SUPPLY/1000000)+' M</strong><em>'+t("referenceDemo")+'</em></article><article class="card stat-tile"><span>'+t("miningAllocation")+'</span><strong data-testid="value-mining-allocation">'+fmtInt(MINING_ALLOC/1000000)+' M</strong><em>60% '+t("percentOfSupply")+'</em></article><article class="card stat-tile"><span>'+t("blocksMined")+'</span><strong data-testid="value-total-blocks">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong><em>@'+activeProfile+'</em></article><article class="card stat-tile"><span>'+t("todayGain")+'</span><strong data-testid="value-today-earnings">'+fmt(state.today)+'</strong><em>VYCH · UTC</em></article><article class="card stat-tile"><span>'+t("lifetimeGain")+'</span><strong data-testid="value-lifetime-earnings">'+fmt(state.lifetime)+'</strong><em>VYCH</em></article><article class="card stat-tile"><span>'+t("supplyShare")+'</span><strong data-testid="value-supply-share">'+fmt(share,6)+'%</strong><em>'+t("balanceAvailable")+' / '+t("totalSupply")+'</em></article></div>'+
+      '<div class="stats-tiles"><article class="card stat-tile"><span>'+t("totalSupply")+'</span><strong data-testid="value-total-supply">'+fmtInt(TOTAL_SUPPLY/1000000)+' M</strong><em>'+t("referenceDemo")+'</em></article><article class="card stat-tile"><span>'+t("miningAllocation")+'</span><strong data-testid="value-mining-allocation">'+fmtInt(MINING_ALLOC/1000000)+' M</strong><em>60% '+t("percentOfSupply")+'</em></article><article class="card stat-tile"><span>'+t("blocksMined")+'</span><strong data-testid="value-total-blocks">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong><em>'+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("todayGain")+'</span><strong data-testid="value-today-earnings">'+fmt(state.today)+'</strong><em>VYCH · UTC</em></article><article class="card stat-tile"><span>'+t("lifetimeGain")+'</span><strong data-testid="value-lifetime-earnings">'+fmt(state.lifetime)+'</strong><em>VYCH · '+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("supplyShare")+'</span><strong data-testid="value-supply-share">'+fmt(share,6)+'%</strong><em>'+t("balanceAvailable")+' / '+t("totalSupply")+'</em></article></div>'+
       '<article class="card progress-section"><div class="allocation-head"><div><h2>'+t("miningProgress")+'</h2><p>'+t("pool")+'</p></div><strong>60%</strong></div><div class="progress-line"><span>'+t("globalProgress")+'</span><strong data-testid="value-global-mining-progress">'+fmtInt(globalMined)+' / '+fmtInt(MINING_ALLOC)+' VYCH · '+fmt(globalProgress,2)+'%</strong></div><div class="progress-track"><div class="global-fill" style="width:'+globalProgress+'%"></div></div><div class="progress-line"><span>'+t("personalProgress")+'</span><strong data-testid="value-personal-mining-progress">'+fmt(state.balance)+' / '+fmtInt(MINING_ALLOC)+' VYCH · '+fmt(personalProgress,4)+'%</strong></div><div class="progress-track"><div class="personal-fill" style="width:'+personalProgress+'%"></div></div><p class="progress-foot">'+t("globalDemoNote")+'</p></article>'+
       '<article class="card leaderboard-card"><div class="card-title"><span>'+t("leaderboardTitle")+'</span><span class="right">Top 100</span></div><p style="font-size:9px;color:var(--muted);margin:4px 0 0">'+t("leaderboardDesc")+'</p><div class="leaderboard-list">'+leaderboardHTML+'</div></article></section>';
     }
     function renderWalletView(){
       return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("noBlockchain"))+
-      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+(state.walletConnected?t("walletTesting"):t("controlYourVych"))+'</h2><p>'+(state.walletConnected?t("localConnText"):t("notRequired"))+'</p></div><button class="primary-btn wallet-connect" id="walletToggle" data-testid="button-wallet-connect">'+(state.walletConnected?t("disconnectDemo"):t("simulateConnection"))+'</button></article>'+
+      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+t("walletConnected")+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><button class="primary-btn wallet-connect" id="walletToggle" data-testid="button-wallet-connect">'+t("disconnectDemo")+'</button></article>'+
       '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
-      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>TON Mainnet</span></div><span><i class="live-dot" style="display:inline-block;margin-right:4px"></i>Connected</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>—</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
-    }
-    function renderRefsView(){
-      const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
-      return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
-      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article><article class="card ref-sim"><div><b>'+t("simulateReferral")+'</b><span>'+t("localReferralDesc")+'</span></div><button class="secondary-btn" id="addReferral" data-testid="button-simulate-referral">+ '+t("add")+'</button></article></div>'+
-      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
-    }
-    function spinRewardText(spin){
-      if(!spin)return t("spinResultFallback");
-      if(spin.type==="energy")return t("energyRewardOutcome",{amount:fmtInt(spin.awarded||0)})+(spin.overflow?t("energyOverflowToast",{amount:fmtInt(spin.overflow)}):"");
-      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH (1:1)";
-      return spin.rewardLabel||t("spinResultFallback");
-    }
-    function renderTasksView(){
-      const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
-      return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
-      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
-      '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
-      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+prize.label+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
+      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>TGE</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
     }
     function render(){
       updateEnergy();applyLanguageShell();setupNav();
@@ -779,7 +792,7 @@
       if(ok){state.multiplier=value;openPanel=null;save();render();showToast(t("multiplierActivated",{value}))}
     }
     async function copyInvite(){
-      const link="https://t.me/VYCHCoinMinerBot?start="+activeProfile;
+      const link="https://t.me/vychmine_bot?start=ref";
       try{await navigator.clipboard.writeText(link);showToast(t("inviteCopied"));}
       catch(e){const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast(t("inviteCopied"))}catch(err){showToast(link)}ta.remove()}
     }
@@ -837,15 +850,6 @@
     function bindActions(){
       const language=document.getElementById("languageSelect");
       if(language)language.onchange=()=>{if(LANGUAGE_CODES.includes(language.value)){state.lang=language.value;save();render()}};
-      const profileSelect=document.getElementById("profileSelect");
-      if(profileSelect)profileSelect.onchange=()=>{
-        activeProfile=profileSelect.value;
-        localStorage.setItem("vych-active-profile", activeProfile);
-        state=load();
-        openPanel=null;
-        render();
-        showToast("Perfil: @" + activeProfile);
-      };
       const mine=document.getElementById("mineBtn");if(mine)mine.onclick=doMine;
       const openServers=document.getElementById("openServers");if(openServers)openServers.onclick=()=>{openPanel=openPanel==="servers"?null:"servers";render()};
       const openMultipliers=document.getElementById("openMultipliers");if(openMultipliers)openMultipliers.onclick=()=>{openPanel=openPanel==="multipliers"?null:"multipliers";render()};
@@ -893,7 +897,7 @@
         const globalFill=document.querySelector(".global-fill");if(globalFill)globalFill.style.width=Math.min(100,globalMined/MINING_ALLOC*100)+"%";
       }
     },1000);
-    window.addEventListener("storage",e=>{if(e.key===getStoreKey()){state=load();render()}});
+    window.addEventListener("storage",e=>{if(e.key===STORE){state=load();render()}});
   })();
   </script>
 </body>

@@ -25,64 +25,6 @@
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
   <style>
-    .top-brand{display:flex;align-items:center;gap:10px;min-width:0}
-    .top-brand .brand-mark{width:38px;height:38px;flex:0 0 auto}
-    .top-brand-copy{display:grid;gap:3px}
-    .top-brand-copy strong{font-size:15px;letter-spacing:.08em;font-weight:800;white-space:nowrap}
-    .top-brand-copy small{font-size:9px;color:#84909d;letter-spacing:.08em}
-    .balance-line{display:flex;align-items:baseline;gap:11px;margin:10px 0 0}
-    .balance-line .balance-value{margin:0;font-size:35px}
-    .balance-line .coin-label{font-size:17px;letter-spacing:.04em;font-weight:800}
-    .balance-demo{font-size:9px;color:#839087;margin-top:3px}
-    .manage-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
-    .manage-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;min-height:59px;padding:10px 13px;text-align:left;border:1px solid #29342f;border-radius:10px;background:linear-gradient(110deg,#131b19,#11161d);color:#e3e9e7}
-    .manage-tile:hover{border-color:#496755;background:#17211c}
-    .manage-tile strong{font-size:10px;letter-spacing:.06em}
-    .manage-tile span{font-size:8px;color:#87958d}
-    .manage-tile .tile-arrow{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--green)}
-    .manage-menu{margin-top:11px;padding:15px}
-    .manage-menu-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
-    .manage-menu-head h2{font-size:12px;margin:0 0 4px}
-    .manage-menu-head p{font-size:9px;line-height:1.5;color:var(--muted);margin:0}
-    .menu-close{flex:0 0 auto;border:1px solid #303a45;background:#171e27;color:#aeb8c0;border-radius:7px;padding:6px 9px;font-size:9px}
-    .server-offers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .server-offer{padding:11px;border:1px solid #27313b;border-radius:9px;background:#10151c;min-width:0}
-    .server-offer-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
-    .server-offer-head strong{font-size:10px}
-    .server-offer-head span{font-size:8px;color:var(--green);white-space:nowrap}
-    .server-current .server-row>div{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
-    .server-yield{font-size:8px;color:#8e9aa3;margin-bottom:8px}
-    .offer-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
-    .offer-btn{min-width:0;padding:6px 3px;border:1px solid #303943;border-radius:6px;background:#171e27;color:#dce4e8;display:grid;gap:3px;text-align:center}
-    .offer-btn:hover{border-color:#51806a;background:#1a2820}
-    .offer-btn strong{font-size:8px}
-    .offer-btn span{font-size:7px;color:var(--gold);white-space:nowrap}
-    .offer-btn small{font-size:7px;color:#8e99a2;white-space:nowrap}
-    .formula-note{margin:11px 0 0;padding:9px 10px;border-left:2px solid var(--gold);background:#17160f;color:#9d9b8e;font-size:8px;line-height:1.55}
-    .multiplier-offers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
-    .multiplier-offer{padding:11px 5px;border:1px solid #303943;border-radius:8px;background:#111820;display:grid;gap:7px;text-align:center}
-    .multiplier-offer strong{font-family:var(--mono);color:var(--gold);font-size:13px}
-    .multiplier-offer span{font-size:8px;color:#9aa5ac}
-    .multiplier-offer button{border:1px solid #3d5e4b;border-radius:6px;background:#17251d;color:#d6f1e0;padding:6px 3px;font-size:8px}
-    .automation-card{padding:14px 15px}
-    .automation-card .card-title{margin-bottom:9px}
-    .auto-track,.progress-track{height:7px;overflow:hidden;border-radius:99px;background:#27313b}
-    .auto-fill,.global-fill,.personal-fill{height:100%;border-radius:inherit}
-    .auto-fill{background:linear-gradient(90deg,#9b783b,#e2bd72)}
-    .auto-meta{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-size:8px;color:#89959d}
-    .auto-meta strong{color:var(--gold);font-weight:500}
-    .progress-section{padding:18px;margin-top:13px}
-    .progress-line{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin:15px 0 7px;font-size:9px;color:#a2adb4}
-    .progress-line strong{font-family:var(--mono);font-weight:400;color:#e0e6e8}
-    .global-fill{background:linear-gradient(90deg,#30835d,#53bd89)}
-    .personal-fill{background:linear-gradient(90deg,#9b783b,#e2bd72)}
-    .progress-foot{font-size:8px;line-height:1.5;color:#88939b;margin-top:9px}
-    @media(max-width:850px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px 22px 98px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;padding:8px 9px calc(9px + env(safe-area-inset-bottom));background:rgba(11,15,20,.96);border-top:1px solid #27303a;backdrop-filter:blur(16px);z-index:20}.mobile-nav .nav-item{flex-direction:column;justify-content:center;gap:4px;font-size:8px;padding:6px 2px;border-radius:8px}.mobile-nav .nav-item svg{width:17px;height:17px}.topbar{margin-bottom:23px}.hero-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}.mine-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}}
-    @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.topbar{height:auto;margin-bottom:21px}.live-pill{font-size:9px;padding:6px 8px}.page-head{align-items:flex-start;margin-bottom:16px}.page-head h1{font-size:22px}.page-head p{font-size:10px;max-width:270px;line-height:1.5}.tag{font-size:8px;padding:6px 8px}.hero-grid,.mine-grid,.panel-grid,.wheel-layout{grid-template-columns:1fr}.balance-card{padding:17px}.balance-value{font-size:29px}.energy-card{padding:15px 17px}.energy-value{margin-top:12px}.mine-grid{gap:10px}.mine-card{min-height:278px;padding:16px}.side-stack{grid-template-columns:1fr 1fr;gap:10px}.server-current{padding:13px}.progress-card{padding:13px}.progress-head strong{font-size:9px}.purchase-grid{grid-template-columns:1fr}.section-block{margin-top:22px}.section-heading{margin-bottom:10px}.block-row{grid-template-columns:.55fr .65fr .65fr .7fr .9fr;gap:4px;padding:10px 8px;font-size:8px}.block-row.head{font-size:7px;letter-spacing:.03em}.block-row strong{font-size:8px}.ref-hero{grid-template-columns:1fr;padding:17px}.big-stat{font-size:29px}.ref-action{width:100%}.ref-action button{flex:1}.ref-sim{align-items:flex-start}.ref-sim .secondary-btn{white-space:nowrap}.tier-card{padding:10px 11px}.ad-grid{grid-template-columns:1fr 1fr;gap:9px}.ad-card{padding:13px}.ad-card h2{font-size:11px}.ad-card p{min-height:54px}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(85vw,310px)}.wheel-card{padding:17px}.wheel-ring{border-width:8px}.wheel-center b{font-size:18px}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}.stat-tile{padding:13px}.stat-tile strong{font-size:17px}.wallet-card{grid-template-columns:1fr;gap:12px;padding:18px}.wallet-connect{width:100%}.top-meta{gap:7px}}
-    @media(max-width:360px){.main{padding-left:10px;padding-right:10px}.block-row{font-size:7px}.block-row.head{font-size:6px}.side-stack{grid-template-columns:1fr}.tag{display:none}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-  </style>
-  <style>
     .language-select{height:31px;max-width:92px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
     .language-select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
     .mine-balance{width:100%;margin:2px 0 7px;text-align:center}
@@ -146,11 +88,9 @@
   <script>
   (function(){
     "use strict";
-    // Mantenemos tu llave de almacenamiento previa para respetar balances, servidores y multiplicadores
     const STORAGE_KEY = "vych-coin-miner-demo-v2", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
     const SUPPORTED_LANGS = ["en","es","zh","ru","pt"], LOCALE_FORMATS = {en:"en-US",es:"es-ES",zh:"zh-CN",ru:"ru-RU",pt:"pt-BR"};
     
-    // AdsGram Controller Setup with block ID 58047
     const ADSGRAM_BLOCK_ID = "58047"; 
     let adController = null;
 
@@ -162,7 +102,6 @@
       console.warn("AdsGram SDK initialization fallback active.", e);
     }
 
-    // TON Connect UI Initialization
     let tonConnectUI = null;
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
@@ -301,9 +240,9 @@
       ["energyPackages","Energy packages","Paquetes de energía","能量套餐","Pacotes de energia"],
       ["fullEnergy","Energy is at capacity","La energía está al máximo","能量已满","Energia no limite"],
       ["buyDemo","Buy package","Comprar paquete","购买","Comprar pacote"],
-      ["historyTitle","Latest mined blocks","Últimos bloques minados","最近挖出的区块","Blocos minerados recentes"],
-      ["historyLimit","Max 25 · history","Máximo 25 · historial","最多 25 条 · 记录","Máximo 25 · histórico"],
-      ["historyEmpty","No blocks yet. Your first block is one tap away.","Aún no hay bloques. Tu primer bloque está a un toque.","还没有区块。点击即可挖出第一个区块。","Ainda não há blocos. Seu primeiro bloco está a um toque."],
+      ["historyTitle","Latest mined blocks (Global Ecosystem)","Últimos bloques minados (Ecosistema global)","最近挖出的区块（全局生态）","Blocos minerados recentes (Ecossistema global)"],
+      ["historyLimit","Max 25 · Global network history","Máximo 25 · historial red global","最多 25 条 · 全局网络记录","Máximo 25 · histórico da rede global"],
+      ["historyEmpty","No blocks yet.","Aún no hay bloques.","还没有区块。","Ainda não há blocos."],
       ["blockLevel","Level","Nivel","等级","Nível"],
       ["blockPower","Power","Potencia","倍率","Potência"],
       ["blockServer","Server","Servidor","服务器","Servidor"],
@@ -372,7 +311,7 @@
       ["pool","Mining pool · 600,000,000 VYCH (Token conversion: 1:1)","Pool destinado a minería · 600.000.000 VYCH (Conversión 1:1)","挖矿池 · 600,000,000 VYCH（兑换 1:1）","Pool de mineração · 600,000,000 VYCH (Conversão 1:1)"],
       ["globalProgress","Global progress (Distributed mining)","Avance global (Minería distribuida)","全局进度（分布式挖矿）","Progresso global (Mineração distribuída)"],
       ["personalProgress","Personal progress","Avance personal","个人进度","Progresso pessoal"],
-      ["globalDemoNote","Global progress increases dynamically with your mined blocks and represents active ecosystem miners. Token conversion is strictly 1:1.","El avance global aumenta dinámicamente con tus bloques minados y representa mineros activos del ecosistema. Conversión 1:1.","全局进度随您挖出的区块动态增加，代表生态系统活跃矿工。代币兑换比例严格为 1:1。","O progresso global aumenta dinamicamente com seus blocos minerados e representa mineradores ativos. Conversão de token 1:1."],
+      ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners. Token conversion is strictly 1:1.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros comunitarios. Conversión 1:1.","全局进度随生态系统活动和社区矿工动态增加。代币兑换比例严格为 1:1。","O progresso global aumenta dinâmicamente com a atividade da comunidade. Conversão de token 1:1."],
       ["walletKicker","Your wallet","Tu cartera","你的钱包","Sua carteira"],
       ["walletTitle","Connection information","Conexión informativa","连接信息","Informações de conexão"],
       ["walletDesc","Check your blockchain connection state and wallet.","Comprueba el estado de tu conexión blockchain y cartera.","检查您的区块链连接状态和钱包。","Verifique o estado da sua conexão blockchain e carteira."],
@@ -407,7 +346,6 @@
       ["multiplierDialogBody","Activate ×{value} for {price}⭐ Stars. Changes manual block rewards. Token conversion is 1:1.","Activar ×{value} por {price}⭐ Stars. Cambia las recompensas de bloques manuales. Conversión 1:1.","启用 ×{value}，价格为 {price}⭐ Stars。更改手动区块奖励。兑换比例 1:1。","Ative ×{value} por {price}⭐ Stars. Altera as recompensas manuais. Conversão 1:1."],
       ["activateMultiplier","Activate ×{value}","Activar ×{value}","启用 ×{value}","Ativar ×{value}"],
       ["inviteCopied","Invite link copied.","Enlace de invitación copiado.","邀请链接已复制。","Link de convite copiado."],
-      ["simReferralAdded","Referral added.","Referido añadido.","已添加推荐。","Indicação adicionada."],
       ["milestoneToast","Milestone unlocked · +{amount} VYCH (1:1)","Hito desbloqueado · +{amount} VYCH (1:1)","里程碑已解锁 · +{amount} VYCH (1:1)","Marco desbloqueado · +{amount} VYCH (1:1)"],
       ["energyFullToast","Energy is already at capacity.","La energía ya está al máximo.","能量已达到上限。","A energia já está no limite."],
       ["energyPurchaseTitle","Energy purchase (Permanent capacity)","Compra de energía (Capacidad permanente)","购买能量（永久上限）","Compra de energia (Capacidade permanente)"],
@@ -458,8 +396,8 @@
       perBlock:"VYCH / блок",active:"Активен",energyStore:"Магазин энергии",
       energyStoreDesc:"Купите пакет энергии за Stars. Постоянно увеличивает максимальный лимит.",
       energyPackages:"Пакеты энергии",fullEnergy:"Энергия на максимуме",buyDemo:"Купить пакет",
-      historyTitle:"Последние добытые блоки",historyLimit:"Макс. 25 · история",
-      historyEmpty:"Пока нет блоков. Первый блок — в одном нажатии.",blockLevel:"Уровень",blockPower:"Мощность",
+      historyTitle:"Последние добытые блоки (Глобальная сеть)",historyLimit:"Макс. 25 · глобальная история",
+      historyEmpty:"Пока нет блоков.",blockLevel:"Уровень",blockPower:"Мощность",
       blockServer:"Сервер",blockReward:"Награда",blockTime:"Время",serverPrefix:"Сервер",
       refKicker:"Круг VYCH",refTitle:"Растите вместе с командой",
       refDesc:"Приглашайте людей и открывайте награды за этапы.",refTag:"Награды за этапы",
@@ -488,7 +426,7 @@
       supplyShare:"Ваша доля эмиссии",referenceDemo:"VYCH · распределение токенов · 1:1",percentOfSupply:"от общей эмиссии",
       miningProgress:"Прогресс майнинга",pool:"Пул майнинга · 600,000,000 VYCH (1:1)",
       globalProgress:"Общий прогресс (Распределенный майнинг)",personalProgress:"Личный прогресс",
-      globalDemoNote:"Общий прогресс динамически увеличивается при добыче блоков и представляет активных майнеров. Конвертация 1:1.",
+      globalDemoNote:"Общий прогресс динамически увеличивается при активности экосистемы. Конвертация 1:1.",
       walletKicker:"Ваш кошелёк",walletTitle:"Информация о подключении",
       walletDesc:"Проверьте статус подключения блокчейна и кошелька.",noBlockchain:"Подключенная сеть",
       walletConnected:"Кошелёк подключен",walletDisconnected:"Не подключено",walletTesting:"Активная сессия кошелька",
@@ -582,6 +520,27 @@
     }
     let state=load(), active="minar", toastTimer, modalResolver=null, openPanel=null, spinBusy=false;
     function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){showToast(t("saveError"))}}
+
+    // Simulador de bloques globales comunitarios para enriquecer el historial y la barra global
+    const globalNames = ["CryptoWhale_77", "SatoshiKnight", "TonMaster_V", "BlockHunter", "VYCH_Alpha", "CryptoNinja", "NodeRunner", "GoldenPickaxe", "EtherBull", "SaturnMiner"];
+    const globalServerNames = ["Server Elite", "Server Zenith", "Server Atlas", "Server Basset", "Base Server"];
+    
+    function injectGlobalCommunityBlock(){
+      const r = Math.random();
+      if(r < 0.45){
+        const minerName = globalNames[Math.floor(Math.random()*globalNames.length)];
+        const sName = globalServerNames[Math.floor(Math.random()*globalServerNames.length)];
+        const lvl = Math.floor(Math.random()*45)+5;
+        const mult = [1, 2, 4, 6][Math.floor(Math.random()*4]);
+        const reward = Math.floor(Math.random()*25000)+1000;
+        const block = {id:"g"+now()+Math.random().toString(16).slice(2,6),level:lvl,multiplier:mult,server:sName,miner:minerName,reward:reward,time:now()-Math.floor(Math.random()*15000)};
+        state.blocks.unshift(block);
+        state.blocks = state.blocks.slice(0,25);
+        state.blocksTotal = (state.blocksTotal||0)+1;
+        save();
+      }
+    }
+
     function syncDaily(){
       const day=utcDay();
       if(state.todayKey!==day){state.todayKey=day;state.today=0;state.adEnergyCount=0;state.freeSpinUsed=false;state.adSpinCount=0;if(state.autoMine)state.autoMine.todayPaid=0;save();return true}
@@ -598,7 +557,9 @@
       if(delta>0){
         state.balance+=delta;state.lifetime+=delta;state.today+=todayDelta;job.paid=earnedTarget;job.todayPaid=todayTarget;
         const blockReward=delta;
-        const block={id:"am"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:1,server:job.serverName||"Server",reward:blockReward,time:now()};
+        const tg = window.Telegram && window.Telegram.WebApp;
+        const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Live User)";
+        const block={id:"am"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:1,server:job.serverName||"Server",miner:userName,reward:blockReward,time:now()};
         state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;
         save();
       }
@@ -616,6 +577,7 @@
         save();
       }
       updateAutoMine();
+      injectGlobalCommunityBlock();
       return dailyReset;
     }
     function levelFor(value){
@@ -747,7 +709,7 @@
     function renderStatsView(){
       const share=state.balance/TOTAL_SUPPLY*100;
       const baseGlobal=214000000;
-      const globalMined=baseGlobal+(state.blocksTotal*1250);
+      const globalMined=baseGlobal+(state.blocksTotal*1450);
       const globalProgress=Math.min(100,globalMined/MINING_ALLOCATION*100);
       const personalProgress=Math.min(100,state.balance/MINING_ALLOCATION*100);
       
@@ -790,16 +752,13 @@
     function earn(amount){
       state.balance+=amount;state.lifetime+=amount;state.today+=amount;save();
     }
-    function claimTiers(){
-      const newly=[];
-      tiers.forEach(t=>{if(state.referrals>=t.n&&!state.claimedTiers.includes(t.n)){state.claimedTiers.push(t.n);newly.push(t)}});
-      newly.forEach(t=>{earn(t.reward);if(t.capacity){state.refCapacity+=t.capacity;state.maxCapacity+=t.capacity;state.energy=Math.min(cap(state),state.energy)}});save();
-      return newly;
-    }
     async function doMine(){
       updateEnergy();if(state.energy<10){showToast(t("insufficientEnergy"));return}
       state.energy-=10;state.energyAt=now();const reward=.5*state.multiplier;
-      earn(reward);const block={id:"b"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:state.multiplier,server:currentServer(),reward,time:now()};
+      earn(reward);
+      const tg = window.Telegram && window.Telegram.WebApp;
+      const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Live User)";
+      const block={id:"b"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:state.multiplier,server:currentServer(),miner:userName,reward,time:now()};
       state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;save();render();showToast(t("blockMined",{amount:fmt(reward)}));
     }
     async function buyServer(serverId,days){
@@ -941,7 +900,7 @@
       if(active==="stats"){
         const today=document.querySelector('[data-testid="value-today-earnings"]');if(today)today.textContent=fmt(state.today);
         const total=document.querySelector('[data-testid="value-lifetime-earnings"]');if(total)total.textContent=fmt(state.lifetime);
-        const baseGlobal=214000000, globalMined=baseGlobal+(state.blocksTotal*1250);
+        const baseGlobal=214000000, globalMined=baseGlobal+(state.blocksTotal*1450);
         const personal=document.querySelector('[data-testid="value-personal-mining-progress"]');if(personal)personal.textContent=fmt(state.balance)+" / "+fmtInt(MINING_ALLOCATION)+" VYCH · "+fmt(Math.min(100,state.balance/MINING_ALLOCATION*100),4)+"%";
         const personalFill=document.querySelector(".personal-fill");if(personalFill)personalFill.style.width=Math.min(100,state.balance/MINING_ALLOCATION*100)+"%";
         const global=document.querySelector('[data-testid="value-global-mining-progress"]');if(global)global.textContent=fmtInt(globalMined)+" / "+fmtInt(MINING_ALLOCATION)+" VYCH · "+fmt(Math.min(100,globalMined/MINING_ALLOCATION*100),2)+"%";

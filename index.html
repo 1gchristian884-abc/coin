@@ -10,6 +10,10 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <title>VYCH Coin Miner — Mining center</title>
+  
+  <!-- AdsGram SDK Integration -->
+  <script src="https://sad.adsgram.ai/js/adsgram.js?min=1"></script>
+
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090c'/%3E%3Cpath d='M38 8 17 36h14l-4 20 21-29H34z' fill='%2346d89b'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -175,6 +179,24 @@
       } catch (err) {
         console.error(err);
         showToast("Error de conexión con el servidor de pagos.");
+      }
+    }
+
+    // Función auxiliar para mostrar anuncios de AdsGram (Bloque ID: 57911)
+    async function showAdsGramRewardedAd(onRewardGranted) {
+      try {
+        if (typeof Adsgram !== 'undefined') {
+          const adController = Adsgram.init({ blockId: "57911" });
+          const result = await adController.show();
+          console.log("Anuncio visto con éxito:", result);
+          onRewardGranted();
+        } else {
+          console.warn("AdsGram SDK no disponible, otorgando recompensa por defecto.");
+          onRewardGranted();
+        }
+      } catch (err) {
+        console.error("El usuario cerró el anuncio o hubo un error:", err);
+        showToast("Debes ver el anuncio completo para recibir tu recompensa.");
       }
     }
 
@@ -383,7 +405,7 @@
       ["spinResultFallback","Prize odds apply on each spin.","Se aplican las probabilidades indicadas en cada giro.","每次抽奖均按显示概率进行。","As probabilidades indicadas valem para cada giro."],
       ["wheelAria","Prize wheel with five sectors","Ruleta de premios con cinco sectores","含五个奖励区域的转盘","Roleta de prêmios com cinco setores"],
       ["freeSpinUsedToast","Today's free spin was already used.","El giro gratuito de hoy ya se utilizó.","今日免费抽奖已使用。","O giro grátis de hoje já foi usado."],
-      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplicador já está ativo."],
+      ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplier já está ativo."],
       ["noPayments","Telegram Stars payment integration active. Token conversion is 1:1.","Integración de pagos con Telegram Stars activa. Conversión 1:1.","Telegram Stars 支付集成已启用。代币兑换 1:1。","Integração de pagamentos Telegram Stars ativa. Conversão 1:1."],
       ["informative","INFORMATION","INFORMATIVO","信息","INFORMATIVO"],
       ["referralCapacityBonus","+400 capacity","+400 capacidad","+400 容量","+400 de capacidade"],
@@ -761,7 +783,6 @@
       const ok=await dialog(t("serverDialogTitle"),detail,t("activateDemo"));
       if(!ok)return;
       
-      // Integración con Telegram Stars para compra de servidores
       requestTelegramStarsPayment(serverLabel(server) + " (" + duration.label + ")", price, () => {
         updateEnergy();
         const startedAt=now(),endsAt=startedAt+duration.days*86400000;
@@ -774,7 +795,6 @@
       const item=mults.find(m=>m.x===value);if(!item)return;
       const ok=await dialog(t("multiplierDialogTitle"),t("multiplierDialogBody",{value,price:fmtInt(item.stars)}),t("activateMultiplier",{value}));
       if(ok){
-        // Integración con Telegram Stars para multiplicadores
         requestTelegramStarsPayment("Multiplicador ×" + value, item.stars, () => {
           state.multiplier=value;openPanel=null;save();render();showToast(t("multiplierActivated",{value}));
         });
@@ -789,13 +809,19 @@
       state.referrals++;const gained=claimTiers();save();render();
       showToast(gained.length?t("milestoneToast",{amount:fmtInt(gained.reduce((a,tier)=>a+tier.reward,0))}):t("simReferralAdded"));
     }
+    
+    // Integración de AdsGram en el botón de impulso de energía
     function claimEnergy(){
       syncDaily();if(state.adEnergyCount>=100){showToast(t("energyAdLimit"));return}
-      updateEnergy();const gained=300+Math.floor(Math.random()*201);
-      state.energy=Math.min(cap(state),state.energy+gained);
-      state.energyAt=now();state.adEnergyCount++;save();render();
-      showToast(t("energyRewardOutcome",{amount:fmtInt(gained)})+" · "+t("simulateReward"));
+      
+      showAdsGramRewardedAd(() => {
+        updateEnergy();const gained=300+Math.floor(Math.random()*201);
+        state.energy=Math.min(cap(state),state.energy+gained);
+        state.energyAt=now();state.adEnergyCount++;save();render();
+        showToast(t("energyRewardOutcome",{amount:fmtInt(gained)})+" · "+t("simulateReward"));
+      });
     }
+
     async function buyEnergyPack(index){
       updateEnergy();const pack=energyPacks[index];if(!pack)return;
       const newMax=cap(state)+pack.amount;
@@ -803,7 +829,6 @@
       const ok=await dialog(t("energyPurchaseTitle"),detail,t("buyDemo")+" · "+fmtInt(pack.stars)+"⭐ Stars");
       if(!ok)return;
       
-      // Integración con Telegram Stars para paquetes de energía
       requestTelegramStarsPayment("Paquete de Energía +" + pack.amount, pack.stars, () => {
         updateEnergy();
         state.maxCapacity=newMax;
@@ -817,29 +842,42 @@
       for(const p of prizes){total+=p.probability;if(roll<total)return p}
       return prizes[0];
     }
+    
+    // Integración de AdsGram en los giros adicionales de la ruleta
     async function spin(isAd){
       syncDaily();if(spinBusy)return;
-      if(isAd){if(state.adSpinCount>=15){showToast(t("adSpinLimit"));return}state.adSpinCount++}
-      else{if(state.freeSpinUsed){showToast(t("freeSpinUsedToast"));return}state.freeSpinUsed=true}
-      updateEnergy();
-      const prize=weightedPrize(),index=prizes.indexOf(prize);let result;
-      if(prize.type==="energy"){
-        const amount=prize.min+Math.floor(Math.random()*(prize.max-prize.min+1));
-        state.energy=Math.min(cap(state),state.energy+amount);state.energyAt=now();
-        result={nameKey:prize.nameKey,type:"energy",awarded:amount,overflow:0,time:now()};
-      }else{
-        state.balance+=prize.amount;state.lifetime+=prize.amount;state.today+=prize.amount;result={nameKey:prize.nameKey,type:"vych",amount:prize.amount,time:now()};
+      
+      const executeSpinAction = () => {
+        if(isAd){if(state.adSpinCount>=15){showToast(t("adSpinLimit"));return}state.adSpinCount++}
+        else{if(state.freeSpinUsed){showToast(t("freeSpinUsedToast"));return}state.freeSpinUsed=true}
+        updateEnergy();
+        const prize=weightedPrize(),index=prizes.indexOf(prize);let result;
+        if(prize.type==="energy"){
+          const amount=prize.min+Math.floor(Math.random()*(prize.max-prize.min+1));
+          state.energy=Math.min(cap(state),state.energy+amount);state.energyAt=now();
+          result={nameKey:prize.nameKey,type:"energy",awarded:amount,overflow:0,time:now()};
+        }else{
+          state.balance+=prize.amount;state.lifetime+=prize.amount;state.today+=prize.amount;result={nameKey:prize.nameKey,type:"vych",amount:prize.amount,time:now()};
+        }
+        const center=prizeCenter(index),target=(360-center+360)%360,previous=Number(state.wheelRotation)||0,previousMod=((previous%360)+360)%360,delta=(target-previousMod+360)%360,endRotation=previous+360*5+delta;
+        state.wheelRotation=endRotation;state.lastSpin=result;save();spinBusy=true;
+        const freeButton=document.getElementById("spinWheel"),adButton=document.getElementById("adSpin"),wheel=document.getElementById("wheelRing");
+        if(freeButton){freeButton.disabled=true;freeButton.textContent=t("spinning")}
+        if(adButton)adButton.disabled=true;
+        if(wheel){wheel.style.transition="transform 4.8s cubic-bezier(.12,.72,.12,1)";void wheel.offsetWidth;requestAnimationFrame(()=>{wheel.style.transform="rotate("+endRotation+"deg)"})}
+        const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        setTimeout(()=>{
+          spinBusy=false;render();showToast(t("spinResultToast",{prize:t(prize.nameKey),reward:spinRewardText(result)}));
+        },reduced?100:4950);
+      };
+
+      if(isAd){
+        showAdsGramRewardedAd(executeSpinAction);
+      } else {
+        executeSpinAction();
       }
-      const center=prizeCenter(index),target=(360-center+360)%360,previous=Number(state.wheelRotation)||0,previousMod=((previous%360)+360)%360,delta=(target-previousMod+360)%360,endRotation=previous+360*5+delta;
-      state.wheelRotation=endRotation;state.lastSpin=result;save();spinBusy=true;
-      const freeButton=document.getElementById("spinWheel"),adButton=document.getElementById("adSpin"),wheel=document.getElementById("wheelRing");
-      if(freeButton){freeButton.disabled=true;freeButton.textContent=t("spinning")}
-      if(adButton)adButton.disabled=true;
-      if(wheel){wheel.style.transition="transform 4.8s cubic-bezier(.12,.72,.12,1)";void wheel.offsetWidth;requestAnimationFrame(()=>{wheel.style.transform="rotate("+endRotation+"deg)"})}
-      const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      await new Promise(resolve=>setTimeout(resolve,reduced?100:4950));
-      spinBusy=false;render();showToast(t("spinResultToast",{prize:t(prize.nameKey),reward:spinRewardText(result)}));
     }
+
     function bindActions(){
       const language=document.getElementById("languageSelect");
       if(language)language.onchange=()=>{if(LANGUAGE_CODES.includes(language.value)){state.lang=language.value;save();render()}};

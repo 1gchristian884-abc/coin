@@ -521,7 +521,6 @@
     let state=load(), active="minar", toastTimer, modalResolver=null, openPanel=null, spinBusy=false;
     function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){showToast(t("saveError"))}}
 
-    // Simulador de bloques globales comunitarios para enriquecer el historial y la barra global
     const globalNames = ["CryptoWhale_77", "SatoshiKnight", "TonMaster_V", "BlockHunter", "VYCH_Alpha", "CryptoNinja", "NodeRunner", "GoldenPickaxe", "EtherBull", "SaturnMiner"];
     const globalServerNames = ["Server Elite", "Server Zenith", "Server Atlas", "Server Basset", "Base Server"];
     
@@ -531,7 +530,7 @@
         const minerName = globalNames[Math.floor(Math.random()*globalNames.length)];
         const sName = globalServerNames[Math.floor(Math.random()*globalServerNames.length)];
         const lvl = Math.floor(Math.random()*45)+5;
-        const mult = [1, 2, 4, 6][Math.floor(Math.random()*4]);
+        const mult = [1, 2, 4, 6][Math.floor(Math.random()*4)];
         const reward = Math.floor(Math.random()*25000)+1000;
         const block = {id:"g"+now()+Math.random().toString(16).slice(2,6),level:lvl,multiplier:mult,server:sName,miner:minerName,reward:reward,time:now()-Math.floor(Math.random()*15000)};
         state.blocks.unshift(block);

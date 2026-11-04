@@ -550,4 +550,385 @@
       ["balance","lifetime","today","energy","maxCapacity","referrals","refCapacity","adEnergyCount","adSpinCount","multiplier","wheelRotation","blocksTotal"].forEach(k=>{if(!Number.isFinite(Number(s[k])))s[k]=d[k];else s[k]=Number(s[k])});
       s.balance=Math.max(0,s.balance);s.energy=Math.max(0,s.energy);s.maxCapacity=Math.max(CAP_BASE,s.maxCapacity);s.referrals=Math.max(0,Math.floor(s.referrals));
       if(s.todayKey!==utcDay()){s.todayKey=utcDay();s.today=0;s.adEnergyCount=0;s.freeSpinUsed=false;s.adSpinCount=0;}
-      if(!Array.isArray(s.blocks))
+      if(!Array.isArray(s.blocks))s.blocks=[];
+      if(!Array.isArray(s.claimedTiers))s.claimedTiers=[];
+      if(!s.autoMine||typeof s.autoMine!=="object"||!Number.isFinite(Number(s.autoMine.startedAt))||!Number.isFinite(Number(s.autoMine.endsAt))||!Number.isFinite(Number(s.autoMine.rewardTotal)))s.autoMine=null;
+      else{s.autoMine.paid=Number(s.autoMine.paid)||0;s.autoMine.todayPaid=Number(s.autoMine.todayPaid)||0;}
+      if(!s.lastSpin||typeof s.lastSpin!=="object")s.lastSpin=null;
+      if(!s.energyAt||!Number.isFinite(Number(s.energyAt)))s.energyAt=now();
+      return s;
+    }
+    function load(){
+      try{const raw=localStorage.getItem(STORE);return normalize(raw?JSON.parse(raw):null)}catch(e){return seed()}
+    }
+    let state=load(), active="minar", toastTimer, modalResolver=null, openPanel=null, spinBusy=false;
+    function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){showToast(t("saveError"))}}
+    function syncDaily(){
+      const day=utcDay();
+      if(state.todayKey!==day){state.todayKey=day;state.today=0;state.adEnergyCount=0;state.freeSpinUsed=false;state.adSpinCount=0;if(state.autoMine)state.autoMine.todayPaid=0;save();return true}
+      return false;
+    }
+    function updateAutoMine(){
+      const job=state.autoMine;if(!job)return;
+      const t=now(),duration=job.endsAt-job.startedAt;if(duration<=0)return;
+      const fraction=Math.max(0,Math.min(1,(t-job.startedAt)/duration));
+      const earnedTarget=job.rewardTotal*fraction,delta=Math.max(0,earnedTarget-job.paid);
+      const d=new Date(t),dayStart=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate());
+      const overlap=Math.max(0,Math.min(t,job.endsAt)-Math.max(dayStart,job.startedAt));
+      const todayTarget=job.rewardTotal*overlap/duration,todayDelta=Math.max(0,todayTarget-job.todayPaid);
+      if(delta>0){state.balance+=delta;state.lifetime+=delta;state.today+=todayDelta;job.paid=earnedTarget;job.todayPaid=todayTarget;save()}
+    }
+    function updateEnergy(){
+      const dailyReset=syncDaily();
+      const t=now(), elapsed=Math.max(0,t-(Number(state.energyAt)||t));
+      const regenerated=elapsed/6000;
+      if(regenerated>0){
+        const maximum=cap(state);
+        if(state.energy<maximum){
+          state.energy=Math.min(maximum,state.energy+regenerated);
+        }
+        state.energyAt=t;
+        save();
+      }
+      updateAutoMine();
+      return dailyReset;
+    }
+    function levelFor(value){
+      const amount=Math.max(0,value);let level=1;
+      for(let i=2;i<=100;i++){if(amount>=levelThresholds[i])level=i;else break}
+      return level;
+    }
+    function levelProgress(value){
+      const level=levelFor(value);
+      if(level>=100)return 100;
+      const start=levelThresholds[level],end=levelThresholds[level+1];
+      return Math.max(0,Math.min(100,(value-start)/(end-start)*100));
+    }
+    function fmt(n,dec=2){return Number(n||0).toLocaleString(LOCALE_FORMAT[state.lang]||LOCALE_FORMAT.en,{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+    function fmtInt(n){return Math.floor(n||0).toLocaleString(LOCALE_FORMAT[state.lang]||LOCALE_FORMAT.en)}
+    function timeAgo(timestamp){
+      const mins=Math.max(0,Math.floor((now()-timestamp)/60000));
+      if(mins<1)return t("now"); if(mins<60)return t("minutesAgo",{amount:mins});
+      const h=Math.floor(mins/60);if(h<24)return t("hoursAgo",{amount:h});return t("daysAgo",{amount:Math.floor(h/24)});
+    }
+    function remainingText(ms){
+      const total=Math.max(0,Math.ceil(ms/60000)),days=Math.floor(total/1440),hours=Math.floor(total%1440/60),minutes=total%60;
+      if(days)return days+" "+t("daysShort")+" "+hours+" "+t("hoursShort");
+      if(hours)return hours+" "+t("hoursShort")+" "+minutes+" "+t("minutesShort");
+      return minutes+" "+t("minutesShort");
+    }
+    function serverLabel(server){return t("serverPrefix")+" "+server.name}
+    function historyServerLabel(name){const raw=String(name||"");if(/^(base server|servidor base|基础服务器)$/i.test(raw))return t("serverBase");const short=raw.replace(/^(Server|Servidor)\s+/i,"");const server=servers.find(item=>item.name===short);return server?serverLabel(server):short}
+    function currentServer(){if(state.autoMine&&state.autoMine.endsAt>now()){const server=servers.find(item=>item.id===state.autoMine.serverId);return server?serverLabel(server):state.autoMine.serverName||t("serverBase")}return t("serverBase")}
+    function showToast(msg){
+      const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");
+      clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+    }
+    function dialog(title,body,confirmLabel){
+      return new Promise(resolve=>{
+        modalResolver=resolve;
+        document.getElementById("modalRoot").innerHTML='<div class="modal-backdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><h2 id="modalTitle">'+title+'</h2><p>'+body+'</p><div class="modal-actions"><button class="secondary-btn" data-testid="button-modal-cancel" id="modalCancel">'+t("cancel")+'</button><button class="primary-btn" data-testid="button-modal-confirm" id="modalConfirm">'+confirmLabel+'</button></div></section></div>';
+        document.getElementById("modalCancel").onclick=()=>closeDialog(false);
+        document.getElementById("modalConfirm").onclick=()=>closeDialog(true);
+        document.querySelector(".modal-backdrop").addEventListener("click",e=>{if(e.target.classList.contains("modal-backdrop"))closeDialog(false)});
+        document.getElementById("modalCancel").focus();
+      });
+    }
+    function closeDialog(ok){document.getElementById("modalRoot").innerHTML="";if(modalResolver){modalResolver(ok);modalResolver=null}}
+    function applyLanguageShell(){
+      document.documentElement.lang=state.lang==="zh"?"zh-CN":state.lang;
+      document.title="VYCH COIN MINER — "+t("miningCenter");
+      document.getElementById("sidebarNavLabel").textContent=t("controlCenter");
+      document.getElementById("demoNoteTitle").textContent=t("simulationEnvironment");
+      document.getElementById("demoNoteBody").textContent=t("deviceStorage");
+      document.getElementById("topSubtitle").textContent=t("miningCenter");
+      document.getElementById("localDemoLabel").textContent=t("localDemo");
+      document.querySelector(".avatar").setAttribute("aria-label",t("demoProfile"));
+      document.getElementById("languageSelect").value=state.lang;
+      document.getElementById("languageSelect").setAttribute("aria-label",t("language"));
+      document.getElementById("sidebar").setAttribute("aria-label",t("navigationMain"));
+      document.getElementById("mobileNav").setAttribute("aria-label",t("navigationBottom"));
+      const description="VYCH Coin Miner — "+t("miningDesc");
+      document.querySelector('meta[name="description"]').content=description;
+      document.querySelector('meta[property="og:title"]').content="VYCH Coin Miner — "+t("miningCenter");
+      document.querySelector('meta[property="og:description"]').content=description;
+    }
+    function navMarkup(){return NAV.map(x=>'<button class="nav-item '+(active===x.id?"active":"")+'" data-nav="'+x.id+'" data-testid="nav-'+x.id+'" aria-current="'+(active===x.id?"page":"false")+'">'+x.icon+'<span>'+t(x.labelKey)+'</span></button>').join("")}
+    function setupNav(){
+      document.getElementById("desktopNav").innerHTML=navMarkup();document.getElementById("mobileNav").innerHTML=navMarkup();
+      document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>{active=b.dataset.nav;render();window.scrollTo({top:0,behavior:"smooth"})});
+    }
+    function header(kicker,title,desc,tag){return '<div class="page-head"><div><div class="kicker">'+kicker+'</div><h1>'+title+'</h1><p>'+desc+'</p></div><div class="tag">'+tag+'</div></div>'}
+    function renderServerMenu(){
+      return '<section class="card manage-menu" aria-label="'+t("serverMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("serverMenuTitle")+'</h2><p>'+t("serverMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="server-offers">'+servers.map(server=>'<article class="server-offer"><div class="server-offer-head"><strong>'+serverLabel(server)+'</strong><span>'+t("autoMine")+'</span></div><div class="server-yield">'+t("dailyBase",{amount:fmtInt(server.dailyReward)})+'</div><div class="offer-grid">'+durations.map((duration,i)=>'<button class="offer-btn" data-testid="button-rent-'+server.id+'-'+duration.days+'" data-server-id="'+server.id+'" data-days="'+duration.days+'" aria-label="'+serverLabel(server)+' · '+duration.label+' · '+fmtInt(server.prices[i])+'⭐ Stars · '+fmtInt(server.dailyReward*duration.days)+' VYCH"><strong>'+duration.label+'</strong><span>'+fmtInt(server.prices[i])+'⭐</span><small>+'+fmtInt(server.dailyReward*duration.days)+'</small></button>').join("")+'</div></article>').join("")+'</div><p class="formula-note"><strong>'+t("totalFormula")+'</strong> '+t("progressive")+'</p></section>';
+    }
+    function renderMultiplierMenu(){
+      return '<section class="card manage-menu" aria-label="'+t("multiplierMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("multiplierMenuTitle")+'</h2><p>'+t("multiplierMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="multiplier-offers">'+mults.map(item=>'<article class="multiplier-offer"><strong>×'+item.x+'</strong><span>+'+fmt(item.x*.5)+' '+t("perBlock")+'</span><button data-testid="button-buy-multiplier-'+item.x+'" data-mult="'+item.x+'">'+(state.multiplier===item.x?t("active"):fmtInt(item.stars)+"⭐")+'</button></article>').join("")+'</div><p class="purchase-disclaimer">'+t("noPayments")+'</p></section>';
+    }
+    function renderEnergyMenu(){
+      return '<section class="card manage-menu" aria-label="'+t("energyStore")+'"><div class="manage-menu-head"><div><h2>'+t("energyPackages")+'</h2><p>'+t("energyStoreDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="energy-pack-grid">'+energyPacks.map((pack,i)=>'<article class="energy-pack"><strong>+'+fmtInt(pack.amount)+'</strong><span>'+t("energy")+'</span><button data-testid="button-buy-energy-'+i+'" data-energy-pack="'+i+'">'+fmtInt(pack.stars)+'⭐</button></article>').join("")+'</div><p class="purchase-disclaimer">'+t("noPayments")+'</p></section>';
+    }
+    function renderMinar(){
+      const lvl=levelFor(state.balance),prog=levelProgress(state.balance),energy=state.energy,limit=cap(state),nextTarget=levelThresholds[Math.min(100,lvl+1)],until=lvl>=100?t("maxLevel"):t("nextLevel",{amount:fmtInt(Math.max(0,nextTarget-state.balance)),level:lvl+1});
+      const blocks=state.blocks.slice(0,25),job=state.autoMine,jobActive=!!(job&&job.endsAt>now()),jobProgress=job?Math.min(100,Math.max(0,(job.paid||0)/job.rewardTotal*100)):0;
+      
+      const compactMilestones=[
+        {targetLvl:10,label:"100k"},
+        {targetLvl:50,label:"1M"},
+        {targetLvl:100,label:"50M"}
+      ].map(m=>{
+        const isDone=lvl>=m.targetLvl;
+        return '<div class="milestone-item-compact '+(isDone?"done":"")+'" id="compact-milestone-'+m.targetLvl+'"><span>N'+m.targetLvl+'</span><strong>'+m.label+'</strong></div>';
+      }).join("");
+
+      return '<section class="page">'+header(t("miningKicker"),t("miningTitle"),t("miningDesc"),t("activeProgress"))+
+      '<div class="grid mine-grid"><article class="card mine-card"><div class="mine-top"><div class="server-data" data-testid="value-server">'+currentServer()+'<span>'+t("serverStatus")+' · '+(jobActive?t("automineActive"):t("standard"))+'</span></div><div class="multiplier" data-testid="value-multiplier">×'+state.multiplier+' '+t("multiplierActive")+'</div></div>'+
+      '<div class="mine-balance"><div class="small-label">'+t("balanceAvailable")+'</div><div class="balance-line"><div class="balance-value" data-testid="value-balance">'+fmt(state.balance)+'</div><strong class="coin-label">$VYCH</strong></div><div class="balance-demo">'+t("demoBalance")+'</div></div>'+
+      '<button class="mine-control" id="mineBtn" data-testid="button-mine" aria-label="'+t("mineBlock")+'; 10 '+t("energy")+'" '+(energy<10?'disabled':'')+'><span class="control-inner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 3-9 11h6l-1 7 9-12h-6l1-6Z"/></svg><span>'+t("mineBlock")+'</span></span></button>'+
+      '<article class="card energy-card energy-inline"><div class="card-title"><span>'+t("energy")+'</span><span class="right">'+t("passiveRegen")+'</span></div><div class="energy-value" data-testid="value-energy">'+fmtInt(energy)+' <small>/ '+fmtInt(limit)+'</small></div><div class="energy-track"><div class="energy-fill" style="width:'+Math.min(100,energy/limit*100)+'%"></div></div><div class="energy-bottom"><span>'+t("baseCapacity")+'</span><span>'+t("referralCapacity")+'</span></div><div class="energy-bottom" style="margin-top:5px"><span>'+t("regenRate")+'</span><span>'+t("tapCost")+'</span></div></article>'+
+      '<div class="mine-sub">'+t("manualReward")+' <b>+'+fmt(.5)+' VYCH</b> × '+t("multiplierActive")+'</div><div class="mine-bottom"><span>'+t("blocksTotal")+' <strong data-testid="value-block-count">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong></span><span>'+t("estimatedGain")+' <strong>+'+fmt(state.multiplier*.5)+' VYCH</strong></span></div></article>'+
+      '<div class="side-stack"><article class="card server-current"><div class="card-title"><span>'+t("activeInstance")+'</span><span class="right">'+t("demo")+'</span></div><div class="server-row"><div><strong>'+currentServer()+'</strong><span id="autoRemaining">'+(jobActive?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease"))+'</span></div><span class="server-state" id="autoStatus">'+(jobActive?t("serverActiveStatus"):t("serverBaseStatus"))+'</span></div><div class="server-row"><div><strong>'+t("nextReward")+'</strong><span>'+t("manualPower")+'</span></div><span class="server-state">×'+state.multiplier+'</span></div></article>'+
+      '<article class="card automation-card"><div class="card-title"><span>'+t("autoMine")+'</span><span class="right" id="autoLabel">'+(jobActive?t("inProgress"):job?t("finished"):t("notActivated"))+'</span></div><div class="auto-track"><div class="auto-fill" id="autoFill" style="width:'+jobProgress+'%"></div></div><div class="auto-meta"><span id="autoPaid">'+fmt(job?job.paid:0)+' / '+fmt(job?job.rewardTotal:0)+' VYCH</span><strong id="autoPercent">'+(jobActive?fmt(jobProgress,1)+"%":t("localProgress"))+'</strong></div>'+
+      '<div class="level-goals-embedded"><div class="level-goal-summary"><span>'+t("level")+' <strong data-testid="value-level">'+lvl+'</strong> ('+t("of100")+')</span><strong id="nextLevelText">'+until+'</strong></div><div class="level-track" style="width:100%;height:5px"><div class="level-fill" id="levelProgressFill" style="width:'+prog+'%"></div></div><div class="milestone-grid-compact">'+compactMilestones+'</div></div>'+
+      '</article></div></div>'+
+      '<div class="manage-actions"><button class="manage-tile" id="openServers" data-testid="button-open-servers" aria-expanded="'+(openPanel==="servers")+'"><strong>'+t("serverManagement")+'</strong><span>'+t("nodeSummary")+'</span><b class="tile-arrow">⌄</b></button><button class="manage-tile" id="openMultipliers" data-testid="button-open-multipliers" aria-expanded="'+(openPanel==="multipliers")+'"><strong>'+t("multiplierMenuTitle")+'</strong><span>'+t("multiplierActive")+' · ×'+state.multiplier+'</span><b class="tile-arrow">⌄</b></button><button class="manage-tile energy-shop-tile" id="openEnergyStore" data-testid="button-open-energy-store" aria-expanded="'+(openPanel==="energy")+'"><strong>'+t("energyStore")+'</strong><span>'+t("energyStoreDesc")+'</span><b class="tile-arrow">⌄</b></button></div>'+
+      (openPanel==="servers"?renderServerMenu():openPanel==="multipliers"?renderMultiplierMenu():openPanel==="energy"?renderEnergyMenu():"")+
+      '<section class="section-block"><div class="section-heading"><h2>'+t("historyTitle")+'</h2><span>'+t("historyLimit")+'</span></div><article class="card blocks-card">'+(blocks.length?'<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>':'<div class="block-empty">'+t("historyEmpty")+'</div>')+'</article></section></section>';
+    }
+    function renderRefsView(){
+      const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
+      return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
+      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article><article class="card ref-sim"><div><b>'+t("simulateReferral")+'</b><span>'+t("localReferralDesc")+'</span></div><button class="secondary-btn" id="addReferral" data-testid="button-simulate-referral">+ '+t("add")+'</button></article></div>'+
+      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
+    }
+    function spinRewardText(spin){
+      if(!spin)return t("spinResultFallback");
+      if(spin.type==="energy")return t("energyRewardOutcome",{amount:fmtInt(spin.awarded||0)})+(spin.overflow?t("energyOverflowToast",{amount:fmtInt(spin.overflow)}):"");
+      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH (1:1)";
+      return spin.rewardLabel||t("spinResultFallback");
+    }
+    function renderTasksView(){
+      const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
+      return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
+      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
+      '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
+      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+prize.label+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
+    }
+    function prizeCenter(index){
+      let degrees=0;
+      for(let i=0;i<index;i++)degrees+=prizes[i].probability*3.6;
+      return degrees+prizes[index].probability*1.8;
+    }
+    function renderStatsView(){
+      const share=state.balance/TOTAL_SUPPLY*100;
+      const baseGlobal=214000000;
+      const globalMined=baseGlobal+(state.blocksTotal*1250);
+      const globalProgress=Math.min(100,globalMined/MINING_ALLOC*100);
+      const personalProgress=Math.min(100,state.balance/MINING_ALLOC*100);
+      
+      const mockMiners=[
+        {rank:1,name:"CryptoWhale_77",score:8450000},
+        {rank:2,name:"SatoshiKnight",score:7210000},
+        {rank:3,name:"TonMaster_V",score:5900000},
+        {rank:4,name:"BlockHunter",score:4850000},
+        {rank:5,name:"VYCH_Alpha",score:4120000},
+        {rank:6,name:"CryptoNinja",score:3600000},
+        {rank:7,name:"NodeRunner",score:2980000},
+        {rank:8,name:"GoldenPickaxe",score:2450000},
+        {rank:9,name:"EtherBull",score:1990000},
+        {rank:10,name:"SaturnMiner",score:1650000}
+      ];
+      const userScore=state.balance;
+      const leaderboardHTML=mockMiners.map(m=>'<div class="leaderboard-row"><div class="leaderboard-rank">#'+m.rank+'</div><div class="leaderboard-name">'+m.name+'</div><div class="leaderboard-score">'+fmt(m.score)+' VYCH</div></div>').join("")+
+      '<div class="leaderboard-row user-row"><div class="leaderboard-rank">#42</div><div class="leaderboard-name">Tú (Live User)</div><div class="leaderboard-score">'+fmt(userScore)+' VYCH</div></div>';
+
+      return '<section class="page">'+header(t("statsKicker"),t("statsTitle"),t("statsDesc"),t("onlyDevice"))+
+      '<div class="stats-tiles"><article class="card stat-tile"><span>'+t("totalSupply")+'</span><strong data-testid="value-total-supply">'+fmtInt(TOTAL_SUPPLY/1000000)+' M</strong><em>'+t("referenceDemo")+'</em></article><article class="card stat-tile"><span>'+t("miningAllocation")+'</span><strong data-testid="value-mining-allocation">'+fmtInt(MINING_ALLOC/1000000)+' M</strong><em>60% '+t("percentOfSupply")+'</em></article><article class="card stat-tile"><span>'+t("blocksMined")+'</span><strong data-testid="value-total-blocks">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong><em>'+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("todayGain")+'</span><strong data-testid="value-today-earnings">'+fmt(state.today)+'</strong><em>VYCH · UTC</em></article><article class="card stat-tile"><span>'+t("lifetimeGain")+'</span><strong data-testid="value-lifetime-earnings">'+fmt(state.lifetime)+'</strong><em>VYCH · '+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("supplyShare")+'</span><strong data-testid="value-supply-share">'+fmt(share,6)+'%</strong><em>'+t("balanceAvailable")+' / '+t("totalSupply")+'</em></article></div>'+
+      '<article class="card progress-section"><div class="allocation-head"><div><h2>'+t("miningProgress")+'</h2><p>'+t("pool")+'</p></div><strong>60%</strong></div><div class="progress-line"><span>'+t("globalProgress")+'</span><strong data-testid="value-global-mining-progress">'+fmtInt(globalMined)+' / '+fmtInt(MINING_ALLOC)+' VYCH · '+fmt(globalProgress,2)+'%</strong></div><div class="progress-track"><div class="global-fill" style="width:'+globalProgress+'%"></div></div><div class="progress-line"><span>'+t("personalProgress")+'</span><strong data-testid="value-personal-mining-progress">'+fmt(state.balance)+' / '+fmtInt(MINING_ALLOC)+' VYCH · '+fmt(personalProgress,4)+'%</strong></div><div class="progress-track"><div class="personal-fill" style="width:'+personalProgress+'%"></div></div><p class="progress-foot">'+t("globalDemoNote")+'</p></article>'+
+      '<article class="card leaderboard-card"><div class="card-title"><span>'+t("leaderboardTitle")+'</span><span class="right">Top 100</span></div><p style="font-size:9px;color:var(--muted);margin:4px 0 0">'+t("leaderboardDesc")+'</p><div class="leaderboard-list">'+leaderboardHTML+'</div></article></section>';
+    }
+    function renderWalletView(){
+      return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("noBlockchain"))+
+      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+t("walletConnected")+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><button class="primary-btn wallet-connect" id="walletToggle" data-testid="button-wallet-connect">'+t("disconnectDemo")+'</button></article>'+
+      '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
+      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>TGE</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
+    }
+    function render(){
+      updateEnergy();applyLanguageShell();setupNav();
+      const view=document.getElementById("view");
+      view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderWalletView();
+      bindActions();
+    }
+    function earn(amount){
+      state.balance+=amount;state.lifetime+=amount;state.today+=amount;save();
+    }
+    function claimTiers(){
+      const newly=[];
+      tiers.forEach(t=>{if(state.referrals>=t.n&&!state.claimedTiers.includes(t.n)){state.claimedTiers.push(t.n);newly.push(t)}});
+      newly.forEach(t=>{earn(t.reward);if(t.capacity){state.refCapacity+=t.capacity;state.maxCapacity+=t.capacity;state.energy=Math.min(cap(state),state.energy)}});save();
+      return newly;
+    }
+    async function doMine(){
+      updateEnergy();if(state.energy<10){showToast(t("insufficientEnergy"));return}
+      state.energy-=10;state.energyAt=now();const reward=.5*state.multiplier;
+      earn(reward);const block={id:"b"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:state.multiplier,server:currentServer(),reward,time:now()};
+      state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;save();render();showToast(t("blockMined",{amount:fmt(reward)}));
+    }
+    async function buyServer(serverId,days){
+      const server=servers.find(s=>s.id===serverId),duration=durations.find(d=>d.days===Number(days));if(!server||!duration)return;
+      const index=durations.indexOf(duration),price=server.prices[index],rewardTotal=server.dailyReward*duration.days;
+      const replacing=state.autoMine&&state.autoMine.endsAt>now();
+      const detail=t("serverDialogBody",{server:serverLabel(server),duration:duration.label,price:fmtInt(price),reward:fmtInt(rewardTotal)})+(replacing?" "+t("replaceRental"):"");
+      const ok=await dialog(t("serverDialogTitle"),detail,t("activateDemo"));
+      if(!ok)return;
+      
+      requestTelegramStarsPayment(serverLabel(server) + " (" + duration.label + ")", price, () => {
+        updateEnergy();
+        const startedAt=now(),endsAt=startedAt+duration.days*86400000;
+        state.autoMine={serverId:server.id,serverName:server.name,dailyReward:server.dailyReward,days:duration.days,priceStars:price,rewardTotal,startedAt,endsAt,paid:0,todayPaid:0};
+        openPanel=null;save();render();showToast(t("serverActivated",{server:serverLabel(server)}));
+      });
+    }
+    async function buyMultiplier(value){
+      if(state.multiplier===value){showToast(t("multiplierAlreadyActive"));return}
+      const item=mults.find(m=>m.x===value);if(!item)return;
+      const ok=await dialog(t("multiplierDialogTitle"),t("multiplierDialogBody",{value,price:fmtInt(item.stars)}),t("activateMultiplier",{value}));
+      if(ok){
+        requestTelegramStarsPayment("Multiplicador ×" + value, item.stars, () => {
+          state.multiplier=value;openPanel=null;save();render();showToast(t("multiplierActivated",{value}));
+        });
+      }
+    }
+    async function copyInvite(){
+      const link="https://t.me/vychminer_bot?start=ref";
+      try{await navigator.clipboard.writeText(link);showToast(t("inviteCopied"));}
+      catch(e){const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast(t("inviteCopied"))}catch(err){showToast(link)}ta.remove()}
+    }
+    function addReferral(){
+      state.referrals++;const gained=claimTiers();save();render();
+      showToast(gained.length?t("milestoneToast",{amount:fmtInt(gained.reduce((a,tier)=>a+tier.reward,0))}):t("simReferralAdded"));
+    }
+    
+    // Accionador de anuncios de energía
+    function claimEnergy(){
+      syncDaily();if(state.adEnergyCount>=100){showToast(t("energyAdLimit"));return}
+      
+      showAdsGramRewardedAd(() => {
+        updateEnergy();const gained=300+Math.floor(Math.random()*201);
+        state.energy=Math.min(cap(state),state.energy+gained);
+        state.energyAt=now();state.adEnergyCount++;save();render();
+        showToast(t("energyRewardOutcome",{amount:fmtInt(gained)})+" · "+t("simulateReward"));
+      });
+    }
+
+    async function buyEnergyPack(index){
+      updateEnergy();const pack=energyPacks[index];if(!pack)return;
+      const newMax=cap(state)+pack.amount;
+      const detail=t("energyPurchaseBody",{amount:fmtInt(pack.amount),price:fmtInt(pack.stars),capacity:fmtInt(newMax)});
+      const ok=await dialog(t("energyPurchaseTitle"),detail,t("buyDemo")+" · "+fmtInt(pack.stars)+"⭐ Stars");
+      if(!ok)return;
+      
+      requestTelegramStarsPayment("Paquete de Energía +" + pack.amount, pack.stars, () => {
+        updateEnergy();
+        state.maxCapacity=newMax;
+        state.energy=Math.min(state.maxCapacity,state.energy+pack.amount);
+        state.energyAt=now();openPanel=null;save();render();
+        showToast(t("energyPurchaseToast",{amount:fmtInt(pack.amount),capacity:fmtInt(newMax)}));
+      });
+    }
+    function weightedPrize(){
+      const roll=Math.random()*100;let total=0;
+      for(const p of prizes){total+=p.probability;if(roll<total)return p}
+      return prizes[0];
+    }
+    
+    // Accionador de giros con anuncio en la ruleta
+    async function spin(isAd){
+      syncDaily();if(spinBusy)return;
+      
+      const executeSpinAction = () => {
+        if(isAd){if(state.adSpinCount>=15){showToast(t("adSpinLimit"));return}state.adSpinCount++}
+        else{if(state.freeSpinUsed){showToast(t("freeSpinUsedToast"));return}state.freeSpinUsed=true}
+        updateEnergy();
+        const prize=weightedPrize(),index=prizes.indexOf(prize);let result;
+        if(prize.type==="energy"){
+          const amount=prize.min+Math.floor(Math.random()*(prize.max-prize.min+1));
+          state.energy=Math.min(cap(state),state.energy+amount);state.energyAt=now();
+          result={nameKey:prize.nameKey,type:"energy",awarded:amount,overflow:0,time:now()};
+        }else{
+          state.balance+=prize.amount;state.lifetime+=prize.amount;state.today+=prize.amount;result={nameKey:prize.nameKey,type:"vych",amount:prize.amount,time:now()};
+        }
+        const center=prizeCenter(index),target=(360-center+360)%360,previous=Number(state.wheelRotation)||0,previousMod=((previous%360)+360)%360,delta=(target-previousMod+360)%360,endRotation=previous+360*5+delta;
+        state.wheelRotation=endRotation;state.lastSpin=result;save();spinBusy=true;
+        const freeButton=document.getElementById("spinWheel"),adButton=document.getElementById("adSpin"),wheel=document.getElementById("wheelRing");
+        if(freeButton){freeButton.disabled=true;freeButton.textContent=t("spinning")}
+        if(adButton)adButton.disabled=true;
+        if(wheel){wheel.style.transition="transform 4.8s cubic-bezier(.12,.72,.12,1)";void wheel.offsetWidth;requestAnimationFrame(()=>{wheel.style.transform="rotate("+endRotation+"deg)"})}
+        const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        setTimeout(()=>{
+          spinBusy=false;render();showToast(t("spinResultToast",{prize:t(prize.nameKey),reward:spinResultText(result)}));
+        },reduced?100:4950);
+      };
+
+      if(isAd){
+        showAdsGramRewardedAd(executeSpinAction);
+      } else {
+        executeSpinAction();
+      }
+    }
+
+    function bindActions(){
+      const language=document.getElementById("languageSelect");
+      if(language)language.onchange=()=>{if(LANGUAGE_CODES.includes(language.value)){state.lang=language.value;save();render()}};
+      const mine=document.getElementById("mineBtn");if(mine)mine.onclick=doMine;
+      const openServers=document.getElementById("openServers");if(openServers)openServers.onclick=()=>{openPanel=openPanel==="servers"?null:"servers";render()};
+      const openMultipliers=document.getElementById("openMultipliers");if(openMultipliers)openMultipliers.onclick=()=>{openPanel=openPanel==="multipliers"?null:"multipliers";render()};
+      const openEnergyStore=document.getElementById("openEnergyStore");if(openEnergyStore)openEnergyStore.onclick=()=>{openPanel=openPanel==="energy"?null:"energy";render()};
+      document.querySelectorAll("[data-close-menu]").forEach(b=>b.onclick=()=>{openPanel=null;render()});
+      document.querySelectorAll("[data-server-id]").forEach(b=>b.onclick=()=>buyServer(b.dataset.serverId,Number(b.dataset.days)));
+      document.querySelectorAll("[data-mult]").forEach(b=>b.onclick=()=>buyMultiplier(Number(b.dataset.mult)));
+      document.querySelectorAll("[data-energy-pack]").forEach(b=>b.onclick=()=>buyEnergyPack(Number(b.dataset.energyPack)));
+      const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
+      const add=document.getElementById("addReferral");if(add)add.onclick=addReferral;
+      const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
+      const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
+      const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
+      const wallet=document.getElementById("walletToggle");if(wallet)wallet.onclick=()=>{state.walletConnected=!state.walletConnected;save();render();showToast(state.walletConnected?t("walletConnected"):t("walletDisconnected"))};
+    }
+    if(window.Telegram&&window.Telegram.WebApp){
+      try{const tg=window.Telegram.WebApp;tg.ready();tg.expand();if(tg.isVersionAtLeast&&tg.isVersionAtLeast("6.1")){if(tg.setHeaderColor)tg.setHeaderColor("#07090c");if(tg.setBackgroundColor)tg.setBackgroundColor("#07090c")}}catch(e){}
+    }
+    render();
+    setInterval(()=>{
+      const dailyReset=updateEnergy();
+      if(dailyReset&&active==="tareas"){render();return}
+      if(active==="minar"){
+        const currentCap=cap(state);
+        const el=document.querySelector('[data-testid="value-energy"]');
+        if(el){el.innerHTML=fmtInt(state.energy)+' <small>/ '+fmtInt(currentCap)+'</small>';const fill=document.querySelector(".energy-fill");if(fill)fill.style.width=Math.min(100,state.energy/currentCap*100)+"%";const btn=document.getElementById("mineBtn");if(btn)btn.disabled=state.energy<10}
+        const balance=document.querySelector('[data-testid="value-balance"]');if(balance)balance.textContent=fmt(state.balance);
+        const level=levelFor(state.balance),levelEl=document.querySelector('[data-testid="value-level"]'),levelFill=document.getElementById("levelProgressFill"),nextEl=document.getElementById("nextLevelText");
+        if(levelEl)levelEl.textContent=String(level);if(levelFill)levelFill.style.width=levelProgress(state.balance)+"%";
+        const levelLabel=document.getElementById("levelLabel");if(levelLabel)levelLabel.textContent=t("level")+" "+level+" "+t("of100");
+        [10,50,100].forEach(targetLvl=>{const item=document.getElementById("compact-milestone-"+targetLvl);if(item)item.classList.toggle("done",level>=targetLvl)});
+        if(nextEl)nextEl.textContent=level>=100?t("maxLevel"):t("nextLevel",{amount:fmtInt(Math.max(0,levelThresholds[level+1]-state.balance)),level:level+1});
+        const job=state.autoMine,activeJob=!!(job&&job.endsAt>now()),progress=job?Math.min(100,Math.max(0,(job.paid||0)/job.rewardTotal*100)):0;
+        const autoFill=document.getElementById("autoFill"),autoPaid=document.getElementById("autoPaid"),autoPercent=document.getElementById("autoPercent"),autoLabel=document.getElementById("autoLabel"),autoRemaining=document.getElementById("autoRemaining"),autoStatus=document.getElementById("autoStatus"),server=document.querySelector('[data-testid="value-server"]');
+        if(autoFill)autoFill.style.width=progress+"%";if(autoPaid)autoPaid.textContent=fmt(job?job.paid:0)+" / "+fmt(job?job.rewardTotal:0)+" VYCH";if(autoPercent)autoPercent.textContent=activeJob?fmt(progress,1)+"%":t("localProgress");
+        if(autoLabel)autoLabel.textContent=activeJob?t("inProgress"):job?t("finished"):t("notActivated");if(autoRemaining)autoRemaining.textContent=activeJob?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease");if(autoStatus)autoStatus.textContent=activeJob?t("serverActiveStatus"):t("serverBaseStatus");if(server&&server.firstChild)server.firstChild.textContent=currentServer();
+      }
+      if(active==="stats"){
+        const today=document.querySelector('[data-testid="value-today-earnings"]');if(today)today.textContent=fmt(state.today);
+        const total=document.querySelector('[data-testid="value-lifetime-earnings"]');if(total)total.textContent=fmt(state.lifetime);
+        const baseGlobal=214000000, globalMined=baseGlobal+(state.blocksTotal*1250);
+        const personal=document.querySelector('[data-testid="value-personal-mining-progress"]');if(personal)personal.textContent=fmt(state.balance)+" / "+fmtInt(MINING_ALLOC)+" VYCH · "+fmt(Math.min(100,state.balance/MINING_ALLOC*100),4)+"%";
+        const personalFill=document.querySelector(".personal-fill");if(personalFill)personalFill.style.width=Math.min(100,state.balance/MINING_ALLOC*100)+"%";
+        const global=document.querySelector('[data-testid="value-global-mining-progress"]');if(global)global.textContent=fmtInt(globalMined)+" / "+fmtInt(MINING_ALLOC)+" VYCH · "+fmt(Math.min(100,globalMined/MINING_ALLOC*100),2)+"%";
+        const globalFill=document.querySelector(".global-fill");if(globalFill)globalFill.style.width=Math.min(100,globalMined/MINING_ALLOC*100)+"%";
+      }
+    },1000);
+    window.addEventListener("storage",e=>{if(e.key===STORE){state=load();render()}});
+  })();
+  </script>
+</body>
+</html>

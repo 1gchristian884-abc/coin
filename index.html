@@ -269,7 +269,7 @@
       ["serverManagement","Hardware management","Gestión de hardware","硬件管理","Gestão de hardware"],
       ["nodeSummary","4 pro servers · progressive AutoMine","4 servidores pro · AutoMine progresivo","4 个专业服务器 · 渐进式自动挖矿","4 servidores pró · AutoMine progressivo"],
       ["serverMenuTitle","Professional hardware catalog","Catálogo de hardware profesional","专业硬件目录","Catálogo de hardware profissional"],
-      ["serverMenuDesc","Choose a professional server node and duration. Rewards accrue progressively.","Elige un nodo de servidor profesional y duración. Las recompensas se acumulan progresivamente.","选择专业服务器节点和期限。奖励将逐步累积。","Escolha um nó de servidor profissional e duração. As recompensas acumulam-se progressivamente."],
+      ["serverMenuDesc","Choose a professional server node and duration. Rewards accrue progressively.","Elige un nodo de servidor profesional y duración. Las recompensas se acumulan progresivamente.","选择专业服务器节点和期限。奖励将逐步累积。","Escolha um nó de servidor profissional e duração. As recompensas acumulam-se progresivamente."],
       ["dailyBase","Base: {amount} VYCH / 24 h","Base: {amount} VYCH / 24 h","基础收益：{amount} VYCH / 24 小时","Base: {amount} VYCH / 24 h"],
       ["close","Close","Cerrar","关闭","Fechar"],
       ["totalFormula","Formula: total reward = daily 24-hour base × rental days.","Fórmula: recompensa total = base diaria de 24 h × días de alquiler.","公式：总奖励 = 每日基础收益 × 租赁天数。","Fórmula: recompensa total = base diária de 24 h × dias de aluguel."],
@@ -356,7 +356,7 @@
       ["pool","Mining pool · 600,000,000 VYCH","Pool de minería · 600.000.000 VYCH","挖矿池 · 600,000,000 VYCH","Pool de mineração · 600,000,000 VYCH"],
       ["globalProgress","Global progress (Distributed mining)","Avance global (Minería distribuida)","全局进度（分布式挖矿）","Progresso global (Mineração distribuída)"],
       ["personalProgress","Personal progress","Avance personal","个人进度","Progresso pessoal"],
-      ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros.","全局进度随生态系统活动和矿工动态增加。","O progresso global aumenta dinâmicamente com a atividade da comunidade."],
+      ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros.","全局进度随生态系统活动和矿工动态增加。","O progresso global aumenta dinámicamente com a atividade da comunidade."],
       ["walletKicker","Wallet center","Centro de cartera","钱包中心","Central de carteira"],
       ["walletTitle","Connection & asset information","Información de conexión y activos","连接与资产信息","Informações de conexão e ativos"],
       ["walletDesc","Check your connection state. Web3 integration prepared for TGE.","Comprueba el estado de tu conexión. Integración Web3 preparada para el TGE.","检查您的连接状态。为 TGE 准备的 Web3 集成。","Verifique o estado da sua conexão. Integração Web3 preparada para o TGE."],
@@ -764,7 +764,7 @@
     function renderTasksView(){
       const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
       return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
-      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>"+t("simulateReward")+'</button></article>'+
+      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
       '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
       '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin" style="font-family:var(--mono);color:var(--gold);margin:10px 0;font-weight:700">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot" style="width:7px;height:7px;border-radius:50%;background:'+prize.color+';display:inline-block"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta" style="font-family:var(--mono);font-size:9.5px">'+prize.label+' <b style="color:var(--gold)">'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note" style="font-size:9px;color:var(--muted);margin-top:12px;line-height:1.5">'+t("spinIndependent")+'</div></article></div></section></section>';
     }
@@ -955,10 +955,29 @@
         });
       }
     }
-    if(window.Telegram&&window.Telegram.WebApp){
-      try{const tg=window.Telegram.WebApp;tg.ready();tg.expand();if(tg.isVersionAtLeast&&tg.isVersionAtLeast("6.1")){if(tg.setHeaderColor)tg.setHeaderColor("#07090c");if(tg.setBackgroundColor)tg.setBackgroundColor("#07090c")}}catch(e){}
+    
+    // Inicialización segura con protección contra pantallas negras
+    try {
+      if(window.Telegram&&window.Telegram.WebApp){
+        const tg=window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        if(tg.isVersionAtLeast&&tg.isVersionAtLeast("6.1")){
+          if(tg.setHeaderColor)tg.setHeaderColor("#07090c");
+          if(tg.setBackgroundColor)tg.setBackgroundColor("#07090c");
+        }
+      }
+    } catch(e) {
+      console.warn("Telegram WebApp init notice:", e);
     }
-    render();
+    
+    try {
+      render();
+    } catch(e) {
+      console.error("Render critical error:", e);
+      document.getElementById("view").innerHTML = '<div style="padding:40px;text-align:center;color:var(--gold)"><h3>Initialization Notice</h3><p>Please reload the mini app.</p></div>';
+    }
+
     setInterval(()=>{
       const dailyReset=updateEnergy();
       if(dailyReset&&active==="tareas"){render();return}

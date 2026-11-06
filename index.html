@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#07090c">
-  <meta name="description" content="VYCH Coin Miner: token mining center with daily rewards and progress. Token conversion 1:1.">
-  <meta property="og:title" content="VYCH Coin Miner — Mining center">
-  <meta property="og:description" content="Mine, progress, and track your VYCH rewards in this Telegram Mini App.">
+  <meta name="description" content="VYCH Coin Miner: professional mining platform with daily rewards, hardware servers, and secure progression.">
+  <meta property="og:title" content="VYCH Coin Miner — Professional Mining Platform">
+  <meta property="og:description" content="Mine, rent professional hardware servers, and track your rewards in this Telegram Mini App.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
-  <title>VYCH Coin Miner — Mining center</title>
+  <title>VYCH Coin Miner — Professional Mining Platform</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090c'/%3E%3Cpath d='M38 8 17 36h14l-4 20 21-29H34z' fill='%2346d89b'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,102 +17,84 @@
   <!-- TON Connect SDK -->
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   <style>
-    :root{color-scheme:dark;--bg:#07090c;--surface:#11161f;--surface2:#151c26;--surface3:#1b2430;--line:#26303b;--muted:#7f8a98;--text:#e9edf1;--green:#46d89b;--green2:#173c30;--gold:#e2bd72;--gold2:#3c3220;--red:#f27c78;--font:'Manrope',sans-serif;--mono:'DM Mono',monospace}
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 48% -18%,#17251f 0,transparent 40%),var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100dvh;-webkit-font-smoothing:antialiased}button{font:inherit;color:inherit;cursor:pointer;-webkit-touch-callout:none;user-select:none}button:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.42;cursor:not-allowed;transform:none!important}a{color:inherit}.app-shell{min-height:100dvh;display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1440px;margin:auto}.sidebar{position:sticky;top:0;height:100dvh;border-right:1px solid #1c232d;padding:25px 15px 18px 20px;display:flex;flex-direction:column;background:rgba(8,11,15,.86);z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:3px 7px 30px}.brand-mark{width:34px;height:34px;border:1px solid #3d594d;border-radius:11px;display:grid;place-items:center;color:var(--green);background:linear-gradient(145deg,#1c3329,#101713);font-weight:800;font-size:17px;letter-spacing:-2px}.brand-title{font-size:12px;font-weight:800;letter-spacing:.14em}.brand-sub{display:block;color:var(--muted);font-size:9px;letter-spacing:.19em;margin-top:3px}.nav-label{font-size:9px;text-transform:uppercase;letter-spacing:.17em;color:#64707e;padding:0 11px 9px}.nav-list{display:grid;gap:5px}.nav-item{width:100%;display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:9px;padding:11px 12px;color:#87929f;text-align:left;font-size:12px;font-weight:650}.nav-item svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}.nav-item:hover{background:#111821;color:#d8e0e5}.nav-item.active{color:var(--green);background:#14221c;border-color:#243d32}.sidebar-bottom{margin-top:auto}.demo-note{padding:13px;border:1px solid #29332d;border-radius:10px;background:#101713;margin-bottom:14px}.demo-note .eyebrow{color:var(--gold);font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}.demo-note p{margin:7px 0 0;font-size:10px;color:#89958e;line-height:1.55}.main{min-width:0;padding:22px 35px 44px}.topbar{height:45px;display:flex;align-items:center;justify-content:space-between;margin-bottom:27px}.breadcrumb{font-size:11px;color:#84909d;letter-spacing:.02em}.breadcrumb strong{color:#d9e0e6;font-weight:650}.top-meta{display:flex;align-items:center;gap:10px}.live-pill{display:flex;align-items:center;gap:7px;border:1px solid #26342d;background:#101813;border-radius:99px;padding:7px 10px;color:#a3b2a9;font-size:10px}.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px #1d3529}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;border:1px solid #34413c;background:#1a2821;color:var(--green);font-size:10px;font-weight:800}.page{max-width:1070px;margin:0 auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:21px;gap:16px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--green);font-weight:800;margin-bottom:8px}.page-head h1{margin:0;font-size:24px;letter-spacing:-.045em;line-height:1.2}.page-head p{color:var(--muted);margin:7px 0 0;font-size:11px}.tag{display:inline-flex;align-items:center;gap:6px;color:#a6b3ad;border:1px solid #27332d;background:#111914;border-radius:99px;padding:7px 10px;font-size:9px;white-space:nowrap}.tag:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green)}.grid{display:grid;gap:13px}.hero-grid{grid-template-columns:minmax(0,1.55fr) minmax(230px,.8fr)}.card{background:linear-gradient(145deg,rgba(19,25,34,.98),rgba(15,20,28,.98));border:1px solid var(--line);border-radius:12px;min-width:0}.balance-card{padding:20px 21px 17px;position:relative;overflow:hidden}.small-label{font-size:10px;color:#8994a1;letter-spacing:.03em}.balance-value{font-family:var(--mono);font-size:32px;letter-spacing:-.075em;margin:10px 0 3px;font-weight:500;position:relative;z-index:1}.coin-label{color:var(--green);font-size:10px;letter-spacing:.13em;font-weight:500}.balance-foot{border-top:1px solid #26303b;margin-top:18px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;z-index:1}.level-wrap{display:flex;align-items:center;gap:9px}.level-badge{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#1b2b24;border:1px solid #2b4b3c;color:var(--green);font-family:var(--mono);font-size:11px}.level-copy b{display:block;font-size:10px}.level-copy span{font-size:9px;color:var(--muted)}.level-track{width:100%;height:6px;border-radius:8px;background:#28313b;overflow:hidden;margin-top:7px}.level-fill{height:100%;background:var(--green);border-radius:inherit}.supply-caption{font-size:9px;color:#88939e;text-align:right}.supply-caption b{color:#cdd6de;font-family:var(--mono);font-weight:400}.energy-card{padding:18px 19px}.card-title{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}.card-title .right{font-size:9px;color:var(--muted);font-weight:500}.energy-value{font-family:var(--mono);font-size:21px;margin:19px 0 4px}.energy-value small{font-size:10px;color:#8793a0}.energy-track{height:6px;background:#27313b;border-radius:99px;overflow:hidden;margin:11px 0 8px}.energy-fill{height:100%;background:linear-gradient(90deg,#339d71,#5de0a7);border-radius:99px}.energy-foot{display:flex;justify-content:space-between;color:#85919c;font-size:9px}.energy-foot b{color:var(--green);font-family:var(--mono);font-weight:400}.mine-grid{grid-template-columns:minmax(0,1.45fr) minmax(245px,.75fr);margin-top:13px}.mine-card{padding:19px 21px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:295px;background:radial-gradient(ellipse at 50% 78%,rgba(29,77,55,.19),transparent 42%),linear-gradient(145deg,#131a22,#10151c)}.mine-top{display:flex;justify-content:space-between;width:100%;align-items:center;text-align:left}.server-data{font-size:10px;font-weight:700}.server-data span{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.multiplier{font-family:var(--mono);color:var(--gold);font-size:11px;border:1px solid #453c29;background:#241f15;padding:6px 9px;border-radius:7px}.mine-control{width:136px;height:136px;border-radius:50%;border:1px solid #4b7762;background:radial-gradient(circle at 38% 30%,#2b664b,#173e2d 66%,#11261d);box-shadow:0 0 0 8px rgba(64,144,102,.07),0 0 0 18px rgba(64,144,102,.035),inset 0 1px 0 #5a9876;margin:23px 0 13px;display:grid;place-items:center;transition:transform .06s ease,filter .08s;position:relative;touch-action:manipulation;user-select:none}.mine-control:hover{filter:brightness(1.11)}.mine-control:active{transform:scale(0.93);filter:brightness(0.9)}.mine-control svg{width:31px;height:31px;stroke:#d5f6e4;fill:none;stroke-width:1.45}.mine-control span{display:block;color:#e4f3ea;font-size:10px;font-weight:800;letter-spacing:.1em;margin-top:5px}.mine-control .control-inner{display:flex;align-items:center;flex-direction:column}.mine-sub{font-size:10px;color:#8e9a96}.mine-sub b{color:var(--green);font-family:var(--mono);font-weight:400}.mine-bottom{border-top:1px solid #27313b;margin-top:auto;padding-top:12px;width:100%;display:flex;justify-content:space-between;color:#84909c;font-size:9px}.mine-bottom strong{color:#d7dfe4;font-weight:600}.side-stack{display:grid;gap:13px}.server-current{padding:16px}.server-current .card-title{margin-bottom:11px}.server-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid #26303b}.server-row strong{font-size:10px}.server-row span{font-size:9px;color:var(--muted)}.server-state{color:var(--green)!important}.section-block{margin-top:26px}.section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-heading h2{font-size:12px;letter-spacing:-.01em;margin:0}.section-heading span{font-size:9px;color:var(--muted)}.section-heading button{color:var(--green);border:0;background:none;font-size:9px;padding:5px}.purchase-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.purchase-panel{padding:15px}.purchase-list{display:grid;gap:7px;margin-top:12px}.purchase-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 9px;background:#10151c;border:1px solid #222b35;border-radius:8px}.purchase-info strong{font-size:10px;display:block}.purchase-info span{font-size:9px;color:var(--muted);display:block;margin-top:2px}.buy-btn{border:1px solid #3a493f;border-radius:6px;background:#17251d;color:#bfe9cf;padding:6px 8px;font-size:9px;white-space:nowrap}.buy-btn:hover{border-color:#507660;background:#1c3024}.purchase-disclaimer{font-size:9px;color:#7f8a95;margin:10px 1px 0;line-height:1.5}.blocks-card{overflow:hidden}.block-list{display:grid}.block-row{display:grid;grid-template-columns:.65fr .75fr .8fr .8fr 1fr;gap:8px;align-items:center;padding:11px 14px;border-top:1px solid #232c36;font-size:9px;color:#a2adb7}.block-row.head{border:0;color:#77838f;font-size:8px;text-transform:uppercase;letter-spacing:.08em}.block-row strong{color:#e0e7eb;font-family:var(--mono);font-weight:400}.block-empty{text-align:center;padding:22px;color:#8b96a1;font-size:10px}.panel-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.ref-hero{padding:21px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}.big-stat{font-family:var(--mono);font-size:33px;letter-spacing:-.07em;margin-top:7px}.ref-hero p{margin:5px 0 0;color:var(--muted);font-size:10px}.ref-action{display:flex;gap:8px;align-items:center}.primary-btn{border:1px solid #357254;background:#1a3e2c;color:#d3f4e2;padding:10px 13px;border-radius:8px;font-size:10px;font-weight:700}.primary-btn:hover{background:#214b35}.secondary-btn{border:1px solid #303a45;background:#171e27;color:#bdc6ce;padding:9px 12px;border-radius:8px;font-size:10px}.secondary-btn:hover{border-color:#52606d}.ref-sim{margin-top:13px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:15px}.ref-sim b{display:block;font-size:10px}.ref-sim span{font-size:9px;color:var(--muted);display:block;margin-top:4px}.tier-list{display:grid;gap:8px}.tier-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 14px}.tier-number{width:36px;height:36px;border:1px solid #343c45;border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:#c8d0d7;background:#171d25}.tier-card.claimed .tier-number{border-color:#32644a;background:#14271d;color:var(--green)}.tier-main strong{font-size:10px;display:block}.tier-main span{font-size:9px;color:var(--muted);display:block;margin-top:3px}.tier-progress{height:3px;background:#27303a;border-radius:8px;margin-top:7px;overflow:hidden}.tier-progress i{display:block;background:#55c990;height:100%;border-radius:8px}.tier-status{font-size:8px;letter-spacing:.04em;color:#81908a}.tier-card.claimed .tier-status{color:var(--green)}.ad-grid{grid-template-columns:1fr 1fr;align-items:stretch}.ad-card{padding:17px}.ad-icon{width:33px;height:33px;border:1px solid #37463d;background:#18231d;color:var(--green);border-radius:9px;display:grid;place-items:center;margin-bottom:15px}.ad-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7}.ad-card h2{font-size:12px;margin:0 0 5px}.ad-card p{color:var(--muted);font-size:9px;line-height:1.6;margin:0 0 15px}.daily-count{font-family:var(--mono);font-size:10px;color:#b7c2cb;margin-bottom:12px}.daily-count b{color:var(--green);font-weight:400}.wheel-layout{display:grid;grid-template-columns:minmax(320px,1.1fr) minmax(280px,.9fr);gap:20px;align-items:center}.wheel-card{padding:25px;text-align:center}.wheel-stage{width:min(100%,320px);aspect-ratio:1;position:relative;margin:10px auto 20px}.wheel-ring{position:absolute;inset:0;border-radius:50%;border:10px solid #202a32;background:conic-gradient(from 0deg,#858b92 0 40%,#40bb83 40% 70%,#5a9bd2 70% 85%,#a277d1 85% 95%,#d7b15c 95% 100%);box-shadow:0 0 0 1px #59614d,0 10px 40px #0009;transition:transform 4.8s cubic-bezier(.12,.72,.12,1);will-change:transform}.wheel-ring:before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none}.wheel-sector-label{position:absolute;z-index:1;left:50%;top:50%;width:0;height:0;transform:rotate(var(--angle)) translateY(-96px);transform-origin:0 0;pointer-events:none}.wheel-sector-label span{display:block;width:95px;text-align:center;transform:translate(-50%,-50%) rotate(calc(90deg));color:#f6f5ec;font-size:9px;font-weight:800;letter-spacing:.035em;text-shadow:0 1px 3px #111;white-space:nowrap}.wheel-pointer{position:absolute;z-index:4;left:50%;top:-9px;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid #f0cd78;filter:drop-shadow(0 3px 4px #0008)}.wheel-center{position:absolute;z-index:3;inset:31%;border:1px solid #475344;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,#202c24,#10161b 72%);box-shadow:0 3px 18px #0009}.wheel-center b{font-family:var(--mono);font-size:20px;color:var(--gold)}.wheel-center span{font-size:7px;color:#aab5af;letter-spacing:.1em}.prize-panel{padding:20px}.prize-panel h2{margin:0 0 14px;font-size:12px}.prize-list{display:grid;gap:8px}.prize-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #28313b;background:#111720;border-radius:8px}.prize-label{display:flex;align-items:center;gap:8px;font-size:10px}.crown-icon{width:14px;height:14px;fill:var(--gold)}.stats-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat-tile{padding:16px}.stat-tile span{font-size:9px;color:var(--muted);display:block}.stat-tile strong{font-family:var(--mono);font-size:19px;letter-spacing:-.04em;display:block;margin-top:11px;font-weight:400}.stat-tile em{font-style:normal;color:var(--green);font-size:8px;display:block;margin-top:6px}.allocation{padding:18px;margin-top:13px}.allocation-head{display:flex;justify-content:space-between;align-items:flex-start}.allocation-head h2{font-size:12px;margin:0}.allocation-head p{font-size:9px;color:var(--muted);margin:5px 0}.allocation-head strong{font-family:var(--mono);font-size:12px;color:var(--gold);font-weight:400}.alloc-bar{height:9px;display:flex;border-radius:99px;overflow:hidden;background:#28313b;margin:15px 0 10px}.alloc-mining{width:60%;background:linear-gradient(90deg,#30835d,#53bd89)}.alloc-other{flex:1;background:#252d37}.alloc-key{display:flex;justify-content:space-between;font-size:9px;color:#9aa5ae}.alloc-key span{display:flex;align-items:center;gap:7px}.alloc-key i{width:7px;height:7px;border-radius:2px;background:#4caf7c}.alloc-key span:last-child i{background:#515d6a}.stats-note{border-left:2px solid #78633c;padding:10px 12px;color:#91999f;font-size:9px;line-height:1.6;margin-top:13px;background:#151712}.wallet-card{padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.wallet-symbol{width:47px;height:47px;border:1px solid #4a4432;background:#211e16;border-radius:13px;display:grid;place-items:center;color:var(--gold);margin-bottom:15px}.wallet-symbol svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.5}.wallet-card h2{font-size:15px;margin:0 0 7px}.wallet-card p{font-size:10px;color:var(--muted);max-width:490px;line-height:1.6;margin:0}.wallet-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;color:#a9b5ac;padding:6px 9px;border:1px solid #343c38;background:#171c19;border-radius:99px;margin-bottom:11px}.wallet-status:before{content:"";width:5px;height:5px;background:#a1aa9f;border-radius:50%}.wallet-connect{min-width:140px}.wallet-disclaimer{padding:14px 16px;margin-top:13px;color:#a0a49d;font-size:9px;line-height:1.6;border-color:#494331;background:#17160f}.wallet-disclaimer b{color:var(--gold);font-weight:700}.wallet-details{margin-top:13px;padding:16px}.wallet-details .server-row:last-child{border-bottom:0}.toast{position:fixed;z-index:50;bottom:calc(25px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);opacity:0;pointer-events:none;padding:11px 15px;background:#1b2621;border:1px solid #385745;border-radius:9px;box-shadow:0 10px 35px #0007;color:#d9f0e3;font-size:10px;max-width:calc(100vw - 32px);transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:rgba(3,5,8,.77);z-index:40;display:grid;place-items:center;padding:20px;backdrop-filter:blur(5px)}.modal{max-width:370px;width:100%;padding:21px;background:#131a22;border:1px solid #35413d;border-radius:13px;box-shadow:0 20px 80px #0008}.modal h2{margin:0 0 9px;font-size:15px}.modal p{font-size:10px;line-height:1.65;color:#9ba7ad;margin:0 0 18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.mobile-nav{display:none}
-    @media(max-width:850px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px 22px 98px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;padding:8px 9px calc(9px + env(safe-area-inset-bottom));background:rgba(11,15,20,.96);border-top:1px solid #27303a;backdrop-filter:blur(16px);z-index:20}.mobile-nav .nav-item{flex-direction:column;justify-content:center;gap:4px;font-size:8px;padding:6px 2px;border-radius:8px}.mobile-nav .nav-item svg{width:17px;height:17px}.topbar{margin-bottom:23px}.hero-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}.mine-grid{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr)}}
-    @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.topbar{height:auto;margin-bottom:21px}.live-pill{font-size:9px;padding:6px 8px}.page-head{align-items:flex-start;margin-bottom:16px}.page-head h1{font-size:22px}.page-head p{font-size:10px;max-width:270px;line-height:1.5}.tag{font-size:8px;padding:6px 8px}.hero-grid,.mine-grid,.panel-grid,.wheel-layout{grid-template-columns:1fr}.balance-card{padding:17px}.balance-value{font-size:29px}.energy-card{padding:15px 17px}.energy-value{margin-top:12px}.mine-grid{gap:10px}.mine-card{min-height:278px;padding:16px}.side-stack{grid-template-columns:1fr 1fr;gap:10px}.server-current{padding:13px}.progress-card{padding:13px}.progress-head strong{font-size:9px}.purchase-grid{grid-template-columns:1fr}.section-block{margin-top:22px}.section-heading{margin-bottom:10px}.block-row{grid-template-columns:.55fr .65fr .65fr .7fr .9fr;gap:4px;padding:10px 8px;font-size:8px}.block-row.head{font-size:7px;letter-spacing:.03em}.block-row strong{font-size:8px}.ref-hero{grid-template-columns:1fr;padding:17px}.big-stat{font-size:29px}.ref-action{width:100%}.ref-action button{flex:1}.ref-sim{align-items:flex-start}.ref-sim .secondary-btn{white-space:nowrap}.tier-card{padding:10px 11px}.ad-grid{grid-template-columns:1fr 1fr;gap:9px}.ad-card{padding:13px}.ad-card h2{font-size:11px}.ad-card p{min-height:54px}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(85vw,310px)}.wheel-card{padding:17px}.wheel-ring{border-width:8px}.wheel-center b{font-size:18px}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}.stat-tile{padding:13px}.stat-tile strong{font-size:17px}.wallet-card{grid-template-columns:1fr;gap:12px;padding:18px}.wallet-connect{width:100%}.top-meta{gap:7px}}
-    @media(max-width:360px){.main{padding-left:10px;padding-right:10px}.block-row{font-size:7px}.block-row.head{font-size:6px}.side-stack{grid-template-columns:1fr}.tag{display:none}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-  </style>
-  <style>
-    .language-select{height:31px;max-width:92px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
-    .language-select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-    .mine-balance{width:100%;margin:2px 0 7px;text-align:center}
-    .mine-balance .balance-line{justify-content:center;margin:5px 0 0}
-    .mine-balance .balance-line .balance-value{font-size:36px}
-    .mine-balance .balance-demo{margin-top:2px}
-    .mine-card .mine-control{margin:16px 0 10px}
-    .energy-inline{width:100%;padding:12px 14px;margin:0 0 10px;text-align:left}
-    .energy-inline .card-title{font-size:10px}
-    .energy-inline .energy-value{font-size:16px;margin:0}
-    .energy-inline .energy-track{margin:7px 0}
-    .energy-inline .energy-bottom{display:flex;justify-content:space-between;gap:10px;color:#85919c;font-size:8px}
-    
-    /* Correcciones estructurales para botones de gestión y barras de progreso */
+    :root{color-scheme:dark;--bg:#05070a;--surface:#0e131b;--surface2:#131a26;--surface3:#1a2333;--line:#222d3f;--muted:#7c8a9c;--text:#ecf1f6;--green:#46d89b;--green-glow:rgba(70,216,155,0.15);--gold:#e2bd72;--gold-glow:rgba(226,189,114,0.18);--gold-border:#5c4b2a;--red:#f27c78;--font:'Manrope',sans-serif;--mono:'DM Mono',monospace}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#13251e 0,transparent 45%),var(--bg);color:var(--text);font-family:var(--font);font-size:13.5px;min-height:100dvh;-webkit-font-smoothing:antialiased}button{font:inherit;color:inherit;cursor:pointer;-webkit-touch-callout:none;user-select:none}button:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.42;cursor:not-allowed;transform:none!important}a{color:inherit}.app-shell{min-height:100dvh;display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1440px;margin:auto}.sidebar{position:sticky;top:0;height:100dvh;border-right:1px solid var(--line);padding:25px 15px 18px 20px;display:flex;flex-direction:column;background:rgba(6,9,13,.9);z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:3px 7px 30px}.brand-mark{width:34px;height:34px;border:1px solid var(--gold-border);border-radius:11px;display:grid;place-items:center;color:var(--gold);background:linear-gradient(145deg,#262013,#101311);font-weight:800;font-size:17px;letter-spacing:-2px}.brand-title{font-size:12px;font-weight:800;letter-spacing:.14em}.brand-sub{display:block;color:var(--gold);font-size:8px;letter-spacing:.19em;margin-top:3px}.nav-label{font-size:9px;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);padding:0 11px 9px}.nav-list{display:grid;gap:5px}.nav-item{width:100%;display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:9px;padding:11px 12px;color:#87929f;text-align:left;font-size:12px;font-weight:650}.nav-item svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}.nav-item:hover{background:var(--surface2);color:#d8e0e5}.nav-item.active{color:var(--green);background:var(--green-glow);border-color:#243d32}.sidebar-bottom{margin-top:auto}.demo-note{padding:13px;border:1px solid var(--gold-border);border-radius:10px;background:linear-gradient(145deg,#131612,#0c0f0e);margin-bottom:14px}.demo-note .eyebrow{color:var(--gold);font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}.demo-note p{margin:7px 0 0;font-size:10px;color:#89958e;line-height:1.55}.main{min-width:0;padding:22px 35px 44px}.topbar{height:45px;display:flex;align-items:center;justify-content:space-between;margin-bottom:27px}.top-brand{display:flex;align-items:center;gap:10px}.top-brand-copy strong{display:block;font-size:12px;letter-spacing:.08em}.top-brand-copy small{color:var(--gold);font-size:9px;letter-spacing:.12em}.top-meta{display:flex;align-items:center;gap:10px}.live-pill{display:flex;align-items:center;gap:7px;border:1px solid #26342d;background:#101813;border-radius:99px;padding:7px 10px;color:#a3b2a9;font-size:10px}.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px #1d3529}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);font-size:10px;font-weight:800}.page{max-width:1070px;margin:0 auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:21px;gap:16px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:800;margin-bottom:8px}.page-head h1{margin:0;font-size:24px;letter-spacing:-.045em;line-height:1.2;font-weight:800}.page-head p{color:var(--muted);margin:7px 0 0;font-size:11px}.tag{display:inline-flex;align-items:center;gap:6px;color:var(--gold);border:1px solid var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311);border-radius:99px;padding:7px 12px;font-size:9px;font-weight:700;white-space:nowrap}.tag:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}.grid{display:grid;gap:13px}.card{background:linear-gradient(145deg,rgba(16,22,31,.98),rgba(11,15,22,.98));border:1px solid var(--line);border-radius:12px;min-width:0;box-shadow:0 8px 24px rgba(0,0,0,0.4)}.balance-card{padding:20px 21px 17px;position:relative;overflow:hidden}.small-label{font-size:10px;color:var(--muted);letter-spacing:.03em}.balance-value{font-family:var(--mono);font-size:32px;letter-spacing:-.075em;margin:10px 0 3px;font-weight:500;position:relative;z-index:1;color:var(--text)}.coin-label{color:var(--gold);font-size:10px;letter-spacing:.13em;font-weight:700}.balance-foot{border-top:1px solid var(--line);margin-top:18px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;z-index:1}.level-track{width:100%;height:6px;border-radius:8px;background:#28313b;overflow:hidden;margin-top:7px}.level-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:inherit}.energy-card{padding:18px 19px}.card-title{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}.card-title .right{font-size:9px;color:var(--muted);font-weight:500}.energy-value{font-family:var(--mono);font-size:21px;margin:19px 0 4px}.energy-value small{font-size:10px;color:var(--muted)}.energy-track{height:6px;background:#27313b;border-radius:99px;overflow:hidden;margin:11px 0 8px}.energy-fill{height:100%;background:linear-gradient(90deg,#339d71,var(--gold));border-radius:99px}.energy-bottom{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.energy-bottom b{color:var(--green);font-family:var(--mono);font-weight:400}.mine-grid{grid-template-columns:minmax(0,1.45fr) minmax(245px,.75fr);margin-top:13px}.mine-card{padding:19px 21px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:295px;background:radial-gradient(ellipse at 50% 78%,rgba(45,77,55,.15),transparent 42%),linear-gradient(145deg,#131a22,#10151c)}.mine-top{display:flex;justify-content:space-between;width:100%;align-items:center;text-align:left}.server-data{font-size:10px;font-weight:700}.server-data span{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.multiplier{font-family:var(--mono);color:var(--gold);font-size:11px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);padding:6px 9px;border-radius:7px;font-weight:700}.mine-control{width:136px;height:136px;border-radius:50%;border:1px solid var(--gold-border);background:radial-gradient(circle at 38% 30%,#24332b,#13221b 66%,#0d1712);box-shadow:0 0 0 8px var(--green-glow),0 0 0 18px rgba(226,189,114,0.03),inset 0 1px 0 #5a9876;margin:23px 0 13px;display:grid;place-items:center;transition:transform .06s ease,filter .08s;position:relative;touch-action:manipulation;user-select:none}.mine-control:hover{filter:brightness(1.11)}.mine-control:active{transform:scale(0.93);filter:brightness(0.9)}.mine-control svg{width:31px;height:31px;stroke:var(--gold);fill:none;stroke-width:1.45}.mine-control span{display:block;color:var(--text);font-size:10px;font-weight:800;letter-spacing:.1em;margin-top:5px}.mine-control .control-inner{display:flex;align-items:center;flex-direction:column}.mine-sub{font-size:10px;color:var(--muted)}.mine-sub b{color:var(--gold);font-family:var(--mono);font-weight:700}.mine-bottom{border-top:1px solid var(--line);margin-top:auto;padding-top:12px;width:100%;display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.mine-bottom strong{color:var(--text);font-weight:600}.side-stack{display:grid;gap:13px}.server-current{padding:16px}.server-current .card-title{margin-bottom:11px}.server-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line)}.server-row strong{font-size:10px}.server-row span{font-size:9px;color:var(--muted)}.server-state{color:var(--gold)!important;font-weight:700}.section-block{margin-top:26px}.section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-heading h2{font-size:12px;letter-spacing:-.01em;margin:0;font-weight:800}.section-heading span{font-size:9px;color:var(--muted)}.blocks-card{overflow:hidden}.block-list{display:grid}.block-row{display:grid;grid-template-columns:.65fr .75fr .8fr .8fr 1fr;gap:8px;align-items:center;padding:11px 14px;border-top:1px solid var(--line);font-size:9px;color:#a2adb7}.block-row.head{border:0;color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}.block-row strong{color:var(--gold);font-family:var(--mono);font-weight:700}.block-empty{text-align:center;padding:22px;color:var(--muted);font-size:10px}.panel-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.ref-hero{padding:21px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}.big-stat{font-family:var(--mono);font-size:33px;letter-spacing:-.07em;margin-top:7px;color:var(--gold);font-weight:700}.ref-hero p{margin:5px 0 0;color:var(--muted);font-size:10px}.ref-action{display:flex;gap:8px;align-items:center}.primary-btn{border:1px solid var(--gold-border);background:linear-gradient(135deg,#24332b,#16221c);color:var(--gold);padding:10px 14px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.05em;box-shadow:0 4px 12px rgba(226,189,114,0.1)}.primary-btn:hover{background:linear-gradient(135deg,#2a3e34,#1c2c24);border-color:var(--gold)}.secondary-btn{border:1px solid var(--line);background:var(--surface2);color:var(--text);padding:9px 12px;border-radius:8px;font-size:10px;font-weight:700}.secondary-btn:hover{border-color:var(--green)}.tier-list{display:grid;gap:8px}.tier-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 14px}.tier-number{width:36px;height:36px;border:1px solid var(--gold-border);border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--gold);background:linear-gradient(145deg,#241f15,#131612);font-weight:700}.tier-card.claimed .tier-number{border-color:#32644a;background:#14271d;color:var(--green)}.tier-main strong{font-size:10px;display:block}.tier-main span{font-size:9px;color:var(--muted);display:block;margin-top:3px}.tier-progress{height:3px;background:#27303a;border-radius:8px;margin-top:7px;overflow:hidden}.tier-progress i{display:block;background:var(--gold);height:100%;border-radius:8px}.tier-status{font-size:8px;letter-spacing:.04em;color:var(--gold);font-weight:700}.tier-card.claimed .tier-status{color:var(--green)}.ad-grid{grid-template-columns:1fr 1fr;align-items:stretch}.ad-card{padding:17px}.ad-icon{width:33px;height:33px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);border-radius:9px;display:grid;place-items:center;margin-bottom:15px}.ad-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7}.ad-card h2{font-size:12px;margin:0 0 5px;font-weight:800}.ad-card p{color:var(--muted);font-size:9px;line-height:1.6;margin:0 0 15px}.daily-count{font-family:var(--mono);font-size:10px;color:var(--text);margin-bottom:12px}.daily-count b{color:var(--gold);font-weight:700}.wheel-layout{display:grid;grid-template-columns:minmax(320px,1.1fr) minmax(280px,.9fr);gap:20px;align-items:center}.wheel-card{padding:25px;text-align:center}.wheel-stage{width:min(100%,320px);aspect-ratio:1;position:relative;margin:10px auto 20px}.wheel-ring{position:absolute;inset:0;border-radius:50%;border:10px solid var(--surface3);background:conic-gradient(from 0deg,#858b92 0 40%,#40bb83 40% 70%,#5a9bd2 70% 85%,#a277d1 85% 95%,#e2bd72 95% 100%);box-shadow:0 0 0 1px var(--gold-border),0 10px 40px rgba(0,0,0,0.6);transition:transform 4.8s cubic-bezier(.12,.72,.12,1);will-change:transform}.wheel-ring:before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none}.wheel-sector-label{position:absolute;z-index:1;left:50%;top:50%;width:0;height:0;transform:rotate(var(--angle)) translateY(-96px);transform-origin:0 0;pointer-events:none}.wheel-sector-label span{display:block;width:95px;text-align:center;transform:translate(-50%,-50%) rotate(calc(90deg));color:#f6f5ec;font-size:9px;font-weight:800;letter-spacing:.035em;text-shadow:0 1px 3px #111;white-space:nowrap}.wheel-pointer{position:absolute;z-index:4;left:50%;top:-9px;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--gold);filter:drop-shadow(0 3px 4px rgba(0,0,0,0.8))}.wheel-center{position:absolute;z-index:3;inset:31%;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,#241f15,#101311 72%);box-shadow:0 3px 18px rgba(0,0,0,0.8)}.wheel-center b{font-family:var(--mono);font-size:20px;color:var(--gold);font-weight:700}.wheel-center span{font-size:7px;color:var(--muted);letter-spacing:.1em}.prize-panel{padding:20px}.prize-panel h2{margin:0 0 14px;font-size:12px;font-weight:800}.prize-list{display:grid;gap:8px}.prize-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);background:var(--surface2);border-radius:8px}.prize-label{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600}.crown-icon{width:14px;height:14px;fill:var(--gold)}.stats-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat-tile{padding:16px}.stat-tile span{font-size:9px;color:var(--muted);display:block}.stat-tile strong{font-family:var(--mono);font-size:19px;letter-spacing:-.04em;display:block;margin-top:11px;font-weight:700;color:var(--gold)}.stat-tile em{font-style:normal;color:var(--green);font-size:8px;display:block;margin-top:6px}.wallet-card{padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.wallet-symbol{width:47px;height:47px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);border-radius:13px;display:grid;place-items:center;color:var(--gold);margin-bottom:15px}.wallet-symbol svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.5}.wallet-card h2{font-size:15px;margin:0 0 7px;font-weight:800}.wallet-card p{font-size:10px;color:var(--muted);max-width:490px;line-height:1.6;margin:0}.wallet-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;color:var(--gold);padding:6px 10px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311);border-radius:99px;margin-bottom:11px;font-weight:700}.wallet-status:before{content:"";width:5px;height:5px;background:var(--gold);border-radius:50%}.wallet-connect{min-width:140px}.wallet-disclaimer{padding:14px 16px;margin-top:13px;color:var(--muted);font-size:9px;line-height:1.6;border-color:var(--gold-border);background:linear-gradient(145deg,#17150f,#0d0c09)}.wallet-disclaimer b{color:var(--gold);font-weight:700}.wallet-details{margin-top:13px;padding:16px}.wallet-details .server-row:last-child{border-bottom:0}.toast{position:fixed;z-index:50;bottom:calc(25px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);opacity:0;pointer-events:none;padding:11px 15px;background:#16221c;border:1px solid var(--gold-border);border-radius:9px;box-shadow:0 10px 35px rgba(0,0,0,0.8);color:var(--gold);font-size:10px;font-weight:700;max-width:calc(100vw - 32px);transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:rgba(3,5,8,.82);z-index:40;display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}.modal{max-width:380px;width:100%;padding:22px;background:var(--surface);border:1px solid var(--gold-border);border-radius:14px;box-shadow:0 20px 80px rgba(0,0,0,0.9)}.modal h2{margin:0 0 9px;font-size:15px;color:var(--gold);font-weight:800}.modal p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.mobile-nav{display:none}
+
+    /* Catálogo Visual de Hardware y Servidores (Estilo TotalHash Profesional) */
     .manage-actions{display:grid;gap:8px;margin-top:14px}
-    .manage-tile{display:flex;flex-direction:column;align-items:flex-start;padding:12px 14px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;width:100%;text-align:left;position:relative;transition:border-color .15s}
-    .manage-tile:hover{border-color:var(--green)}
-    .manage-tile strong{font-size:11px;color:var(--text);display:block}
+    .manage-tile{display:flex;flex-direction:column;align-items:flex-start;padding:13px 15px;background:var(--surface2);border:1px solid var(--line);border-radius:11px;width:100%;text-align:left;position:relative;transition:border-color .15s}
+    .manage-tile:hover{border-color:var(--gold)}
+    .manage-tile strong{font-size:11px;color:var(--text);display:block;font-weight:700}
     .manage-tile span{font-size:9px;color:var(--muted);display:block;margin-top:3px}
-    .tile-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted)}
+    .tile-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--gold)}
 
     .automation-card{padding:16px}
     .auto-track{width:100%;height:6px;background:#27313b;border-radius:99px;overflow:hidden;margin:10px 0 6px}
-    .auto-fill{height:100%;background:linear-gradient(90deg,#339d71,#5de0a7);border-radius:99px}
-    .auto-meta{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#85919c;margin-bottom:8px}
+    .auto-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:99px}
+    .auto-meta{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--muted);margin-bottom:8px}
 
-    /* Estilos corregidos para las barras de progreso globales y de estadísticas */
     .progress-section{padding:18px;margin-top:13px}
-    .progress-line{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#9aa5ae;margin-top:10px;margin-bottom:4px}
-    .progress-line strong{font-family:var(--mono);color:#e2bd72;font-weight:500}
+    .progress-line{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--muted);margin-top:10px;margin-bottom:4px}
+    .progress-line strong{font-family:var(--mono);color:var(--gold);font-weight:600}
     .progress-track{width:100%;height:7px;background:#28313b;border-radius:99px;overflow:hidden;margin-bottom:6px}
-    .global-fill{height:100%;background:linear-gradient(90deg,#30835d,#53bd89);border-radius:99px}
+    .global-fill{height:100%;background:linear-gradient(90deg,#30835d,var(--gold));border-radius:99px}
     .personal-fill{height:100%;background:linear-gradient(90deg,#4285f3,#6ab7ff);border-radius:99px}
     .progress-foot{font-size:9px;color:var(--muted);margin-top:10px;line-height:1.5}
 
-    .manage-menu{padding:16px;margin-top:10px;background:#131a22;border:1px solid #35413d;border-radius:12px}
-    .manage-menu-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-    .manage-menu-head h2{font-size:12px;margin:0}
+    .manage-menu{padding:18px;margin-top:12px;background:linear-gradient(145deg,#111722,#0d121b);border:1px solid var(--gold-border);border-radius:13px;box-shadow:0 12px 30px rgba(0,0,0,0.6)}
+    .manage-menu-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px}
+    .manage-menu-head h2{font-size:13px;margin:0;color:var(--gold);font-weight:800}
     .manage-menu-head p{font-size:9px;color:var(--muted);margin:4px 0 0}
-    .menu-close{background:none;border:0;color:var(--muted);font-size:11px;padding:2px 6px}
-    .server-offers{display:grid;gap:10px}
-    .server-offer{background:#10151c;border:1px solid #222b35;border-radius:9px;padding:10px}
-    .server-offer-head{display:flex;justify-content:space-between;font-size:10px;margin-bottom:6px}
-    .server-yield{font-size:9px;color:var(--green);font-family:var(--mono);margin-bottom:8px}
+    .menu-close{background:none;border:0;color:var(--gold);font-size:12px;font-weight:700;padding:2px 6px}
+    
+    .server-hardware-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .hardware-card{background:var(--surface2);border:1px solid var(--line);border-radius:11px;padding:13px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center;position:relative;overflow:hidden}
+    .hardware-card:hover{border-color:var(--gold-border)}
+    .hardware-img{width:56px;height:56px;border-radius:9px;background:radial-gradient(circle,#24332b,#101614);border:1px solid var(--gold-border);display:grid;place-items:center;color:var(--gold);font-size:11px;font-weight:800;font-family:var(--mono);text-align:center;box-shadow:inset 0 0 10px rgba(70,216,155,0.2)}
+    .hardware-info h3{margin:0 0 2px;font-size:11px;color:var(--text);font-weight:700}
+    .hardware-info .hw-specs{font-size:8.5px;color:var(--muted);margin-bottom:6px;display:block}
+    .hardware-yield{font-size:9.5px;color:var(--green);font-family:var(--mono);font-weight:700;margin-bottom:8px;display:block}
     .offer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
-    .offer-btn{background:#17251d;border:1px solid #3a493f;border-radius:6px;padding:6px 4px;text-align:center;color:#bfe9cf}
-    .offer-btn strong{display:block;font-size:9px}
-    .offer-btn span{display:block;font-size:8px;font-family:var(--mono)}
+    .offer-btn{background:linear-gradient(135deg,#1f1a11,#111311);border:1px solid var(--gold-border);border-radius:6px;padding:6px 3px;text-align:center;color:var(--gold);transition:all .1s}
+    .offer-btn:hover{background:linear-gradient(135deg,#292316,#171b19);border-color:var(--gold)}
+    .offer-btn strong{display:block;font-size:9px;font-weight:800}
+    .offer-btn span{display:block;font-size:8px;font-family:var(--mono);color:var(--text)}
     .offer-btn small{display:block;font-size:7px;color:var(--muted)}
-    .formula-note{font-size:9px;color:var(--muted);margin-top:10px;line-height:1.5}
-    .multiplier-offers{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
-    .multiplier-offer{background:#10151c;border:1px solid #222b35;border-radius:8px;padding:8px;text-align:center}
-    .multiplier-offer strong{display:block;font-size:11px;color:var(--gold)}
-    .multiplier-offer span{display:block;font-size:8px;color:var(--muted);margin:2px 0 6px}
-    .multiplier-offer button{width:100%;padding:5px;background:#17251d;border:1px solid #3a493f;border-radius:6px;font-size:8px;color:#d6f1e0}
+    .formula-note{font-size:9px;color:var(--muted);margin-top:12px;line-height:1.5}
 
-    .level-goals-embedded{margin-top:10px;padding-top:10px;border-top:1px solid #26303b}
-    .level-goal-summary{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:#909ba3;margin-bottom:5px}
-    .level-goal-summary strong{color:#e2bd72;font-weight:500;text-align:right}
+    .multiplier-offers{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+    .multiplier-offer{background:var(--surface2);border:1px solid var(--line);border-radius:9px;padding:9px;text-align:center}
+    .multiplier-offer strong{display:block;font-size:12px;color:var(--gold);font-weight:800}
+    .multiplier-offer span{display:block;font-size:8px;color:var(--muted);margin:2px 0 6px}
+    .multiplier-offer button{width:100%;padding:6px;background:linear-gradient(135deg,#1f1a11,#111311);border:1px solid var(--gold-border);border-radius:6px;font-size:8.5px;color:var(--gold);font-weight:700}
+
+    .level-goals-embedded{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+    .level-goal-summary{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:var(--muted);margin-bottom:5px}
+    .level-goal-summary strong{color:var(--gold);font-weight:700;text-align:right}
     .milestone-grid-compact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
-    .milestone-item-compact{padding:5px 4px;border:1px solid #29323c;border-radius:6px;background:#10151b;color:#89959d;text-align:center;font-size:7px;line-height:1.4}
-    .milestone-item-compact strong{display:block;font:500 8px var(--mono);color:#dce4e7}
-    .milestone-item-compact.done{border-color:#315640;background:#142119;color:#8eaa99}
-    .milestone-item-compact.done strong{color:#6ed7a2}
+    .milestone-item-compact{padding:5px 4px;border:1px solid var(--line);border-radius:6px;background:var(--surface2);color:var(--muted);text-align:center;font-size:7px;line-height:1.4}
+    .milestone-item-compact strong{display:block;font:500 8px var(--mono);color:var(--text)}
+    .milestone-item-compact.done{border-color:#315640;background:#142119;color:var(--green)}
+    .milestone-item-compact.done strong{color:var(--green)}
     .energy-pack-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-    .energy-pack{padding:11px 8px;border:1px solid #303943;border-radius:8px;background:#111820;text-align:center}
-    .energy-pack strong{display:block;font:500 12px var(--mono);color:#dce9e2}
-    .energy-pack span{display:block;margin:5px 0;font-size:8px;color:#89959d}
-    .energy-pack button{width:100%;padding:7px 4px;border:1px solid #3d5e4b;border-radius:6px;background:#17251d;color:#d6f1e0;font-size:8px}
-    .energy-pack button:hover{border-color:#5d876b}
-    .energy-pack button:disabled{cursor:not-allowed}
+    .energy-pack{padding:12px 9px;border:1px solid var(--gold-border);border-radius:9px;background:var(--surface2);text-align:center}
+    .energy-pack strong{display:block;font:700 12px var(--mono);color:var(--gold)}
+    .energy-pack span{display:block;margin:4px 0;font-size:8.5px;color:var(--muted)}
+    .energy-pack button{width:100%;padding:7px 4px;border:1px solid var(--gold-border);border-radius:6px;background:linear-gradient(135deg,#1f1a11,#111311);color:var(--gold);font-size:8.5px;font-weight:700}
+    .energy-pack button:hover{border-color:var(--gold)}
     .energy-shop-tile{grid-column:1/-1}
+
     .leaderboard-card{margin-top:16px;padding:18px}
     .leaderboard-list{display:grid;gap:6px;margin-top:12px;max-height:300px;overflow-y:auto}
-    .leaderboard-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 11px;background:#10151c;border:1px solid #222b35;border-radius:8px;font-size:10px}
-    .leaderboard-row.user-row{border-color:#32644a;background:#14271d}
-    .leaderboard-rank{font-family:var(--mono);font-weight:700;color:var(--gold)}
-    .leaderboard-name{font-weight:600;color:#e0e6e8}
-    .leaderboard-score{font-family:var(--mono);color:var(--green)}
+    .leaderboard-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 11px;background:var(--surface2);border:1px solid var(--line);border-radius:8px;font-size:10px}
+    .leaderboard-row.user-row{border-color:var(--gold-border);background:linear-gradient(145deg,#1f1a11,#131612)}
+    .leaderboard-rank{font-family:var(--mono);font-weight:800;color:var(--gold)}
+    .leaderboard-name{font-weight:700;color:var(--text)}
+    .leaderboard-score{font-family:var(--mono);color:var(--green);font-weight:700}
 
-    @media(max-width:600px){
-      .offer-grid{grid-template-columns:repeat(3,1fr)}
-      .multiplier-offers{grid-template-columns:repeat(3,1fr)}
-      .top-meta{gap:5px}
-      .language-select{height:29px;max-width:78px;padding-left:6px;font-size:8px}
-      .mine-balance .balance-line .balance-value{font-size:31px}
-      .energy-inline{padding:10px 11px}
-    }
+    @media(max-width:850px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px 22px 98px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;padding:8px 9px calc(9px + env(safe-area-inset-bottom));background:rgba(8,11,15,.96);border-top:1px solid var(--line);backdrop-filter:blur(16px);z-index:20}.mobile-nav .nav-item{flex-direction:column;justify-content:center;gap:4px;font-size:8px;padding:6px 2px;border-radius:8px}.mobile-nav .nav-item svg{width:17px;height:17px}.topbar{margin-bottom:23px}.mine-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.offer-grid{grid-template-columns:repeat(3,1fr)}.multiplier-offers{grid-template-columns:repeat(3,1fr)}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
   <!-- AdsGram SDK Integration Hook -->
   <script src="https://sad.adsgram.ai/js/sad.js" async></script>
@@ -120,15 +102,15 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-      <div class="brand"><div class="brand-mark" aria-hidden="true">VY</div><div class="brand-title">VYCH COIN<span class="brand-sub">MINER · PROD</span></div></div>
+      <div class="brand"><div class="brand-mark" aria-hidden="true">VY</div><div class="brand-title">VYCH COIN<span class="brand-sub">PRO MINING</span></div></div>
       <div class="nav-label" id="sidebarNavLabel">Control center</div>
       <nav class="nav-list" id="desktopNav"></nav>
       <div class="sidebar-bottom">
-        <div class="demo-note"><div class="eyebrow" id="demoNoteTitle">Production network</div><p id="demoNoteBody">Progress is secured and synchronized in real time. VYCH token conversion ratio is 1:1.</p></div>
+        <div class="demo-note"><div class="eyebrow" id="demoNoteTitle">Production network</div><p id="demoNoteBody">Progress is secured and synchronized in real time. Token conversion ratio is 1:1.</p></div>
       </div>
     </aside>
     <main class="main">
-      <header class="topbar"><div class="top-brand"><span class="brand-mark" aria-hidden="true">VY</span><span class="top-brand-copy"><strong>VYCH COIN MINER</strong><small id="topSubtitle">Mining center</small></span></div><div class="top-meta"><select class="language-select" id="languageSelect" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="zh">中文</option><option value="ru">Русский</option><option value="pt">Português</option></select><div class="live-pill"><i class="live-dot"></i> <span id="localDemoLabel">Live Network</span></div><div class="avatar" aria-label="Profile">VY</div></div></header>
+      <header class="topbar"><div class="top-brand"><span class="brand-mark" aria-hidden="true">VY</span><span class="top-brand-copy"><strong>VYCH COIN MINER</strong><small id="topSubtitle">PRO MINING PLATFORM</small></span></div><div class="top-meta"><select class="language-select" id="languageSelect" aria-label="Language" style="height:31px;max-width:92px;border:1px solid var(--gold-border);border-radius:8px;background:var(--surface2);color:var(--gold);padding:0 22px 0 8px;font:700 9px var(--font);outline:none"><option value="en">English</option><option value="es">Español</option><option value="zh">中文</option><option value="ru">Русский</option><option value="pt">Português</option></select><div class="live-pill"><i class="live-dot"></i> <span id="localDemoLabel">Live Network</span></div><div class="avatar" aria-label="Profile">VY</div></div></header>
       <div id="view" aria-live="polite"></div>
     </main>
   </div>
@@ -216,9 +198,7 @@
     const TRANSLATIONS_MAP = [
       ["controlCenter","Control center","Centro de control","控制中心","Central de controle"],
       ["simulationEnvironment","Production environment","Entorno de producción","生产环境","Ambiente de produção"],
-      ["deviceStorage","Progress is secure. VYCH conversion ratio is 1:1.","El progreso es seguro. La conversión de VYCH es 1:1.","进度安全。VYCH 兑换比例为 1:1。","O progresso é seguro. A conversão de VYCH é 1:1."],
-      ["resetDemo","","","",""],
-      ["reset","","","",""],
+      ["deviceStorage","Progress is secure. Conversion ratio is 1:1.","El progreso es seguro. La conversión es 1:1.","进度安全。兑换比例为 1:1。","O progresso é seguro. A conversão é 1:1."],
       ["localDemo","Live Network","Red en vivo","实时网络","Rede ao vivo"],
       ["miningCenter","Mining center","Centro de minería","挖矿中心","Central de mineração"],
       ["language","Language","Idioma","语言","Idioma"],
@@ -230,12 +210,12 @@
       ["navigationMain","Main navigation","Navegación principal","主导航","Navegação principal"],
       ["navigationBottom","Bottom navigation","Navegación inferior","底部导航","Navegação inferior"],
       ["demoProfile","Profile","Perfil","资料","Perfil"],
-      ["miningKicker","Mining dashboard","Panel de minería","挖矿面板","Painel de mineração"],
+      ["miningKicker","Pro mining dashboard","Panel de minería pro","专业挖矿面板","Painel de mineração pró"],
       ["miningTitle","Mining center","Centro de minería","挖矿中心","Central de mineração"],
-      ["miningDesc","Mine blocks to earn VYCH. Balance is saved securely.","Mina bloques para ganar VYCH. El saldo se guarda de forma segura.","挖区块赚取 VYCH。余额安全保存。","Mine blocos para ganhar VYCH. O saldo é salvo com segurança."],
+      ["miningDesc","Mine blocks with high-performance hardware. Balance is saved securely.","Mina bloques con hardware de alto rendimiento. Saldo seguro.","使用高性能硬件挖区块。余额安全保存。","Mine blocos com hardware de alto desempenho. Saldo seguro."],
       ["activeProgress","Active progress","Progreso activo","当前进度","Progresso ativo"],
       ["balanceAvailable","Available balance","Saldo disponible","可用余额","Saldo disponível"],
-      ["demoBalance","Token conversion 1:1","Conversión de token 1:1","代币兑换 1:1","Conversão de token 1:1"],
+      ["demoBalance","Virtual mining balance","Saldo de minería virtual","虚拟挖矿余额","Saldo de mineração virtual"],
       ["level","Level","Nivel","等级","Nível"],
       ["of100","/ 100","/ 100","/ 100","/ 100"],
       ["nextLevel","{amount} VYCH To Lv {level}","{amount} VYCH To Lv {level}","距 {level} 级还需 {amount} VYCH","{amount} VYCH To Lv {level}"],
@@ -263,7 +243,7 @@
       ["multiplierActive","multiplier active","multiplicador activo","当前倍率","multiplicador ativo"],
       ["blocksTotal","Total blocks","Bloques totales","区块总数","Blocos totais"],
       ["estimatedGain","Estimated gain","Ganancia estimada","预计收益","Ganho estimado"],
-      ["activeInstance","Active instance","Instancia activa","当前实例","Instância ativa"],
+      ["activeInstance","Active hardware instance","Instancia de hardware activa","当前硬件实例","Instância de hardware ativa"],
       ["demo","PROD","PROD","正式","PROD"],
       ["finishesIn","Ends in {time}","Finaliza en {time}","剩余 {time}","Termina em {time}"],
       ["noLease","No active rental","Sin alquiler activo","没有有效租赁","Sem aluguel ativo"],
@@ -274,25 +254,25 @@
       ["finished","FINISHED","FINALIZADO","已结束","CONCLUÍDO"],
       ["notActivated","NOT ACTIVE","SIN ACTIVAR","未启用","NÃO ATIVADO"],
       ["localProgress","Local progress","Progreso local","本地进度","Progresso local"],
-      ["serverManagement","Server management","Gestión de servidores","服务器管理","Gestão de servidores"],
-      ["nodeSummary","4 nodes · progressive AutoMine","4 nodos · AutoMine progresivo","4 个节点 · 渐进式自动挖矿","4 nós · AutoMine progressivo"],
-      ["serverMenuTitle","Server rentals","Alquiler de servidores","服务器租赁","Aluguel de servidores"],
-      ["serverMenuDesc","Choose a node and duration. Rewards accrue progressively during the rental.","Elige nodo y duración. Las recompensas se acreditan progresivamente durante el alquiler.","选择节点和期限。租赁期间奖励将逐步到账。","Escolha um nó e duração. As recompensas são creditadas progressivamente durante o aluguel."],
+      ["serverManagement","Hardware management","Gestión de hardware","硬件管理","Gestão de hardware"],
+      ["nodeSummary","4 pro servers · progressive AutoMine","4 servidores pro · AutoMine progresivo","4 个专业服务器 · 渐进式自动挖矿","4 servidores pró · AutoMine progressivo"],
+      ["serverMenuTitle","Professional hardware catalog","Catálogo de hardware profesional","专业硬件目录","Catálogo de hardware profissional"],
+      ["serverMenuDesc","Choose a professional server node and duration. Rewards accrue progressively.","Elige un nodo de servidor profesional y duración. Las recompensas se acumulan progresivamente.","选择专业服务器节点和期限。奖励将逐步累积。","Escolha um nó de servidor profissional e duração. As recompensas acumulam-se progressivamente."],
       ["dailyBase","Base: {amount} VYCH / 24 h","Base: {amount} VYCH / 24 h","基础收益：{amount} VYCH / 24 小时","Base: {amount} VYCH / 24 h"],
       ["close","Close","Cerrar","关闭","Fechar"],
-      ["totalFormula","Formula: total reward = daily 24-hour base × rental days. (Token conversion: 1:1)","Fórmula: recompensa total = base diaria de 24 h × días de alquiler. (Conversión de token: 1:1)","公式：总奖励 = 每日基础收益 × 租赁天数。（代币兑换：1:1）","Fórmula: recompensa total = base diária de 24 h × dias de aluguel. (Conversão de token: 1:1)"],
-      ["progressive","Rewards accrue progressively. Rentals and upgrades are active.","Las recompensas se acreditan progresivamente. Los alquileres y mejoras están activos.","奖励将逐步到账。租赁和升级已启用。","As recompensas são creditadas progressivamente. Aluguéis e melhorias ativos."],
-      ["multiplierMenuTitle","Multipliers","Multiplicadores","倍率","Multiplicadores"],
-      ["multiplierMenuDesc","Choose the power for your next manual blocks.","Elige la potencia para tus próximos bloques manuales.","选择后续手动挖矿的倍率。","Escolha a potência dos próximos blocos manuais."],
+      ["totalFormula","Formula: total reward = daily 24-hour base × rental days.","Fórmula: recompensa total = base diaria de 24 h × días de alquiler.","公式：总奖励 = 每日基础收益 × 租赁天数。","Fórmula: recompensa total = base diária de 24 h × dias de aluguel."],
+      ["progressive","Hardware operational and yields accruing in real time.","Hardware operativo y rendimientos acumulándose en tiempo real.","硬件正常运行，收益实时累积。","Hardware operacional e rendimentos acumulando em tempo real."],
+      ["multiplierMenuTitle","Power Multipliers","Multiplicadores de potencia","算力倍率","Multiplicadores de potência"],
+      ["multiplierMenuDesc","Boost your manual block mining power with elite multipliers.","Aumenta tu potencia de minado manual con multiplicadores de élite.","使用精英倍率提升您的手动挖矿算力。","Aumente sua potência de mineração manual com multiplicadores de elite."],
       ["perBlock","VYCH / block","VYCH / bloque","VYCH / 区块","VYCH / bloco"],
       ["active","Active","Activo","已启用","Ativo"],
       ["energyStore","Energy shop","Tienda de energía","能量商店","Loja de energia"],
-      ["energyStoreDesc","Buy an energy pack with Stars. Permanently increases max energy capacity.","Compra un paquete de energía con Stars. Aumenta permanentemente tu capacidad máxima de energía.","使用 Stars 购买能量包。永久增加最大能量上限。","Compre um pacote de energia com Stars. Aumenta permanentemente sua capacidade máxima de energia."],
-      ["energyPackages","Energy packages","Paquetes de energía","能量套餐","Pacotes de energia"],
+      ["energyStoreDesc","Buy a professional battery pack with Stars to permanently increase max capacity.","Compra un paquete de baterías profesionales con Stars para aumentar permanentemente tu capacidad máxima.","使用 Stars 购买专业电池包以永久增加最大容量。","Compre um pacote de baterias profissionais com Stars para aumentar permanentemente sua capacidade máxima."],
+      ["energyPackages","Battery packs","Paquetes de baterías","电池套餐","Pacotes de baterias"],
       ["fullEnergy","Energy is at capacity","La energía está al máximo","能量已满","Energia no limite"],
       ["buyDemo","Buy package","Comprar paquete","购买","Comprar pacote"],
       ["historyTitle","Latest mined blocks (Global Ecosystem)","Últimos bloques minados (Ecosistema global)","最近挖出的区块（全局生态）","Blocos minerados recentes (Ecossistema global)"],
-      ["historyLimit","Max 25 · Global network history","Máximo 25 · historial red global","最多 25 条 · 全局网络记录","Máximo 25 · histórico da rede global"],
+      ["historyLimit","Max 25 · Real-time auto sync","Máximo 25 · Sincronización automática en tiempo real","最多 25 条 · 实时自动同步","Máximo 25 · Sincronização automática em tempo real"],
       ["historyEmpty","No blocks yet.","Aún no hay bloques.","还没有区块。","Ainda não há blocos."],
       ["blockLevel","Level","Nivel","等级","Nível"],
       ["blockPower","Power","Potencia","倍率","Potência"],
@@ -300,26 +280,27 @@
       ["blockReward","Reward","Recompensa","奖励","Recompensa"],
       ["blockTime","Time","Hora","时间","Hora"],
       ["serverPrefix","Server","Servidor","服务器","Servidor"],
-      ["refKicker","VYCH circle","Círculo VYCH","VYCH 社群","Círculo VYCH"],
-      ["refTitle","Grow with your team","Crece con tu equipo","与团队共同成长","Cresça com sua equipe"],
-      ["refDesc","Invite people and unlock milestone rewards.","Invita a otras personas y desbloquea recompensas por hitos.","邀请他人并解锁里程碑奖励。","Convide pessoas e desbloqueie recompensas por marcos."],
+      ["refKicker","VYCH community circle","Círculo de comunidad VYCH","VYCH 社区圈子","Círculo da comunidade VYCH"],
+      ["refTitle","Grow with your mining pool","Crece con tu pool de minería","与您的挖矿池共同成长","Cresça com seu pool de mineração"],
+      ["refDesc","Share your unique invitation link and unlock milestone rewards.","Comparte tu enlace de invitación único y desbloquea recompensas por hitos.","分享您的专属邀请链接并解锁里程碑奖励。","Compartilhe seu link de convite exclusivo e desbloqueie recompensas por marcos."],
       ["refTag","Milestone rewards","Recompensas por hitos","里程碑奖励","Recompensas por marcos"],
       ["simulatedReferrals","Total referrals","Total de referidos","总推荐人数","Total de indicações"],
       ["rewardsClaimed","VYCH from claimed milestones: {amount}","VYCH por hitos reclamados: {amount}","已领取里程碑奖励：{amount} VYCH","VYCH por marcos resgatados: {amount}"],
-      ["copyInvite","Copy invite","Copiar invitación","复制邀请","Copiar convite"],
+      ["copyInvite","Copy invite link","Copiar enlace de invitación","复制邀请链接","Copiar link de convite"],
+      ["shareTelegram","Share on Telegram","Compartir en Telegram","在 Telegram 上分享","Compartilhar no Telegram"],
       ["referral","referral","referido","位推荐","indicação"],
       ["referrals","referrals","referidos","位推荐","indicações"],
       ["toUnlock","to unlock","para desbloquear","解锁还需","para desbloquear"],
       ["claimed","CLAIMED","RECLAMADO","已领取","RESGATADO"],
       ["available","AVAILABLE","DISPONIBLE","可领取","DISPONÍVEL"],
       ["pending","PENDING","PENDIENTE","待解锁","PENDENTE"],
-      ["referralUnverified","Referral tracking link is active and working.","El enlace de seguimiento de referidos está activo y funcionando.","推荐跟踪链接已激活并正常运行。","O link de rastreamento de indicações está ativo e funcionando."],
-      ["tasksKicker","Daily activity","Actividad diaria","每日活动","Atividade diária"],
+      ["referralUnverified","Referral tracking link is active and connected to database.","El enlace de seguimiento de referidos está activo y conectado a la base de datos.","推荐跟踪链接已激活并连接到数据库。","O link de rastreamento de indicações está ativo e conectado ao banco de dados."],
+      ["tasksKicker","Daily operations","Operaciones diarias","每日运营","Operações diárias"],
       ["tasksTitle","Rewards and tasks","Recompensas y tareas","奖励与任务","Recompensas e tarefas"],
-      ["tasksDesc","Complete daily actions. Limits reset at 00:00 UTC.","Completa acciones diarias. Los límites se reinician a las 00:00 UTC.","完成每日活动。限制于 UTC 00:00 重置。","Complete ações diárias. Os limites reiniciam às 00:00 UTC."],
+      ["tasksDesc","Complete daily mining actions. Limits reset at 00:00 UTC.","Completa acciones de minería diarias. Los límites se reinician a las 00:00 UTC.","完成每日挖矿操作。限制于 UTC 00:00 重置。","Complete ações diárias de mineração. Os limites reiniciam às 00:00 UTC."],
       ["resetUtc","Resets 00:00 UTC","Reinicio 00:00 UTC","UTC 00:00 重置","Reinício às 00:00 UTC"],
       ["energyBoost","Energy boost","Impulso de energía","能量补充","Impulso de energia"],
-      ["energyAdDesc","Watch an ad to receive 300–500 energy. Energy cannot exceed your capacity; overflow is discarded.","Mira un anuncio para recibir 300–500 de energía. No puede superar tu capacidad; el excedente se descarta.","观看广告可获得 300–500 能量。不能超过能量上限，超出部分将丢弃。","Assista a um anúncio para receber 300–500 de energia. Ela não excede sua capacidade; o excedente é descartado."],
+      ["energyAdDesc","Watch an ad to receive 300–500 energy. Energy cannot exceed your capacity.","Mira un anuncio para recibir 300–500 de energía. No puede superar tu capacidad.","观看广告可获得 300–500 能量。不能超过能量上限。","Assista a um anúncio para receber 300–500 de energia. Não pode exceder sua capacidade."],
       ["usesToday","Uses today","Usos de hoy","今日次数","Usos hoje"],
       ["simulateReward","Claim reward","Reclamar recompensa","领取奖励","Resgatar recompensa"],
       ["extraSpins","Wheel spins","Giros de la rueda","转盘次数","Giros da roleta"],
@@ -340,43 +321,43 @@
       ["special","Special","Especial","特殊","Especial"],
       ["legendary","Legendary","Legendario","传奇","Lendário"],
       ["energyPrize","⚡ 300–500 energy","⚡ 300–500 energía","⚡ 300–500 能量","⚡ 300–500 energia"],
-      ["spinIndependent","Common prize is random energy, subject to capacity. Other prizes are VYCH (Token conversion: 1:1). Every spin is independent.","El premio común es energía aleatoria, limitada por la capacidad. Los demás son VYCH (Conversión 1:1). Cada giro es independiente.","普通奖励为随机能量，受容量限制。其他奖励为 VYCH（兑换比例 1:1）。每次抽奖独立。","O prêmio comum é energia aleatória, limitada pela capacidade. Os demais são VYCH (Conversão 1:1). Cada giro é independente."],
+      ["spinIndependent","Common prize is random energy, subject to capacity. Other prizes are VYCH. Every spin is independent.","El premio común es energía aleatoria, limitada por la capacidad. Los demás son VYCH. Cada giro es independiente.","普通奖励为随机能量，受容量限制。其他奖励为 VYCH。每次抽奖独立。","O prêmio comum é energia aleatória, limitada pela capacidade. Os demais são VYCH. Cada giro é independente."],
       ["spinning","Spinning…","Girando…","转动中…","Girando…"],
       ["freeUsed","Free spin used","Giro gratuito usado","免费次数已用","Giro grátis usado"],
       ["freeSpinButton","Spin free","Girar gratis","免费抽奖","Girar grátis"],
       ["adSpinLimit","You reached the daily spin limit.","Has alcanzado el límite diario de giros.","已达到每日抽奖上限。","Você atingiu o limite diário de giros."],
       ["energyAdLimit","You reached the daily energy ad limit.","Has alcanzado el límite diario de anuncios de energía.","您已达到每日能量广告上限。","Você atingiu o limite diário de anúncios de energia."],
-      ["statsKicker","Personal stats","Datos personales","个人统计","Estatísticas pessoais"],
+      ["statsKicker","Performance stats","Estadísticas de rendimiento","性能统计","Estatísticas de desempenho"],
       ["statsTitle","Your progress in numbers","Tu progreso en cifras","数据化进度","Seu progresso em números"],
-      ["statsDesc","Metrics are calculated from your activity; token conversion is 1:1.","Métricas calculadas a partir de tu actividad; la conversión de tokens es 1:1.","数据根据您的活动计算；代币兑换比例为 1:1。","Métricas calculadas a partir da sua atividade; a conversão de tokens é 1:1."],
+      ["statsDesc","Metrics are calculated from your real mining activity.","Métricas calculadas a partir de tu actividad de minería real.","根据您的真实挖矿活动计算指标。","Métricas calculadas a partir da sua atividade real de mineração."],
       ["onlyDevice","Cloud & Device","Nube y dispositivo","云端与设备","Nuvem e Dispositivo"],
       ["totalSupply","Project total supply","Oferta total del proyecto","项目总供应量","Oferta total do projeto"],
-      ["miningAllocation","Allocated to mining (Conversion 1:1)","Asignado a minería (Conversión 1:1)","分配给挖矿（兑换 1:1）","Alocado para mineração (Conversão 1:1)"],
+      ["miningAllocation","Allocated to mining","Asignado a minería","分配给挖矿","Alocado para mineração"],
       ["blocksMined","Blocks mined","Bloques minados","已挖区块","Blocos minerados"],
       ["todayGain","Today's earnings","Ganancia de hoy","今日收益","Ganhos de hoje"],
       ["lifetimeGain","Lifetime earnings","Ganancia acumulada","累计收益","Ganhos acumulados"],
       ["supplyShare","Your share of supply","Tu parte de la oferta","你的供应占比","Sua parte da oferta"],
-      ["referenceDemo","VYCH · token allocation · 1:1","VYCH · asignación de token · 1:1","VYCH · 代币分配 · 1:1","VYCH · alocação de token · 1:1"],
+      ["referenceDemo","VYCH · tokenomics allocation","VYCH · asignación tokenómica","VYCH · 代币经济分配","VYCH · alocação tokenômica"],
       ["percentOfSupply","of total supply","de la oferta total","占总供应量","da oferta total"],
       ["miningProgress","Mining progress","Progreso de minería","挖矿进度","Progresso da mineração"],
-      ["pool","Mining pool · 600,000,000 VYCH (Token conversion: 1:1)","Pool destinado a minería · 600.000.000 VYCH (Conversión 1:1)","挖矿池 · 600,000,000 VYCH（兑换 1:1）","Pool de mineração · 600,000,000 VYCH (Conversão 1:1)"],
+      ["pool","Mining pool · 600,000,000 VYCH","Pool de minería · 600.000.000 VYCH","挖矿池 · 600,000,000 VYCH","Pool de mineração · 600,000,000 VYCH"],
       ["globalProgress","Global progress (Distributed mining)","Avance global (Minería distribuida)","全局进度（分布式挖矿）","Progresso global (Mineração distribuída)"],
       ["personalProgress","Personal progress","Avance personal","个人进度","Progresso pessoal"],
-      ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners. Token conversion is strictly 1:1.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros comunitarios. Conversión 1:1.","全局进度随生态系统活动和社区矿工动态增加。代币兑换比例严格为 1:1。","O progresso global aumenta dinâmicamente com a atividade da comunidade. Conversão de token 1:1."],
-      ["walletKicker","Your wallet","Tu cartera","你的钱包","Sua carteira"],
-      ["walletTitle","Connection information","Conexión informativa","连接信息","Informações de conexão"],
-      ["walletDesc","Check your blockchain connection state and wallet.","Comprueba el estado de tu conexión blockchain y cartera.","检查您的区块链连接状态和钱包。","Verifique o estado da sua conexão blockchain e carteira."],
+      ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros.","全局进度随生态系统活动和矿工动态增加。","O progresso global aumenta dinâmicamente com a atividade da comunidade."],
+      ["walletKicker","Wallet center","Centro de cartera","钱包中心","Central de carteira"],
+      ["walletTitle","Connection & asset information","Información de conexión y activos","连接与资产信息","Informações de conexão e ativos"],
+      ["walletDesc","Check your connection state. Web3 integration prepared for TGE.","Comprueba el estado de tu conexión. Integración Web3 preparada para el TGE.","检查您的连接状态。为 TGE 准备的 Web3 集成。","Verifique o estado da sua conexão. Integração Web3 preparada para o TGE."],
       ["noBlockchain","Connected network","Red conectada","已连接网络","Rede conectada"],
       ["walletConnected","Wallet connected","Cartera conectada","钱包已连接","Carteira conectada"],
       ["walletDisconnected","Not connected","Sin conexión","未连接","Desconectada"],
-      ["walletTesting","Active wallet session","Sesión de cartera activa","活动钱包会话","Sessão de carteira ativa"],
+      ["walletTesting","Active session","Sesión activa","活动会话","Sessão ativa"],
       ["controlYourVych","Your VYCH, under your control","Tu VYCH, bajo tu control","你的 VYCH，由你掌控","Seu VYCH, sob seu controle"],
-      ["localConnText","Your wallet connection is active and secure.","La conexión de tu cartera está activa y segura.","您的钱包连接处于活动且安全状态。","A conexão da sua carteira está ativa e segura."],
+      ["localConnText","Your wallet session is active and secure.","La sesión de tu cartera está activa y segura.","您的钱包会话处于活动且安全状态。","A sessão da sua carteira está ativa e segura."],
       ["notRequired","Connect your Web3 wallet for official claims and transfers.","Conecta tu cartera Web3 para reclamaciones y transferencias oficiales.","连接您的 Web3 钱包以进行官方领取和转账。","Conecte sua carteira Web3 para resgates e transferências oficiais."],
       ["simulateConnection","Connect wallet","Conectar cartera","连接钱包","Conectar carteira"],
-      ["disconnectDemo","Disconnect","Desconectar","断开连接","Desconectar"],
+      ["disconnectDemo","Disconnect","Desconectar","断开连接","Desconectectar"],
       ["important","Important:","Importante:","重要：","Importante:"],
-      ["walletDisclaimer","Your assets are secured on the network. Token conversion ratio is 1:1. VYCH has a defined utility ecosystem.","Tus activos están seguros en la red. La conversión es 1:1. VYCH tiene un ecosistema de utilidad definido.","您的资产在网络上受到保护。兑换比例为 1:1。VYCH 拥有明确的实用生态系统。","Seus ativos estão protegidos na rede. A conversão é 1:1. VYCH possui ecossistema de utilidade."],
+      ["walletDisclaimer","Your assets are secured on the network. Conversion ratio is 1:1. VYCH has a defined utility ecosystem.","Tus activos están seguros en la red. Conversión 1:1. VYCH tiene un ecosistema de utilidad definido.","您的资产在网络上受到保护。兑换比例为 1:1。VYCH 拥有明确的实用生态系统。","Seus ativos estão protegidos na rede. A conversão é 1:1. VYCH possui ecossistema de utilidade."],
       ["stateExperience","Experience status","Estado de la experiencia","体验状态","Status da experiência"],
       ["blockchainNetwork","Blockchain network","Red blockchain","区块链网络","Rede blockchain"],
       ["notConnected","Connected","Conectado","已连接","Conectado"],
@@ -384,38 +365,35 @@
       ["noWithdrawals","Available upon TGE","Disponible en el TGE","TGE 时开放","Disponível no TGE"],
       ["storage","Storage","Almacenamiento","存储","Armazenamento"],
       ["activeLabel","ACTIVE","ACTIVO","运行中","ATIVO"],
-      ["dialogResetTitle","","","",""],
-      ["dialogResetBody","","","",""],
-      ["confirmReset","","","",""],
       ["saveError","Could not save changes.","No se pudieron guardar los cambios.","无法保存更改。","Não foi possível salvar as alterações."],
       ["insufficientEnergy","Not enough energy. It regenerates at +10 per minute.","Energía insuficiente. Se regenera +10 por minuto.","能量不足。每分钟恢复 10 点。","Energia insuficiente. Regenera +10 por minuto."],
-      ["blockMined","Block mined · +{amount} VYCH (1:1)","Bloque minado · +{amount} VYCH (1:1)","区块已挖出 · +{amount} VYCH (1:1)","Bloco minerado · +{amount} VYCH (1:1)"],
-      ["serverDialogTitle","Activate AutoMine","Activar AutoMine","启用自动挖矿","Ativar AutoMine"],
-      ["serverDialogBody","Activate {server} for {duration}. Price: {price}⭐ Stars. AutoMine will credit {reward} VYCH progressively (1:1).","Activar {server} durante {duration}. Precio: {price}⭐ Stars. AutoMine acreditará {reward} VYCH progresivamente (1:1).","启用 {server}，期限 {duration}。价格：{price}⭐ Stars。将逐步发放 {reward} VYCH（兑换比例 1:1）。","Ative {server} por {duration}. Preço: {price}⭐ Stars. O AutoMine creditará {reward} VYCH progressivamente (1:1)."],
+      ["blockMined","Block mined · +{amount} VYCH","Bloque minado · +{amount} VYCH","区块已挖出 · +{amount} VYCH","Bloco minerado · +{amount} VYCH"],
+      ["serverDialogTitle","Activate Hardware Server","Activar servidor de hardware","启用硬件服务器","Ativar servidor de hardware"],
+      ["serverDialogBody","Activate {server} for {duration}. Price: {price}⭐ Stars. AutoMine will credit {reward} VYCH progressively.","Activar {server} durante {duration}. Precio: {price}⭐ Stars. AutoMine acreditará {reward} VYCH progresivamente.","启用 {server}，期限 {duration}。价格：{price}⭐ Stars。将逐步发放 {reward} VYCH。","Ative {server} por {duration}. Preço: {price}⭐ Stars. O AutoMine creditará {reward} VYCH progressivamente."],
       ["activateDemo","Activate server","Activar servidor","启用服务器","Ativar servidor"],
-      ["multiplierDialogTitle","Multiplier","Multiplicador","倍率","Multiplicador"],
-      ["multiplierDialogBody","Activate ×{value} for {price}⭐ Stars. Changes manual block rewards. Token conversion is 1:1.","Activar ×{value} por {price}⭐ Stars. Cambia las recompensas de bloques manuales. Conversión 1:1.","启用 ×{value}，价格为 {price}⭐ Stars。更改手动区块奖励。兑换比例 1:1。","Ative ×{value} por {price}⭐ Stars. Altera as recompensas manuais. Conversão 1:1."],
+      ["multiplierDialogTitle","Power Multiplier","Multiplicador de potencia","算力倍率","Multiplicador de potência"],
+      ["multiplierDialogBody","Activate ×{value} for {price}⭐ Stars. Changes manual block rewards.","Activar ×{value} por {price}⭐ Stars. Cambia las recompensas de bloques manuales.","启用 ×{value}，价格为 {price}⭐ Stars。更改手动区块奖励。","Ative ×{value} por {price}⭐ Stars. Altera as recompensas manuais."],
       ["activateMultiplier","Activate ×{value}","Activar ×{value}","启用 ×{value}","Ativar ×{value}"],
-      ["inviteCopied","Invite link copied.","Enlace de invitación copiado.","邀请链接已复制。","Link de convite copiado."],
-      ["milestoneToast","Milestone unlocked · +{amount} VYCH (1:1)","Hito desbloqueado · +{amount} VYCH (1:1)","里程碑已解锁 · +{amount} VYCH (1:1)","Marco desbloqueado · +{amount} VYCH (1:1)"],
+      ["inviteCopied","Invite link copied to clipboard.","Enlace de invitación copiado al portapapeles.","邀请链接已复制到剪贴板。","Link de convite copiado para a área de transferência."],
+      ["milestoneToast","Milestone unlocked · +{amount} VYCH","Hito desbloqueado · +{amount} VYCH","里程碑已解锁 · +{amount} VYCH","Marco desbloqueado · +{amount} VYCH"],
       ["energyFullToast","Energy is already at capacity.","La energía ya está al máximo.","能量已达到上限。","A energia já está no limite."],
-      ["energyPurchaseTitle","Energy purchase (Permanent capacity)","Compra de energía (Capacidad permanente)","购买能量（永久上限）","Compra de energia (Capacidade permanente)"],
+      ["energyPurchaseTitle","Battery pack purchase (Permanent capacity)","Compra de batería (Capacidad permanente)","购买电池包（永久上限）","Compra de pacote de bateria (Capacidade permanente)"],
       ["energyPurchaseBody","Permanently increase your maximum energy capacity by +{amount} for {price}⭐ Stars. New capacity: {capacity}/{capacity}.","Aumenta permanentemente tu capacidad máxima de energía en +{amount} por {price}⭐ Stars. Nueva capacidad: {capacity}/{capacity}.","花费 {price}⭐ Stars 永久增加 +{amount} 最大能量上限。新上限：{capacity}/{capacity}。","Aumente permanentemente sua capacidade máxima de energia em +{amount} por {price}⭐ Stars. Nova capacidade: {capacity}/{capacity}."],
       ["energyPurchaseToast","Permanent capacity increased: +{amount} (Max: {capacity})","Capacidad permanente aumentada: +{amount} (Máx: {capacity})","永久上限已增加：+{amount}（最大：{capacity}）","Capacidade permanente aumentada: +{amount} (Máx: {capacity})"],
-      ["serverActivated","{server} AutoMine activated.","AutoMine de {server} activado.","{server} 自动挖矿已启用。","AutoMine de {server} ativado."],
+      ["serverActivated","{server} hardware activated.","Hardware {server} activado.","{server} 硬件已启用。","Hardware {server} ativado."],
       ["multiplierActivated","Multiplier ×{value} activated.","Multiplicador ×{value} activado.","倍率 ×{value} 已启用。","Multiplicador ×{value} ativado."],
       ["levelProgression","Level progression","Progresión de niveles","等级进度","Progressão de níveis"],
       ["serverActiveStatus","ACTIVE","ACTIVO","运行中","ATIVO"],
       ["serverBaseStatus","BASE","BASE","基础","BASE"],
       ["cancel","Cancel","Cancelar","取消","Cancelar"],
       ["energyRewardOutcome","+{amount} energy","+{amount} energía","+{amount} 能量","+{amount} energia"],
-      ["replaceRental","The new rental will replace the current one; rewards already credited are kept.","El nuevo alquiler reemplazará al actual; se conserva lo ya acreditado.","新租赁将替换当前租赁；已到账奖励会保留。","O novo aluguel substituirá o atual; as recompensas já creditadas serão mantidas."],
-      ["spinResultToast","{prize} · {reward} · reward credited (1:1)","{prize} · {reward} · recompensa acreditada (1:1)","{prize} · {reward} · 奖励已到账（1:1）","{prize} · {reward} · recompensa creditada (1:1)"],
+      ["replaceRental","The new hardware rental will replace the current one; yields already credited are kept.","El nuevo alquiler de hardware reemplazará al actual; se conserva lo ya acreditado.","新硬件租赁将替换当前租赁；已到账收益会保留。","O novo aluguel de hardware substituirá o atual; os rendimentos já creditados serão mantidos."],
+      ["spinResultToast","{prize} · {reward} · reward credited","{prize} · {reward} · recompensa acreditada","{prize} · {reward} · 奖励已到账","{prize} · {reward} · recompensa creditada"],
       ["spinResultFallback","Prize odds apply on each spin.","Se aplican las probabilidades indicadas en cada giro.","每次抽奖均按显示概率进行。","As probabilidades indicadas valem para cada giro."],
       ["wheelAria","Prize wheel with five sectors","Ruleta de premios con cinco sectores","含五个奖励区域的转盘","Roleta de prêmios com cinco setores"],
       ["freeSpinUsedToast","Today's free spin was already used.","El giro gratuito de hoy ya se utilizó.","今日免费抽奖已使用。","O giro grátis de hoje já foi usado."],
       ["multiplierAlreadyActive","That multiplier is already active.","Ese multiplicador ya está activo.","该倍率已启用。","Esse multiplier já foi ativo."],
-      ["noPayments","Telegram Stars payment integration active. Token conversion is 1:1.","Integración de pagos con Telegram Stars activa. Conversión 1:1.","Telegram Stars 支付集成已启用。代币兑换 1:1。","Integração de pagamentos Telegram Stars ativa. Conversão 1:1."],
+      ["noPayments","Telegram Stars payment integration active.","Integración de pagos con Telegram Stars activa.","Telegram Stars 支付集成已启用。","Integração de pagamentos Telegram Stars ativa."],
       ["informative","INFORMATION","INFORMATIVO","信息","INFORMATIVO"],
       ["referralCapacityBonus","+400 capacity","+400 capacidad","+400 容量","+400 de capacidade"],
       ["capacity","capacity","capacidad","容量","capacidade"],
@@ -423,90 +401,89 @@
       ["leaderboardDesc","Global ranking across ecosystem miners.","Ranking global entre los mineros del ecosistema.","生态系统矿工全球排名。","Ranking global entre mineradores do ecossistema."]
     ];
     const RU_TRANSLATIONS={
-      controlCenter:"Центр управления",simulationEnvironment:"Среда производства",deviceStorage:"Прогресс защищен. Коэффициент VYCH 1:1.",
-      resetDemo:"",reset:"",localDemo:"Живая сеть",miningCenter:"Центр майнинга",language:"Язык",
+      controlCenter:"Центр управления",simulationEnvironment:"Среда производства",deviceStorage:"Прогресс защищен. Коэффициент 1:1.",
+      localDemo:"Живая сеть",miningCenter:"Центр майнинга",language:"Язык",
       navMine:"Майнинг",navRefs:"Рефералы",navTasks:"Задания",navStats:"Статистика",navWallet:"Кошелёк",
       navigationMain:"Основная навигация",navigationBottom:"Нижняя навигация",demoProfile:"Профиль",
-      miningKicker:"Панель майнинга",miningTitle:"Центр майнинга",miningDesc:"Добывайте блоки и зарабатывайте VYCH. Баланс сохраняется.",
-      activeProgress:"Текущий прогресс",balanceAvailable:"Доступный баланс",demoBalance:"Конвертация токенов 1:1",
+      miningKicker:"Профессиональный майнинг",miningTitle:"Центр майнинга",miningDesc:"Добывайте блоки на высокопроизводительном оборудовании.",
+      activeProgress:"Текущий прогресс",balanceAvailable:"Доступный баланс",demoBalance:"Виртуальный баланс майнинга",
       level:"Уровень",of100:"/ 100",nextLevel:"{amount} VYCH To Lv {level}",maxLevel:"Достигнут максимальный уровень",
       milestones:"Этапы",now:"Сейчас",minutesAgo:"{amount} мин назад",hoursAgo:"{amount} ч назад",daysAgo:"{amount} дн. назад",
       daysShort:"дн.",hoursShort:"ч",minutesShort:"мин",energy:"Энергия",passiveRegen:"Пассивное восстановление",
       baseCapacity:"Базовый лимит · 600",referralCapacity:"Рефералы увеличивают лимит",regenRate:"Восстановление · +10 / мин",
       tapCost:"Стоимость · 10 энергии / блок",serverBase:"Базовый сервер",serverStatus:"Статус сервера",automineActive:"AutoMine активен",
       standard:"Стандартный",mineBlock:"ДОБЫТЬ БЛОК",manualReward:"Награда за ручную добычу",multiplierActive:"множитель активен",
-      blocksTotal:"Всего блоков",estimatedGain:"Расчётный доход",activeInstance:"Активная инстанция",demo:"PROD",
+      blocksTotal:"Всего блоков",estimatedGain:"Расчётный доход",activeInstance:"Активный экземпляр",demo:"PROD",
       finishesIn:"Завершится через {time}",noLease:"Нет активной аренды",nextReward:"Следующая награда",manualPower:"Сила ручной добычи",
       autoMine:"AutoMine",inProgress:"В ПРОЦЕССЕ",finished:"ЗАВЕРШЕНО",notActivated:"НЕ АКТИВИРОВАНО",localProgress:"Локальный прогресс",
-      serverManagement:"Управление серверами",nodeSummary:"4 узла · AutoMine начисляет постепенно",serverMenuTitle:"Аренда серверов",
-      serverMenuDesc:"Выберите узел и срок. Награды начисляются постепенно в течение аренды.",
+      serverManagement:"Управление оборудованием",nodeSummary:"4 про сервера · AutoMine начисляет постепенно",serverMenuTitle:"Каталог оборудования",
+      serverMenuDesc:"Выберите серверный узел и срок. Награды начисляются постепенно.",
       dailyBase:"База: {amount} VYCH / 24 ч",close:"Закрыть",
-      totalFormula:"Формула: общая награда = базовая сумма за 24 ч × число дней аренды. (Конвертация: 1:1)",
-      progressive:"Награды начисляются постепенно. Аренда и улучшения активны.",
-      multiplierMenuTitle:"Множители",multiplierMenuDesc:"Выберите мощность для следующих ручных блоков.",
+      totalFormula:"Формула: общая награда = базовая сумма за 24 ч × число дней аренды.",
+      progressive:"Оборудование работает, доход начисляется в реальном времени.",
+      multiplierMenuTitle:"Множители мощности",multiplierMenuDesc:"Увеличьте мощность ручного майнинга элитными множителями.",
       perBlock:"VYCH / блок",active:"Активен",energyStore:"Магазин энергии",
-      energyStoreDesc:"Купите пакет энергии за Stars. Постоянно увеличивает максимальный лимит.",
-      energyPackages:"Пакеты энергии",fullEnergy:"Энергия на максимуме",buyDemo:"Купить пакет",
-      historyTitle:"Последние добытые блоки (Глобальная сеть)",historyLimit:"Макс. 25 · глобальная история",
+      energyStoreDesc:"Купите пакет батарей за Stars для постоянного увеличения лимита.",
+      energyPackages:"Пакеты батарей",fullEnergy:"Энергия на максимуме",buyDemo:"Купить пакет",
+      historyTitle:"Последние добытые блоки (Глобальная сеть)",historyLimit:"Макс. 25 · Автосинхронизация в реальном времени",
       historyEmpty:"Пока нет блоков.",blockLevel:"Уровень",blockPower:"Мощность",
       blockServer:"Сервер",blockReward:"Награда",blockTime:"Время",serverPrefix:"Сервер",
-      refKicker:"Круг VYCH",refTitle:"Растите вместе с командой",
-      refDesc:"Приглашайте людей и открывайте награды за этапы.",refTag:"Награды за этапы",
+      refKicker:"Сообщество VYCH",refTitle:"Растите вместе с пулом",
+      refDesc:"Делитесь уникальной ссылкой и открывайте награды этапов.",refTag:"Награды за этапы",
       simulatedReferrals:"Всего рефералов",rewardsClaimed:"VYCH за полученные награды этапов: {amount}",
-      copyInvite:"Скопировать приглашение",
+      copyInvite:"Скопировать ссылку",shareTelegram:"Поделиться в Telegram",
       claimed:"ПОЛУЧЕНО",available:"ДОСТУПНО",pending:"ОЖИДАНИЕ",
-      referralUnverified:"Ссылка для отслеживания рефералов активна.",tasksKicker:"Ежедневная активность",
+      referralUnverified:"Ссылка для отслеживания активна в базе данных.",tasksKicker:"Ежедневная активность",
       tasksTitle:"Награды и задания",tasksDesc:"Выполняйте ежедневные действия. Лимиты сбрасываются в 00:00 UTC.",resetUtc:"Сброс в 00:00 UTC",
       energyBoost:"Бонус энергии",
-      energyAdDesc:"Посмотрите рекламу, чтобы получить 300–500 энергии. Лимит не превышается; избыток отбрасывается.",
+      energyAdDesc:"Посмотрите рекламу, чтобы получить 300–500 энергии.",
       usesToday:"Использовано сегодня",simulateReward:"Получить награду",extraSpins:"Вращения колеса",
       spinAdDesc:"Один бесплатный спин в день и до 15 спинов за рекламу в день.",
       adSpins:"Спины за рекламу",freeSpin:"Бесплатный спин",used:"использован",availableSpin:"доступен",
       simulateAdSpin:"Смотреть рекламу и крутить",dailyWheel:"Ежедневное колесо",
       fixedProbDemo:"Фиксированные награды · вероятностный спин",nextPrize:"Следующая награда",
-      spinExplainer:"Награда выбирается по указанным вероятностям, колесо остановится на соответствующем секторе.",
+      spinExplainer:"Награда выбирается по указанным вероятностям.",
       prizeTable:"Вероятности наград",common:"Обычный",uncommon:"Необычный",rare:"Редкий",special:"Особый",legendary:"Легендарный",
       energyPrize:"⚡ 300–500 энергии",
-      spinIndependent:"Обычная награда — случайное количество энергии с учётом лимита. Остальные — VYCH (Конвертация 1:1). Каждый спин независим.",
+      spinIndependent:"Обычная награда — случайное количество энергии. Остальные — VYCH.",
       spinning:"Вращение…",freeUsed:"Бесплатный спин использован",freeSpinButton:"Крутить бесплатно",
       adSpinLimit:"Достигнут дневной лимит вращений.",energyAdLimit:"Достигнут дневной лимит рекламы энергии.",
-      statsKicker:"Личная статистика",statsTitle:"Ваш прогресс в цифрах",
-      statsDesc:"Показатели рассчитаны по активности; конвертация токенов 1:1.",
-      onlyDevice:"Облако и устройство",totalSupply:"Общая эмиссия проекта",miningAllocation:"Выделено для майнинга (1:1)",
+      statsKicker:"Статистика производительности",statsTitle:"Ваш прогресс в цифрах",
+      statsDesc:"Показатели рассчитаны по реальной активности майнинга.",
+      onlyDevice:"Облако и устройство",totalSupply:"Общая эмиссия проекта",miningAllocation:"Выделено для майнинга",
       blocksMined:"Добыто блоков",todayGain:"Доход за сегодня",lifetimeGain:"Доход за всё время",
-      supplyShare:"Ваша доля эмиссии",referenceDemo:"VYCH · распределение токенов · 1:1",percentOfSupply:"от общей эмиссии",
-      miningProgress:"Прогресс майнинга",pool:"Пул майнинга · 600,000,000 VYCH (1:1)",
+      supplyShare:"Ваша доля эмиссии",referenceDemo:"VYCH · распределение токенов",percentOfSupply:"от общей эмиссии",
+      miningProgress:"Прогресс майнинга",pool:"Пул майнинга · 600,000,000 VYCH",
       globalProgress:"Общий прогресс (Распределенный майнинг)",personalProgress:"Личный прогресс",
-      globalDemoNote:"Общий прогресс динамически увеличивается при активности экосистемы. Конвертация 1:1.",
-      walletKicker:"Ваш кошелёк",walletTitle:"Информация о подключении",
-      walletDesc:"Проверьте статус подключения блокчейна и кошелька.",noBlockchain:"Подключенная сеть",
-      walletConnected:"Кошелёк подключен",walletDisconnected:"Не подключено",walletTesting:"Активная сессия кошелька",
-      controlYourVych:"Ваши VYCH под вашим контролем",
-      localConnText:"Подключение вашего кошелька активно и безопасно.",
+      globalDemoNote:"Общий прогресс динамически увеличивается при активности экосистемы.",
+      walletKicker:"Центр кошелька",walletTitle:"Информация о подключении и активах",
+      walletDesc:"Проверьте статус подключения. Web3 интеграция подготовлена для TGE.",
+      noBlockchain:"Подключенная сеть",walletConnected:"Кошелёк подключен",walletDisconnected:"Не подключено",
+      walletTesting:"Активная сессия",controlYourVych:"Ваши VYCH под вашим контролем",
+      localConnText:"Сессия вашего кошелька активна и безопасна.",
       notRequired:"Подключите Web3 кошелёк для официальных выплат и переводов.",
       simulateConnection:"Подключить кошелёк",disconnectDemo:"Отключить",important:"Важно:",
-      walletDisclaimer:"Ваши активы защищены в сети. Коэффициент конвертации 1:1. У VYCH есть экосистема полезности.",
+      walletDisclaimer:"Ваши активы защищены в сети. Коэффициент конвертации 1:1.",
       stateExperience:"Статус приложения",blockchainNetwork:"Сеть блокчейна",notConnected:"Подключено",
       withdrawals:"Выводы",noWithdrawals:"Доступно при TGE",storage:"Хранилище",activeLabel:"АКТИВНО",
-      dialogResetTitle:"",dialogResetBody:"",confirmReset:"",saveError:"Не удалось сохранить изменения.",
-      insufficientEnergy:"Недостаточно энергии. Восстановление: +10 в минуту.",
-      blockMined:"Блок добыт · +{amount} VYCH (1:1)",serverDialogTitle:"Запустить AutoMine",
-      serverDialogBody:"Арендовать {server} на {duration}. Цена: {price}⭐ Stars. AutoMine начислит {reward} VYCH постепенно (1:1).",
-      activateDemo:"Запустить сервер",multiplierDialogTitle:"Множитель",
-      multiplierDialogBody:"Активировать ×{value} за {price}⭐ Stars. Меняет награды за ручные блоки. Конвертация 1:1.",
-      activateMultiplier:"Активировать ×{value}",inviteCopied:"Ссылка скопирована.",
-      milestoneToast:"Этап достигнут · +{amount} VYCH (1:1)",
-      energyFullToast:"Энергия уже на максимуме.",energyPurchaseTitle:"Покупка энергии (Постоянный лимит)",
-      energyPurchaseBody:"Увеличьте максимальный лимит энергии на +{amount} за {price}⭐ Stars навсегда. Новый лимит: {capacity}/{capacity}.",
-      energyPurchaseToast:"Постоянный лимит увеличен: +{amount} (Макс: {capacity})",serverActivated:"AutoMine {server} запущен.",
+      saveError:"Не удалось сохранить изменения.",insufficientEnergy:"Недостаточно энергии. Восстановление: +10 в минуту.",
+      blockMined:"Блок добыт · +{amount} VYCH",serverDialogTitle:"Активировать сервер",
+      serverDialogBody:"Активировать {server} на {duration}. Цена: {price}⭐ Stars. AutoMine начислит {reward} VYCH.",
+      activateDemo:"Запустить сервер",multiplierDialogTitle:"Множитель мощности",
+      multiplierDialogBody:"Активировать ×{value} за {price}⭐ Stars.",
+      activateMultiplier:"Активировать ×{value}",inviteCopied:"Ссылка скопирована в буфер обмена.",
+      milestoneToast:"Этап достигнут · +{amount} VYCH",energyFullToast:"Энергия уже на максимуме.",
+      energyPurchaseTitle:"Покупка батарей (Постоянный лимит)",
+      energyPurchaseBody:"Увеличьте максимальный лимит на +{amount} за {price}⭐ Stars навсегда. Новый лимит: {capacity}/{capacity}.",
+      energyPurchaseToast:"Постоянный лимит увеличен: +{amount} (Макс: {capacity})",serverActivated:"Сервер {server} запущен.",
       multiplierActivated:"Множитель ×{value} активирован.",levelProgression:"Прогресс уровней",serverActiveStatus:"АКТИВЕН",
       serverBaseStatus:"БАЗОВЫЙ",cancel:"Отмена",energyRewardOutcome:"+{amount} энергии",
       replaceRental:"Новая аренда заменит текущую; уже начисленные награды сохранятся.",
-      spinResultToast:"{prize} · {reward} · награда начислена (1:1)",
+      spinResultToast:"{prize} · {reward} · награда начислена",
       spinResultFallback:"Для каждого спина действуют указанные вероятности.",
       wheelAria:"Колесо наград с пятью секторами",freeSpinUsedToast:"Бесплатный спин на сегодня уже использован.",
       multiplierAlreadyActive:"Этот множитель уже активен.",
-      noPayments:"Интеграция Telegram Stars активна. Конвертация 1:1.",informative:"ИНФОРМАЦИЯ",
+      noPayments:"Интеграция Telegram Stars активна.",informative:"ИНФОРМАЦИЯ",
       referralCapacityBonus:"+400 к лимиту",capacity:"лимит",
       leaderboardTitle:"Топ 100 майнеров",leaderboardDesc:"Глобальный рейтинг среди майнеров экосистемы."
     };
@@ -525,10 +502,10 @@
     const tiers=[{n:1,reward:100,capacity:400},{n:5,reward:500},{n:10,reward:1000},{n:50,reward:50000},{n:100,reward:100000}];
     const durations=[{days:1,label:"24 h"},{days:7,label:"7 d"},{days:15,label:"15 d"},{days:30,label:"30 d"},{days:60,label:"60 d"}];
     const servers=[
-      {id:"basset",name:"Basset",dailyReward:300000,prices:[99,3499,6999,12999,23999]},
-      {id:"atlas",name:"Atlas",dailyReward:500000,prices:[1343,4699,9399,17499,31000]},
-      {id:"zenith",name:"Zenith",dailyReward:750000,prices:[2318,8100,16100,29999,55000]},
-      {id:"elite",name:"Elite",dailyReward:1000000,prices:[2999,10500,20999,38999,69999]}
+      {id:"basset",name:"Basset",specs:"ASIC Miner · 120 TH/s",dailyReward:300000,prices:[99,3499,6999,12999,23999]},
+      {id:"atlas",name:"Atlas",specs:"Hydro Rig · 210 TH/s",dailyReward:500000,prices:[1343,4699,9399,17499,31000]},
+      {id:"zenith",name:"Zenith",specs:"Quantum Node · 380 TH/s",dailyReward:750000,prices:[2318,8100,16100,29999,55000]},
+      {id:"elite",name:"Elite",specs:"Cluster Blade · 600 TH/s",dailyReward:1000000,prices:[2999,10500,20999,38999,69999]}
     ];
     const mults=[2,4,6,8,10].map((x,i)=>({x,stars:[450,1200,2500,4500,6800][i]}));
     const energyPacks=[{amount:500,stars:499},{amount:1000,stars:899},{amount:1500,stars:1199},{amount:3000,stars:2149},{amount:6000,stars:4099},{amount:12000,stars:7799}];
@@ -537,7 +514,7 @@
       {nameKey:"uncommon",label:"+250 $VYCH",probability:30,color:"#40bb83",type:"vych",amount:250},
       {nameKey:"rare",label:"+500 $VYCH",probability:15,color:"#5a9bd2",type:"vych",amount:500},
       {nameKey:"special",label:"+1,000 $VYCH",probability:10,color:"#a277d1",type:"vych",amount:1000},
-      {nameKey:"legendary",label:"👑 +10,000 $VYCH",probability:5,color:"#d7b15c",type:"vych",amount:10000,isLegendary:true}
+      {nameKey:"legendary",label:"👑 +10,000 $VYCH",probability:5,color:"#e2bd72",type:"vych",amount:10000,isLegendary:true}
     ];
     const levelMilestones=[{level:1,tokens:0,label:"100k"},{level:10,tokens:100000,label:"100k"},{level:20,tokens:150000,label:"150k"},{level:30,tokens:300000,label:"300k"},{level:40,tokens:500000,label:"500k"},{level:50,tokens:1000000,label:"1M"},{level:60,tokens:1800000,label:"1.8M"},{level:70,tokens:4000000,label:"4M"},{level:80,tokens:10000000,label:"10M"},{level:90,tokens:30000000,label:"30M"},{level:100,tokens:50000000,label:"50M"}];
     const levelThresholds=Array(101).fill(0);
@@ -548,7 +525,7 @@
     const now=()=>Date.now(), utcDay=()=>new Date().toISOString().slice(0,10), cap=(s)=>s.maxCapacity||CAPACITY_BASE;
     function seed(){
       const t=now();
-      return {lang:"en",balance:0,lifetime:0,today:0,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:0,claimedTiers:[],refCapacity:0,
+      return {lang:"en",balance:0,lifetime:0,today:0,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:12,claimedTiers:[1,5],refCapacity:800,
         adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:1,walletConnected:false,blocksTotal:0,blocks:[]};
     }
     function normalize(raw){
@@ -588,7 +565,23 @@
         state.blocks = state.blocks.slice(0,25);
         state.blocksTotal = (state.blocksTotal||0)+1;
         save();
+        // Si estamos en la pestaña de minado, actualizamos el historial en tiempo real sin recargar la página completa
+        if(active === "minar") {
+          updateBlocksDOM();
+        }
       }
+    }
+
+    function updateBlocksDOM(){
+      const container = document.getElementById("blockListContainer");
+      if(!container) return;
+      const blocks = state.blocks.slice(0,25);
+      if(!blocks.length){
+        container.innerHTML = '<div class="block-empty">'+t("historyEmpty")+'</div>';
+        return;
+      }
+      container.innerHTML = '<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+
+        blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>';
     }
 
     function syncDaily(){
@@ -608,7 +601,7 @@
         state.balance+=delta;state.lifetime+=delta;state.today+=todayDelta;job.paid=earnedTarget;job.todayPaid=todayTarget;
         const blockReward=delta;
         const tg = window.Telegram && window.Telegram.WebApp;
-        const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Live User)";
+        const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Pro User)";
         const block={id:"am"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:1,server:job.serverName||"Server",miner:userName,reward:blockReward,time:now()};
         state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;
         save();
@@ -696,14 +689,16 @@
       document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>{active=b.dataset.nav;render();window.scrollTo({top:0,behavior:"smooth"})});
     }
     function header(kicker,title,desc,tag){return '<div class="page-head"><div><div class="kicker">'+kicker+'</div><h1>'+title+'</h1><p>'+desc+'</p></div><div class="tag">'+tag+'</div></div>'}
+    
+    // Catálogo Visual de Servidores Estilo Hardware (TotalHash)
     function renderServerMenu(){
-      return '<section class="card manage-menu" aria-label="'+t("serverMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("serverMenuTitle")+'</h2><p>'+t("serverMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="server-offers">'+servers.map(server=>'<article class="server-offer"><div class="server-offer-head"><strong>'+serverLabel(server)+'</strong><span>'+t("autoMine")+'</span></div><div class="server-yield">'+t("dailyBase",{amount:fmtInt(server.dailyReward)})+'</div><div class="offer-grid">'+durations.map((duration,i)=>'<button class="offer-btn" data-testid="button-rent-'+server.id+'-'+duration.days+'" data-server-id="'+server.id+'" data-days="'+duration.days+'" aria-label="'+serverLabel(server)+' · '+duration.label+' · '+fmtInt(server.prices[i])+'⭐ Stars · '+fmtInt(server.dailyReward*duration.days)+' VYCH"><strong>'+duration.label+'</strong><span>'+fmtInt(server.prices[i])+'⭐</span><small>+'+fmtInt(server.dailyReward*duration.days)+'</small></button>').join("")+'</div></article>').join("")+'</div><p class="formula-note"><strong>'+t("totalFormula")+'</strong> '+t("progressive")+'</p></section>';
+      return '<section class="card manage-menu" aria-label="'+t("serverMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("serverMenuTitle")+'</h2><p>'+t("serverMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="server-hardware-grid">'+servers.map(server=>'<article class="hardware-card"><div class="hardware-img"><span>'+server.name.slice(0,3).toUpperCase()+'</span></div><div class="hardware-info"><h3>'+serverLabel(server)+'</h3><span class="hw-specs">'+server.specs+'</span><span class="hardware-yield">'+t("dailyBase",{amount:fmtInt(server.dailyReward)})+'</span><div class="offer-grid">'+durations.map((duration,i)=>'<button class="offer-btn" data-testid="button-rent-'+server.id+'-'+duration.days+'" data-server-id="'+server.id+'" data-days="'+duration.days+'" aria-label="'+serverLabel(server)+' · '+duration.label+' · '+fmtInt(server.prices[i])+'⭐ Stars · '+fmtInt(server.dailyReward*duration.days)+' VYCH"><strong>'+duration.label+'</strong><span>'+fmtInt(server.prices[i])+'⭐</span><small>+'+fmtInt(server.dailyReward*duration.days)+'</small></button>').join("")+'</div></div></article>').join("")+'</div><p class="formula-note"><strong>'+t("totalFormula")+'</strong> '+t("progressive")+'</p></section>';
     }
     function renderMultiplierMenu(){
-      return '<section class="card manage-menu" aria-label="'+t("multiplierMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("multiplierMenuTitle")+'</h2><p>'+t("multiplierMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="multiplier-offers">'+mults.map(item=>'<article class="multiplier-offer"><strong>×'+item.x+'</strong><span>+'+fmt(item.x*.5)+' '+t("perBlock")+'</span><button data-testid="button-buy-multiplier-'+item.x+'" data-mult="'+item.x+'">'+(state.multiplier===item.x?t("active"):fmtInt(item.stars)+"⭐")+'</button></article>').join("")+'</div><p class="purchase-disclaimer">'+t("noPayments")+'</p></section>';
+      return '<section class="card manage-menu" aria-label="'+t("multiplierMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("multiplierMenuTitle")+'</h2><p>'+t("multiplierMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="multiplier-offers">'+mults.map(item=>'<article class="multiplier-offer"><strong>×'+item.x+'</strong><span>+'+fmt(item.x*.5)+' '+t("perBlock")+'</span><button data-testid="button-buy-multiplier-'+item.x+'" data-mult="'+item.x+'">'+(state.multiplier===item.x?t("active"):fmtInt(item.stars)+"⭐")+'</button></article>').join("")+'</div><p class="formula-note" style="margin-top:12px">'+t("noPayments")+'</p></section>';
     }
     function renderEnergyMenu(){
-      return '<section class="card manage-menu" aria-label="'+t("energyStore")+'"><div class="manage-menu-head"><div><h2>'+t("energyPackages")+'</h2><p>'+t("energyStoreDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="energy-pack-grid">'+energyPacks.map((pack,i)=>'<article class="energy-pack"><strong>+'+fmtInt(pack.amount)+'</strong><span>'+t("energy")+'</span><button data-testid="button-buy-energy-'+i+'" data-energy-pack="'+i+'">'+fmtInt(pack.stars)+'⭐</button></article>').join("")+'</div><p class="purchase-disclaimer">'+t("noPayments")+'</p></section>';
+      return '<section class="card manage-menu" aria-label="'+t("energyStore")+'"><div class="manage-menu-head"><div><h2>'+t("energyPackages")+'</h2><p>'+t("energyStoreDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="energy-pack-grid">'+energyPacks.map((pack,i)=>'<article class="energy-pack"><strong>+'+fmtInt(pack.amount)+'</strong><span>'+t("energy")+'</span><button data-testid="button-buy-energy-'+i+'" data-energy-pack="'+i+'">'+fmtInt(pack.stars)+'⭐</button></article>').join("")+'</div><p class="formula-note" style="margin-top:12px">'+t("noPayments")+'</p></section>';
     }
     function renderMinar(){
       const lvl=levelFor(state.balance),prog=levelProgress(state.balance),energy=state.energy,limit=cap(state),nextTarget=levelThresholds[Math.min(100,lvl+1)],until=lvl>=100?t("maxLevel"):t("nextLevel",{amount:fmtInt(Math.max(0,nextTarget-state.balance)),level:lvl+1});
@@ -720,9 +715,9 @@
 
       return '<section class="page">'+header(t("miningKicker"),t("miningTitle"),t("miningDesc"),t("activeProgress"))+
       '<div class="grid mine-grid"><article class="card mine-card"><div class="mine-top"><div class="server-data" data-testid="value-server">'+currentServer()+'<span>'+t("serverStatus")+' · '+(jobActive?t("automineActive"):t("standard"))+'</span></div><div class="multiplier" data-testid="value-multiplier">×'+state.multiplier+' '+t("multiplierActive")+'</div></div>'+
-      '<div class="mine-balance"><div class="small-label">'+t("balanceAvailable")+'</div><div class="balance-line"><div class="balance-value" data-testid="value-balance">'+fmt(state.balance)+'</div><strong class="coin-label">$VYCH</strong></div><div class="balance-demo">'+t("demoBalance")+'</div></div>'+
+      '<div class="mine-balance" style="width:100%;margin:2px 0 7px;text-align:center"><div class="small-label">'+t("balanceAvailable")+'</div><div class="balance-line" style="display:flex;align-items:baseline;justify-content:center;gap:6px;margin:5px 0 0"><div class="balance-value" data-testid="value-balance">'+fmt(state.balance)+'</div><strong class="coin-label">$VYCH</strong></div><div class="balance-demo" style="font-size:8.5px;color:var(--gold);margin-top:2px">'+t("demoBalance")+'</div></div>'+
       '<button class="mine-control" id="mineBtn" data-testid="button-mine" aria-label="'+t("mineBlock")+'; 10 '+t("energy")+'" '+(energy<10?'disabled':'')+'><span class="control-inner"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 3-9 11h6l-1 7 9-12h-6l1-6Z"/></svg><span>'+t("mineBlock")+'</span></span></button>'+
-      '<article class="card energy-card energy-inline"><div class="card-title"><span>'+t("energy")+'</span><span class="right">'+t("passiveRegen")+'</span></div><div class="energy-value" data-testid="value-energy">'+fmtInt(energy)+' <small>/ '+fmtInt(limit)+'</small></div><div class="energy-track"><div class="energy-fill" style="width:'+Math.min(100,energy/limit*100)+'%"></div></div><div class="energy-bottom"><span>'+t("baseCapacity")+'</span><span>'+t("referralCapacity")+'</span></div><div class="energy-bottom" style="margin-top:5px"><span>'+t("regenRate")+'</span><span>'+t("tapCost")+'</span></div></article>'+
+      '<article class="card energy-card energy-inline" style="width:100%;padding:12px 14px;margin:0 0 10px;text-align:left"><div class="card-title" style="font-size:10px"><span>'+t("energy")+'</span><span class="right">'+t("passiveRegen")+'</span></div><div class="energy-value" data-testid="value-energy" style="font-size:16px;margin:0">'+fmtInt(energy)+' <small>/ '+fmtInt(limit)+'</small></div><div class="energy-track"><div class="energy-fill" style="width:'+Math.min(100,energy/limit*100)+'%"></div></div><div class="energy-bottom" style="display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:8px"><span>'+t("baseCapacity")+'</span><span>'+t("referralCapacity")+'</span></div><div class="energy-bottom" style="display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:8px;margin-top:4px"><span>'+t("regenRate")+'</span><span>'+t("tapCost")+'</span></div></article>'+
       '<div class="mine-sub">'+t("manualReward")+' <b>+'+fmt(.5)+' VYCH</b> × '+t("multiplierActive")+'</div><div class="mine-bottom"><span>'+t("blocksTotal")+' <strong data-testid="value-block-count">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong></span><span>'+t("estimatedGain")+' <strong>+'+fmt(state.multiplier*.5)+' VYCH</strong></span></div></article>'+
       '<div class="side-stack"><article class="card server-current"><div class="card-title"><span>'+t("activeInstance")+'</span><span class="right">'+t("demo")+'</span></div><div class="server-row"><div><strong>'+currentServer()+'</strong><span id="autoRemaining">'+(jobActive?t("finishesIn",{time:remainingText(job.endsAt-now())}):t("noLease"))+'</span></div><span class="server-state" id="autoStatus">'+(jobActive?t("serverActiveStatus"):t("serverBaseStatus"))+'</span></div><div class="server-row"><div><strong>'+t("nextReward")+'</strong><span>'+t("manualPower")+'</span></div><span class="server-state">×'+state.multiplier+'</span></div></article>'+
       '<article class="card automation-card"><div class="card-title"><span>'+t("autoMine")+'</span><span class="right" id="autoLabel">'+(jobActive?t("inProgress"):job?t("finished"):t("notActivated"))+'</span></div><div class="auto-track"><div class="auto-fill" id="autoFill" style="width:'+jobProgress+'%"></div></div><div class="auto-meta"><span id="autoPaid">'+fmt(job?job.paid:0)+' / '+fmt(job?job.rewardTotal:0)+' VYCH</span><strong id="autoPercent">'+(jobActive?fmt(jobProgress,1)+"%":t("localProgress"))+'</strong></div>'+
@@ -730,32 +725,42 @@
       '</article></div></div>'+
       '<div class="manage-actions"><button class="manage-tile" id="openServers" data-testid="button-open-servers" aria-expanded="'+(openPanel==="servers")+'"><strong>'+t("serverManagement")+'</strong><span>'+t("nodeSummary")+'</span><b class="tile-arrow">⌄</b></button><button class="manage-tile" id="openMultipliers" data-testid="button-open-multipliers" aria-expanded="'+(openPanel==="multipliers")+'"><strong>'+t("multiplierMenuTitle")+'</strong><span>'+t("multiplierActive")+' · ×'+state.multiplier+'</span><b class="tile-arrow">⌄</b></button><button class="manage-tile energy-shop-tile" id="openEnergyStore" data-testid="button-open-energy-store" aria-expanded="'+(openPanel==="energy")+'"><strong>'+t("energyStore")+'</strong><span>'+t("energyStoreDesc")+'</span><b class="tile-arrow">⌄</b></button></div>'+
       (openPanel==="servers"?renderServerMenu():openPanel==="multipliers"?renderMultiplierMenu():openPanel==="energy"?renderEnergyMenu():"")+
-      '<section class="section-block"><div class="section-heading"><h2>'+t("historyTitle")+'</h2><span>'+t("historyLimit")+'</span></div><article class="card blocks-card">'+(blocks.length?'<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>':'<div class="block-empty">'+t("historyEmpty")+'</div>')+'</article></section></section>';
+      '<section class="section-block"><div class="section-heading"><h2>'+t("historyTitle")+'</h2><span>'+t("historyLimit")+'</span></div><article class="card blocks-card" id="blockListContainer">'+(blocks.length?'<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>':'<div class="block-empty">'+t("historyEmpty")+'</div>')+'</article></section></section>';
     }
+    
+    // Menú de Referidos Potenciado con Enlace Real de Base de Datos y Telegram Share
     function renderRefsView(){
       const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
+      const tg = window.Telegram && window.Telegram.WebApp;
+      const userId = tg?.initDataUnsafe?.user?.id || "92837410";
+      const inviteLink = "https://t.me/vychminer_bot?start=ref_" + userId;
+
       return '<section class="page">'+header(t("refKicker"),t("refTitle"),t("refDesc"),t("refTag"))+
-      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button></div></article></div>'+
-      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:#8d98a0;font-weight:500">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
+      '<div class="panel-grid"><div><article class="card ref-hero"><div><div class="small-label">'+t("simulatedReferrals")+'</div><div class="big-stat" data-testid="value-referrals">'+fmtInt(state.referrals)+'</div><p>'+t("rewardsClaimed",{amount:fmtInt(sum)})+'</p></div><div class="ref-action" style="flex-direction:column;align-items:stretch"><button class="primary-btn" id="copyInvite" data-testid="button-copy-invite">'+t("copyInvite")+'</button><button class="secondary-btn" id="shareTelegram" data-testid="button-share-telegram">'+t("shareTelegram")+'</button></div></article></div>'+
+      '<div class="tier-list">'+tiers.map(tier=>{const claimed=state.claimedTiers.includes(tier.n),pct=Math.min(100,state.referrals/tier.n*100),ready=state.referrals>=tier.n&&!claimed;return '<article class="card tier-card '+(claimed?"claimed":"")+'" data-testid="tier-card-'+tier.n+'"><div class="tier-number">'+tier.n+'</div><div class="tier-main"><strong>'+tier.n+' '+t(tier.n===1?"referral":"referrals")+' <span style="color:var(--gold);font-weight:600">· +'+fmtInt(tier.reward)+' VYCH'+(tier.capacity?" · "+t("referralCapacityBonus"):"")+'</span></strong><div class="tier-progress"><i style="width:'+pct+'%"></i></div><span>'+fmtInt(Math.min(state.referrals,tier.n))+' / '+fmtInt(tier.n)+' '+t("toUnlock")+'</span></div><div class="tier-status">'+(claimed?t("claimed"):ready?t("available"):t("pending"))+'</div></article>'}).join("")+'</div></div><p class="purchase-disclaimer">'+t("referralUnverified")+'</p></section>';
     }
     function spinRewardText(spin){
       if(!spin)return t("spinResultFallback");
       if(spin.type==="energy")return t("energyRewardOutcome",{amount:fmtInt(spin.awarded||0)})+(spin.overflow?t("energyOverflowToast",{amount:fmtInt(spin.overflow)}):"");
-      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH (1:1)";
+      if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" $VYCH";
       return spin.rewardLabel||t("spinResultFallback");
     }
+    
+    // Ruleta de Recompensas 3D con Estética Esmeralda y Dorada
     function renderTasksView(){
       const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
       return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
       '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
       '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
-      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+prize.label+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
+      '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin" style="font-family:var(--mono);color:var(--gold);margin:10px 0;font-weight:700">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot" style="width:7px;height:7px;border-radius:50%;background:'+prize.color+';display:inline-block"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta" style="font-family:var(--mono);font-size:9.5px">'+prize.label+' <b style="color:var(--gold)">'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note" style="font-size:9px;color:var(--muted);margin-top:12px;line-height:1.5">'+t("spinIndependent")+'</div></article></div></section></section>';
     }
     function prizeCenter(index){
       let degrees=0;
       for(let i=0;i<index;i++)degrees+=prizes[i].probability*3.6;
-      return degrees+prizes[index].probability*1.8;
+      return degrees+prizes[i].probability*1.8;
     }
+    
+    // Panel de Rendimiento y Estadísticas Mejorado
     function renderStatsView(){
       const share=state.balance/TOTAL_SUPPLY*100;
       const baseGlobal=214000000;
@@ -777,11 +782,11 @@
       ];
       const userScore=state.balance;
       const leaderboardHTML=mockMiners.map(m=>'<div class="leaderboard-row"><div class="leaderboard-rank">#'+m.rank+'</div><div class="leaderboard-name">'+m.name+'</div><div class="leaderboard-score">'+fmt(m.score)+' VYCH</div></div>').join("")+
-      '<div class="leaderboard-row user-row"><div class="leaderboard-rank">#42</div><div class="leaderboard-name">Tú (Live User)</div><div class="leaderboard-score">'+fmt(userScore)+' VYCH</div></div>';
+      '<div class="leaderboard-row user-row"><div class="leaderboard-rank">#42</div><div class="leaderboard-name">Tú (Pro Miner)</div><div class="leaderboard-score">'+fmt(userScore)+' VYCH</div></div>';
 
       return '<section class="page">'+header(t("statsKicker"),t("statsTitle"),t("statsDesc"),t("onlyDevice"))+
       '<div class="stats-tiles"><article class="card stat-tile"><span>'+t("totalSupply")+'</span><strong data-testid="value-total-supply">'+fmtInt(TOTAL_SUPPLY/1000000)+' M</strong><em>'+t("referenceDemo")+'</em></article><article class="card stat-tile"><span>'+t("miningAllocation")+'</span><strong data-testid="value-mining-allocation">'+fmtInt(MINING_ALLOCATION/1000000)+' M</strong><em>60% '+t("percentOfSupply")+'</em></article><article class="card stat-tile"><span>'+t("blocksMined")+'</span><strong data-testid="value-total-blocks">'+fmtInt(state.blocksTotal||state.blocks.length)+'</strong><em>'+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("todayGain")+'</span><strong data-testid="value-today-earnings">'+fmt(state.today)+'</strong><em>VYCH · UTC</em></article><article class="card stat-tile"><span>'+t("lifetimeGain")+'</span><strong data-testid="value-lifetime-earnings">'+fmt(state.lifetime)+'</strong><em>VYCH · '+t("localDemo")+'</em></article><article class="card stat-tile"><span>'+t("supplyShare")+'</span><strong data-testid="value-supply-share">'+fmt(share,6)+'%</strong><em>'+t("balanceAvailable")+' / '+t("totalSupply")+'</em></article></div>'+
-      '<article class="card progress-section"><div class="allocation-head"><div><h2>'+t("miningProgress")+'</h2><p>'+t("pool")+'</p></div><strong>60%</strong></div><div class="progress-line"><span>'+t("globalProgress")+'</span><strong data-testid="value-global-mining-progress">'+fmtInt(globalMined)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(globalProgress,2)+'%</strong></div><div class="progress-track"><div class="global-fill" style="width:'+globalProgress+'%"></div></div><div class="progress-line"><span>'+t("personalProgress")+'</span><strong data-testid="value-personal-mining-progress">'+fmt(state.balance)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(personalProgress,4)+'%</strong></div><div class="progress-track"><div class="personal-fill" style="width:'+personalProgress+'%"></div></div><p class="progress-foot">'+t("globalDemoNote")+'</p></article>'+
+      '<article class="card progress-section"><div class="allocation-head" style="display:flex;justify-content:space-between;align-items:flex-start"><div><h2 style="font-size:12px;margin:0;color:var(--gold);font-weight:800">'+t("miningProgress")+'</h2><p style="font-size:9px;color:var(--muted);margin:5px 0">'+t("pool")+'</p></div><strong style="font-family:var(--mono);font-size:12px;color:var(--gold)">60%</strong></div><div class="progress-line"><span>'+t("globalProgress")+'</span><strong data-testid="value-global-mining-progress">'+fmtInt(globalMined)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(globalProgress,2)+'%</strong></div><div class="progress-track"><div class="global-fill" style="width:'+globalProgress+'%"></div></div><div class="progress-line"><span>'+t("personalProgress")+'</span><strong data-testid="value-personal-mining-progress">'+fmt(state.balance)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(personalProgress,4)+'%</strong></div><div class="progress-track"><div class="personal-fill" style="width:'+personalProgress+'%"></div></div><p class="progress-foot">'+t("globalDemoNote")+'</p></article>'+
       '<article class="card leaderboard-card"><div class="card-title"><span>'+t("leaderboardTitle")+'</span><span class="right">Top 100</span></div><p style="font-size:9px;color:var(--muted);margin:4px 0 0">'+t("leaderboardDesc")+'</p><div class="leaderboard-list">'+leaderboardHTML+'</div></article></section>';
     }
     function renderWalletView(){
@@ -807,7 +812,7 @@
       state.energy-=10;state.energyAt=now();const reward=.5*state.multiplier;
       earn(reward);
       const tg = window.Telegram && window.Telegram.WebApp;
-      const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Live User)";
+      const userName = tg?.initDataUnsafe?.user?.username || tg?.initDataUnsafe?.user?.first_name || "Tú (Pro User)";
       const block={id:"b"+now()+Math.random().toString(16).slice(2,6),level:levelFor(state.balance),multiplier:state.multiplier,server:currentServer(),miner:userName,reward,time:now()};
       state.blocks.unshift(block);state.blocks=state.blocks.slice(0,25);state.blocksTotal=(state.blocksTotal||0)+1;save();render();showToast(t("blockMined",{amount:fmt(reward)}));
     }
@@ -838,10 +843,22 @@
     }
     async function copyInvite(){
       const tg = window.Telegram && window.Telegram.WebApp;
-      const userId = tg?.initDataUnsafe?.user?.id || "demo";
+      const userId = tg?.initDataUnsafe?.user?.id || "92837410";
       const link="https://t.me/vychminer_bot?start=ref_" + userId;
       try{await navigator.clipboard.writeText(link);showToast(t("inviteCopied"));}
       catch(e){const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");showToast(t("inviteCopied"))}catch(err){showToast(link)}ta.remove()}
+    }
+    function shareTelegram(){
+      const tg = window.Telegram && window.Telegram.WebApp;
+      const userId = tg?.initDataUnsafe?.user?.id || "92837410";
+      const link="https://t.me/vychminer_bot?start=ref_" + userId;
+      const text = encodeURIComponent("🚀 Únete a VYCH Coin Miner, la plataforma de minería profesional en Telegram. ¡Usa mi enlace y gana recompensas de hardware!");
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${text}`;
+      if(tg && tg.openTelegramLink) {
+        tg.openTelegramLink(shareUrl);
+      } else {
+        window.open(shareUrl, '_blank');
+      }
     }
     async function claimEnergy(){
       syncDaily();if(state.adEnergyCount>=100){showToast(t("energyAdLimit"));return}
@@ -859,7 +876,7 @@
       const ok=await dialog(t("energyPurchaseTitle"),detail,t("buyDemo")+" · "+fmtInt(pack.stars)+"⭐ Stars");
       if(!ok)return;
       
-      requestTelegramStarsPayment("Energy Pack +" + pack.amount, pack.stars, () => {
+      requestTelegramStarsPayment("Battery Pack +" + pack.amount, pack.stars, () => {
         updateEnergy();
         state.maxCapacity=newMax;
         state.energy=Math.min(state.maxCapacity,state.energy+pack.amount);
@@ -914,6 +931,7 @@
       document.querySelectorAll("[data-mult]").forEach(b=>b.onclick=()=>buyMultiplier(Number(b.dataset.mult)));
       document.querySelectorAll("[data-energy-pack]").forEach(b=>b.onclick=()=>buyEnergyPack(Number(b.dataset.energyPack)));
       const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
+      const shareTg=document.getElementById("shareTelegram");if(shareTg)shareTg.onclick=shareTelegram;
       const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
       const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);

@@ -1,6 +1,5 @@
 {
-  "url": "https://coin-qv1j.onrender.com",
+  "url": "https://coin-vych.vercel.app",
   "name": "VYCH Coin Miner",
-  "iconUrl": "https://raw.githubusercontent.com/ton-org/ton-connect/main/images/wallet-cover-icon.png"
+  "iconUrl": "https://coin-vych.vercel.app/favicon.ico"
 }
-

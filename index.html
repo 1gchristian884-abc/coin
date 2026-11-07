@@ -167,7 +167,7 @@
     let tonConnectUI = null;
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://coin-vych.vercel.app/tonconnect-manifest.json',
+        manifestUrl: 'https://coin-dci6rbnbq-vych.vercel.app/tonconnect-manifest.json',
         uiPreferences: { theme: 'DARK' }
       });
     } catch(err) {
@@ -514,7 +514,7 @@
       spinResultFallback:"Для каждого спина действуют указанные вероятности.",
       wheelAria:"Колесо наград с пятью секторами",freeSpinUsedToast:"Бесплатный спин на сегодня уже использован.",
       multiplierAlreadyActive:"Этот множитель уже активен.",
-      noPayments:"Интеграция Telegram Stars активна.",informative:"ИНФОРМАЦИЯ",
+      noPayments:"Интеграция Telegram Stars active.",informative:"ИНФОРМАЦИЯ",
       referralCapacityBonus:"+400 к лимиту",capacity:"лимит",
       leaderboardTitle:"Топ 100 майнеров",leaderboardDesc:"Глобальный рейтинг среди майнеров экосистемы."
     };
@@ -821,7 +821,7 @@
     }
     function renderWalletView(){
       return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("noBlockchain"))+
-      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><div id="ton-connect-button" class="wallet-connect"></div></article>'+
+      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><div id="ton-connect" class="wallet-connect"></div></article>'+
       '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
       '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>TGE</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
     }
@@ -830,7 +830,9 @@
       const view=document.getElementById("view");
       view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderWalletView();
       if(active==="cartera" && tonConnectUI){
-        try { tonConnectUI.renderButton('#ton-connect-button'); } catch(e){}
+        setTimeout(() => {
+          try { tonConnectUI.renderButton('#ton-connect'); } catch(e){}
+        }, 50);
       }
       bindActions();
     }

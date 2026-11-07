@@ -407,7 +407,7 @@
       ["activateMultiplier","Activate ×{value}","Activar ×{value}","启用 ×{value}","Ativar ×{value}"],
       ["inviteCopied","Invite link copied to clipboard.","Enlace de invitación copiado al portapapeles.","邀请链接已复制到剪贴板。","Link de convite copiado para a área de transferência."],
       ["milestoneToast","Milestone unlocked · +{amount} VYCH","Hito desbloqueado · +{amount} VYCH","里程碑已解锁 · +{amount} VYCH","Marco desbloqueado · +{amount} VYCH"],
-      ["energyFullToast","Energy is already at capacity.","La energía ya está al máximo.","能量已达到上限。","A energia já está no limite."],
+      ["energyFullToast","Energy is already at capacity.","La energía está al máximo.","能量已达到上限。","A energia já está no limite."],
       ["energyPurchaseTitle","Battery pack purchase (Permanent capacity)","Compra de batería (Capacidad permanente)","购买电池包（永久上限）","Compra de pacote de bateria (Capacidade permanente)"],
       ["energyPurchaseBody","Permanently increase your maximum energy capacity by +{amount} for {price}⭐ Stars. New capacity: {capacity}/{capacity}.","Aumenta permanentemente tu capacidad máxima de energía en +{amount} por {price}⭐ Stars. Nueva capacidad: {capacity}/{capacity}.","花费 {price}⭐ Stars 永久增加 +{amount} 最大能量上限。新上限：{capacity}/{capacity}。","Aumente permanentemente sua capacidade máxima de energia em +{amount} por {price}⭐ Stars. Nova capacidade: {capacity}/{capacity}."],
       ["energyPurchaseToast","Permanent capacity increased: +{amount} (Max: {capacity})","Capacidad permanente aumentada: +{amount} (Máx: {capacity})","永久上限已增加：+{amount}（最大：{capacity}）","Capacidade permanente aumentada: +{amount} (Máx: {capacity})"],
@@ -789,7 +789,7 @@
     function prizeCenter(index){
       let degrees=0;
       for(let i=0;i<index;i++)degrees+=prizes[i].probability*3.6;
-      return degrees+prizes[index].probability*1.8;
+      return degrees+prizes[i].probability*1.8;
     }
     function renderStatsView(){
       const share=state.balance/TOTAL_SUPPLY*100;
@@ -821,7 +821,7 @@
     }
     function renderWalletView(){
       return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("noBlockchain"))+
-      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><div id="ton-connect" class="wallet-connect"></div></article>'+
+      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><div id="ton-connect-button" class="wallet-connect" style="display:flex;justify-content:center;width:100%"></div></article>'+
       '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
       '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>TGE</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
     }
@@ -831,8 +831,15 @@
       view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderWalletView();
       if(active==="cartera" && tonConnectUI){
         setTimeout(() => {
-          try { tonConnectUI.renderButton('#ton-connect'); } catch(e){}
-        }, 50);
+          try { 
+            tonConnectUI.uiOptions = { buttonRootId: 'ton-connect-button' };
+            if(document.getElementById('ton-connect-button') && !document.getElementById('ton-connect-button').hasChildNodes()){
+              tonConnectUI.renderButton('#ton-connect-button'); 
+            }
+          } catch(e){
+            console.warn("TonConnect render error:", e);
+          }
+        }, 80);
       }
       bindActions();
     }

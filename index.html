@@ -168,11 +168,15 @@
     try {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
         manifestUrl: 'https://coin-vych.vercel.app/tonconnect-manifest.json',
-        uiPreferences: { theme: 'DARK' }
+        uiPreferences: { theme: 'DARK' },
+        actionsConfiguration: {
+          twaReturnUrl: 'https://t.me/vychminer_bot'
+        }
       });
     } catch(err) {
       console.warn("TonConnect initialization note:", err);
     }
+
 
     async function triggerRewardedAd() {
       return new Promise((resolve) => {

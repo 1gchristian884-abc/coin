@@ -14,13 +14,37 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- TON Connect SDK -->
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   <style>
     :root{color-scheme:dark;--bg:#05070a;--surface:#0e131b;--surface2:#131a26;--surface3:#1a2333;--line:#222d3f;--muted:#7c8a9c;--text:#ecf1f6;--green:#46d89b;--green-glow:rgba(70,216,155,0.15);--gold:#e2bd72;--gold-glow:rgba(226,189,114,0.18);--gold-border:#5c4b2a;--red:#f27c78;--font:'Manrope',sans-serif;--mono:'DM Mono',monospace}
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#13251e 0,transparent 45%),var(--bg);color:var(--text);font-family:var(--font);font-size:13.5px;min-height:100dvh;-webkit-font-smoothing:antialiased}button{font:inherit;color:inherit;cursor:pointer;-webkit-touch-callout:none;user-select:none}button:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.42;cursor:not-allowed;transform:none!important}a{color:inherit}.app-shell{min-height:100dvh;display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1440px;margin:auto}.sidebar{position:sticky;top:0;height:100dvh;border-right:1px solid var(--line);padding:25px 15px 18px 20px;display:flex;flex-direction:column;background:rgba(6,9,13,.9);z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:3px 7px 30px}.brand-mark{width:34px;height:34px;border:1px solid var(--gold-border);border-radius:11px;display:grid;place-items:center;color:var(--gold);background:linear-gradient(145deg,#262013,#101311);font-weight:800;font-size:17px;letter-spacing:-2px}.brand-title{font-size:12px;font-weight:800;letter-spacing:.14em}.brand-sub{display:block;color:var(--gold);font-size:8px;letter-spacing:.19em;margin-top:3px}.nav-label{font-size:9px;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);padding:0 11px 9px}.nav-list{display:grid;gap:5px}.nav-item{width:100%;display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:9px;padding:11px 12px;color:#87929f;text-align:left;font-size:12px;font-weight:650}.nav-item svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}.nav-item:hover{background:var(--surface2);color:#d8e0e5}.nav-item.active{color:var(--green);background:var(--green-glow);border-color:#243d32}.sidebar-bottom{margin-top:auto}.demo-note{padding:13px;border:1px solid var(--gold-border);border-radius:10px;background:linear-gradient(145deg,#131612,#0c0f0e);margin-bottom:14px}.demo-note .eyebrow{color:var(--gold);font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}.demo-note p{margin:7px 0 0;font-size:10px;color:#89958e;line-height:1.55}.main{min-width:0;padding:22px 35px 44px}.topbar{height:55px;display:flex;align-items:center;justify-content:space-between;margin-bottom:27px;border-bottom:1px solid var(--line);padding-bottom:10px}.topbar-brand{display:flex;flex-direction:column}.topbar-brand span:first-child{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.02em}.topbar-brand span:last-child{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}.top-meta{display:flex;align-items:center;gap:10px}.live-pill{display:flex;align-items:center;gap:7px;border:1px solid #26342d;background:#101813;border-radius:99px;padding:7px 10px;color:#a3b2a9;font-size:10px}.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px #1d3529}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);font-size:10px;font-weight:800}.page{max-width:1070px;margin:0 auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:21px;gap:16px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:800;margin-bottom:8px}.page-head h1{margin:0;font-size:24px;letter-spacing:-.045em;line-height:1.2;font-weight:800}.page-head p{color:var(--muted);margin:7px 0 0;font-size:11px}.tag{display:inline-flex;align-items:center;gap:6px;color:var(--gold);border:1px solid var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311);border-radius:99px;padding:7px 12px;font-size:9px;font-weight:700;white-space:nowrap}.tag:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}.grid{display:grid;gap:13px}.card{background:linear-gradient(145deg,rgba(16,22,31,.98),rgba(11,15,22,.98));border:1px solid var(--line);border-radius:12px;min-width:0;box-shadow:0 8px 24px rgba(0,0,0,0.4)}.balance-card{padding:20px 21px 17px;position:relative;overflow:hidden}.small-label{font-size:10px;color:var(--muted);letter-spacing:.03em}.balance-value{font-family:var(--mono);font-size:32px;letter-spacing:-.075em;margin:10px 0 3px;font-weight:500;position:relative;z-index:1;color:var(--text)}.coin-label{color:var(--gold);font-size:10px;letter-spacing:.13em;font-weight:700}.balance-foot{border-top:1px solid var(--line);margin-top:18px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;z-index:1}.level-track{width:100%;height:6px;border-radius:8px;background:#28313b;overflow:hidden;margin-top:7px}.level-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:inherit}.energy-card{padding:18px 19px}.card-title{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}.card-title .right{font-size:9px;color:var(--muted);font-weight:500}.energy-value{font-family:var(--mono);font-size:21px;margin:19px 0 4px}.energy-value small{font-size:10px;color:var(--muted)}.energy-track{height:6px;background:#27313b;border-radius:99px;overflow:hidden;margin:11px 0 8px}.energy-fill{height:100%;background:linear-gradient(90deg,#339d71,var(--gold));border-radius:99px}.energy-bottom{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.energy-bottom b{color:var(--green);font-family:var(--mono);font-weight:400}.mine-grid{grid-template-columns:minmax(0,1.45fr) minmax(245px,.75fr);margin-top:13px}.mine-card{padding:19px 21px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:295px;background:radial-gradient(ellipse at 50% 78%,rgba(45,77,55,.15),transparent 42%),linear-gradient(145deg,#131a22,#10151c)}.mine-top{display:flex;justify-content:space-between;width:100%;align-items:center;text-align:left}.server-data{font-size:10px;font-weight:700}.server-data span{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.multiplier{font-family:var(--mono);color:var(--gold);font-size:11px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);padding:6px 9px;border-radius:7px;font-weight:700}.mine-control{width:136px;height:136px;border-radius:50%;border:1px solid var(--gold-border);background:radial-gradient(circle at 38% 30%,#24332b,#13221b 66%,#0d1712);box-shadow:0 0 0 8px var(--green-glow),0 0 0 18px rgba(226,189,114,0.03),inset 0 1px 0 #5a9876;margin:23px 0 13px;display:grid;place-items:center;transition:transform .06s ease,filter .08s;position:relative;touch-action:manipulation;user-select:none}.mine-control:hover{filter:brightness(1.11)}.mine-control:active{transform:scale(0.93);filter:brightness(0.9)}.mine-control svg{width:31px;height:31px;stroke:var(--gold);fill:none;stroke-width:1.45}.mine-control span{display:block;color:var(--text);font-size:10px;font-weight:800;letter-spacing:.1em;margin-top:5px}.mine-control .control-inner{display:flex;align-items:center;flex-direction:column}.mine-sub{font-size:10px;color:var(--muted)}.mine-sub b{color:var(--gold);font-family:var(--mono);font-weight:700}.mine-bottom{border-top:1px solid var(--line);margin-top:auto;padding-top:12px;width:100%;display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.mine-bottom strong{color:var(--text);font-weight:600}.side-stack{display:grid;gap:13px}.server-current{padding:16px}.server-current .card-title{margin-bottom:11px}.server-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line)}.server-row strong{font-size:10px}.server-row span{font-size:9px;color:var(--muted)}.server-state{color:var(--gold)!important;font-weight:700}.section-block{margin-top:26px}.section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-heading h2{font-size:12px;letter-spacing:-.01em;margin:0;font-weight:800}.section-heading span{font-size:9px;color:var(--muted)}.blocks-card{overflow:hidden}.block-list{display:grid}.block-row{display:grid;grid-template-columns:.55fr .65fr .75fr .85fr .85fr 1fr;gap:6px;align-items:center;padding:11px 14px;border-top:1px solid var(--line);font-size:9px;color:#a2adb7}.block-row.head{border:0;color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}.block-row strong{color:var(--gold);font-family:var(--mono);font-weight:700}.block-empty{text-align:center;padding:22px;color:var(--muted);font-size:10px}.panel-grid{display:grid;grid-template-columns:1fr;gap:14px}.ref-hero{padding:21px;display:grid;grid-template-columns:1fr;gap:16px}.big-stat{font-family:var(--mono);font-size:29px;letter-spacing:-.07em;margin-top:4px;color:var(--gold);font-weight:700}.ref-hero p{margin:3px 0 0;color:var(--muted);font-size:10px}.ref-action{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.primary-btn{border:1px solid var(--gold-border);background:linear-gradient(135deg,#24332b,#16221c);color:var(--gold);padding:10px 14px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.05em;box-shadow:0 4px 12px rgba(226,189,114,0.1);text-align:center}.primary-btn:hover{background:linear-gradient(135deg,#2a3e34,#1c2c24);border-color:var(--gold)}.secondary-btn{border:1px solid var(--line);background:var(--surface2);color:var(--text);padding:9px 12px;border-radius:8px;font-size:10px;font-weight:700;text-align:center}.secondary-btn:hover{border-color:var(--green)}.tier-list{display:grid;gap:8px}.tier-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 14px}.tier-number{width:36px;height:36px;border:1px solid var(--gold-border);border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--gold);background:linear-gradient(145deg,#241f15,#131612);font-weight:700}.tier-card.claimed .tier-number{border-color:#32644a;background:#14271d;color:var(--green)}.tier-main strong{font-size:10px;display:block}.tier-main span{font-size:9px;color:var(--muted);display:block;margin-top:3px}.tier-progress{height:3px;background:#27303a;border-radius:8px;margin-top:7px;overflow:hidden}.tier-progress i{display:block;background:var(--gold);height:100%;border-radius:8px}.tier-status{font-size:8px;letter-spacing:.04em;color:var(--gold);font-weight:700}.tier-card.claimed .tier-status{color:var(--green)}.ad-grid{grid-template-columns:1fr 1fr;align-items:stretch}.ad-card{padding:17px}.ad-icon{width:33px;height:33px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);border-radius:9px;display:grid;place-items:center;margin-bottom:15px}.ad-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7}.ad-card h2{font-size:12px;margin:0 0 5px;font-weight:800}.ad-card p{color:var(--muted);font-size:9px;line-height:1.6;margin:0 0 15px}.daily-count{font-family:var(--mono);font-size:10px;color:var(--text);margin-bottom:12px}.daily-count b{color:var(--gold);font-weight:700}.wheel-layout{display:flex;flex-direction:column;gap:20px;align-items:center;max-width:480px;margin:0 auto}.wheel-card{padding:25px;text-align:center;width:100%}.wheel-stage{width:min(100%,280px);aspect-ratio:1;position:relative;margin:10px auto 20px}.wheel-ring{position:absolute;inset:0;border-radius:50%;border:10px solid var(--surface3);background:conic-gradient(from 0deg,#858b92 0 40%,#40bb83 40% 70%,#5a9bd2 70% 85%,#a277d1 85% 95%,#e2bd72 95% 100%);box-shadow:0 0 0 1px var(--gold-border),0 10px 40px rgba(0,0,0,0.6);transition:transform 4.8s cubic-bezier(.12,.72,.12,1);will-change:transform}.wheel-ring:before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none}.wheel-sector-label{position:absolute;z-index:1;left:50%;top:50%;width:0;height:0;transform:rotate(var(--angle)) translateY(-86px);transform-origin:0 0;pointer-events:none}.wheel-sector-label span{display:block;width:95px;text-align:center;transform:translate(-50%,-50%) rotate(calc(90deg));color:#f6f5ec;font-size:9px;font-weight:800;letter-spacing:.035em;text-shadow:0 1px 3px #111;white-space:nowrap}.wheel-pointer{position:absolute;z-index:4;left:50%;top:-9px;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--gold);filter:drop-shadow(0 3px 4px rgba(0,0,0,0.8))}.wheel-center{position:absolute;z-index:3;inset:31%;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,#241f15,#101311 72%);box-shadow:0 3px 18px rgba(0,0,0,0.8)}.wheel-center b{font-family:var(--mono);font-size:20px;color:var(--gold);font-weight:700}.wheel-center span{font-size:7px;color:var(--muted);letter-spacing:.1em}.prize-panel{padding:20px;width:100%}.prize-panel h2{margin:0 0 14px;font-size:12px;font-weight:800}.prize-list{display:grid;gap:8px}.prize-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);background:var(--surface2);border-radius:8px}.prize-label{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600}.crown-icon{width:14px;height:14px;fill:var(--gold)}.stats-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat-tile{padding:16px}.stat-tile span{font-size:9px;color:var(--muted);display:block}.stat-tile strong{font-family:var(--mono);font-size:19px;letter-spacing:-.04em;display:block;margin-top:11px;font-weight:700;color:var(--gold)}.stat-tile em{font-style:normal;color:var(--green);font-size:8px;display:block;margin-top:6px}.wallet-card{padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.wallet-symbol{width:47px;height:47px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);border-radius:13px;display:grid;place-items:center;color:var(--gold);margin-bottom:15px}.wallet-symbol svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.5}.wallet-card h2{font-size:15px;margin:0 0 7px;font-weight:800}.wallet-card p{font-size:10px;color:var(--muted);max-width:490px;line-height:1.6;margin:0}.wallet-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;color:var(--gold);padding:6px 10px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311);border-radius:99px;margin-bottom:11px;font-weight:700}.wallet-status:before{content:"";width:5px;height:5px;background:var(--gold);border-radius:50%}.wallet-connect{min-width:160px;min-height:50px;display:flex;align-items:center;justify-content:center}.wallet-disclaimer{padding:14px 16px;margin-top:13px;color:var(--muted);font-size:9px;line-height:1.6;border-color:var(--gold-border);background:linear-gradient(145deg,#17150f,#0d0c09)}.wallet-disclaimer b{color:var(--gold);font-weight:700}.wallet-details{margin-top:13px;padding:16px}.wallet-details .server-row:last-child{border-bottom:0}.toast{position:fixed;z-index:50;bottom:calc(25px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);opacity:0;pointer-events:none;padding:11px 15px;background:#16221c;border:1px solid var(--gold-border);border-radius:9px;box-shadow:0 10px 35px rgba(0,0,0,0.8);color:var(--gold);font-size:10px;font-weight:700;max-width:calc(100vw - 32px);transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:rgba(3,5,8,.82);z-index:40;display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}.modal{max-width:380px;width:100%;padding:22px;background:var(--surface);border:1px solid var(--gold-border);border-radius:14px;box-shadow:0 20px 80px rgba(0,0,0,0.9)}.modal h2{margin:0 0 9px;font-size:15px;color:var(--gold);font-weight:800}.modal p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.mobile-nav{display:none}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#13251e 0,transparent 45%),var(--bg);color:var(--text);font-family:var(--font);font-size:13.5px;min-height:100dvh;-webkit-font-smoothing:antialiased}button{font:inherit;color:inherit;cursor:pointer;-webkit-touch-callout:none;user-select:none}button:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.42;cursor:not-allowed;transform:none!important}a{color:inherit}.app-shell{min-height:100dvh;display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1440px;margin:auto}.sidebar{position:sticky;top:0;height:100dvh;border-right:1px solid var(--line);padding:25px 15px 18px 20px;display:flex;flex-direction:column;background:rgba(6,9,13,.9);z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:3px 7px 30px}.brand-mark{width:34px;height:34px;border:1px solid var(--gold-border);border-radius:11px;display:grid;place-items:center;color:var(--gold);background:linear-gradient(145deg,#262013,#101311);font-weight:800;font-size:17px;letter-spacing:-2px}.brand-title{font-size:12px;font-weight:800;letter-spacing:.14em}.brand-sub{display:block;color:var(--gold);font-size:8px;letter-spacing:.19em;margin-top:3px}.nav-label{font-size:9px;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);padding:0 11px 9px}.nav-list{display:grid;gap:5px}.nav-item{width:100%;display:flex;align-items:center;gap:12px;background:transparent;border:1px solid transparent;border-radius:9px;padding:11px 12px;color:#87929f;text-align:left;font-size:12px;font-weight:650}.nav-item svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}.nav-item:hover{background:var(--surface2);color:#d8e0e5}.nav-item.active{color:var(--green);background:var(--green-glow);border-color:#243d32}.sidebar-bottom{margin-top:auto}.demo-note{padding:13px;border:1px solid var(--gold-border);border-radius:10px;background:linear-gradient(145deg,#131612,#0c0f0e);margin-bottom:14px}.demo-note .eyebrow{color:var(--gold);font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}.demo-note p{margin:7px 0 0;font-size:10px;color:#89958e;line-height:1.55}.main{min-width:0;padding:22px 35px 44px}.topbar{height:55px;display:flex;align-items:center;justify-content:space-between;margin-bottom:27px;border-bottom:1px solid var(--line);padding-bottom:10px}.topbar-brand{display:flex;flex-direction:column}.topbar-brand span:first-child{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.02em}.topbar-brand span:last-child{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}.top-meta{display:flex;align-items:center;gap:10px}.live-pill{display:flex;align-items:center;gap:7px;border:1px solid #26342d;background:#101813;border-radius:99px;padding:7px 10px;color:#a3b2a9;font-size:10px}.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px #1d3529}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);font-size:10px;font-weight:800}.page{max-width:1070px;margin:0 auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:21px;gap:16px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);font-weight:800;margin-bottom:8px}.page-head h1{margin:0;font-size:24px;letter-spacing:-.045em;line-height:1.2;font-weight:800}.page-head p{color:var(--muted);margin:7px 0 0;font-size:11px}.tag{display:inline-flex;align-items:center;gap:6px;color:var(--gold);border:1px solid var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311);border-radius:99px;padding:7px 12px;font-size:9px;font-weight:700;white-space:nowrap}.tag:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}.grid{display:grid;gap:13px}.card{background:linear-gradient(145deg,rgba(16,22,31,.98),rgba(11,15,22,.98));border:1px solid var(--line);border-radius:12px;min-width:0;box-shadow:0 8px 24px rgba(0,0,0,0.4)}.small-label{font-size:10px;color:var(--muted);letter-spacing:.03em}.balance-value{font-family:var(--mono);font-size:32px;letter-spacing:-.075em;margin:10px 0 3px;font-weight:500;position:relative;z-index:1;color:var(--text)}.coin-label{color:var(--gold);font-size:10px;letter-spacing:.13em;font-weight:700}.energy-card{padding:18px 19px}.card-title{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:700}.card-title .right{font-size:9px;color:var(--muted);font-weight:500}.energy-value{font-family:var(--mono);font-size:21px;margin:19px 0 4px}.energy-value small{font-size:10px;color:var(--muted)}.energy-track{height:6px;background:#27313b;border-radius:99px;overflow:hidden;margin:11px 0 8px}.energy-fill{height:100%;background:linear-gradient(90deg,#339d71,var(--gold));border-radius:99px}.energy-bottom{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.energy-bottom b{color:var(--green);font-family:var(--mono);font-weight:400}.mine-grid{grid-template-columns:minmax(0,1.45fr) minmax(245px,.75fr);margin-top:13px}.mine-card{padding:19px 21px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:295px;background:radial-gradient(ellipse at 50% 78%,rgba(45,77,55,.15),transparent 42%),linear-gradient(145deg,#131a22,#10151c)}.mine-top{display:flex;justify-content:space-between;width:100%;align-items:center;text-align:left}.server-data{font-size:10px;font-weight:700}.server-data span{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:3px}.multiplier{font-family:var(--mono);color:var(--gold);font-size:11px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);padding:6px 9px;border-radius:7px;font-weight:700}.mine-control{width:136px;height:136px;border-radius:50%;border:1px solid var(--gold-border);background:radial-gradient(circle at 38% 30%,#24332b,#13221b 66%,#0d1712);box-shadow:0 0 0 8px var(--green-glow),0 0 0 18px rgba(226,189,114,0.03),inset 0 1px 0 #5a9876;margin:23px 0 13px;display:grid;place-items:center;transition:transform .06s ease,filter .08s;position:relative;touch-action:manipulation;user-select:none}.mine-control:hover{filter:brightness(1.11)}.mine-control:active{transform:scale(0.93);filter:brightness(0.9)}.mine-control svg{width:31px;height:31px;stroke:var(--gold);fill:none;stroke-width:1.45}.mine-control span{display:block;color:var(--text);font-size:10px;font-weight:800;letter-spacing:.1em;margin-top:5px}.mine-control .control-inner{display:flex;align-items:center;flex-direction:column}.mine-sub{font-size:10px;color:var(--muted)}.mine-sub b{color:var(--gold);font-family:var(--mono);font-weight:700}.mine-bottom{border-top:1px solid var(--line);margin-top:auto;padding-top:12px;width:100%;display:flex;justify-content:space-between;color:var(--muted);font-size:9px}.mine-bottom strong{color:var(--text);font-weight:600}.side-stack{display:grid;gap:13px}.server-current{padding:16px}.server-current .card-title{margin-bottom:11px}.server-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line)}.server-row strong{font-size:10px}.server-row span{font-size:9px;color:var(--muted)}.server-state{color:var(--gold)!important;font-weight:700}.section-block{margin-top:26px}.section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-heading h2{font-size:12px;letter-spacing:-.01em;margin:0;font-weight:800}.section-heading span{font-size:9px;color:var(--muted)}.blocks-card{overflow:hidden}.block-list{display:grid}.block-row{display:grid;grid-template-columns:.55fr .65fr .75fr .85fr .85fr 1fr;gap:6px;align-items:center;padding:11px 14px;border-top:1px solid var(--line);font-size:9px;color:#a2adb7}.block-row.head{border:0;color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}.block-row strong{color:var(--gold);font-family:var(--mono);font-weight:700}.block-empty{text-align:center;padding:22px;color:var(--muted);font-size:10px}.panel-grid{display:grid;grid-template-columns:1fr;gap:14px}.ref-hero{padding:21px;display:grid;grid-template-columns:1fr;gap:16px}.big-stat{font-family:var(--mono);font-size:29px;letter-spacing:-.07em;margin-top:4px;color:var(--gold);font-weight:700}.ref-hero p{margin:3px 0 0;color:var(--muted);font-size:10px}.ref-action{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.primary-btn{border:1px solid var(--gold-border);background:linear-gradient(135deg,#24332b,#16221c);color:var(--gold);padding:10px 14px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.05em;box-shadow:0 4px 12px rgba(226,189,114,0.1);text-align:center}.primary-btn:hover{background:linear-gradient(135deg,#2a3e34,#1c2c24);border-color:var(--gold)}.secondary-btn{border:1px solid var(--line);background:var(--surface2);color:var(--text);padding:9px 12px;border-radius:8px;font-size:10px;font-weight:700;text-align:center}.secondary-btn:hover{border-color:var(--green)}.tier-list{display:grid;gap:8px}.tier-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 14px}.tier-number{width:36px;height:36px;border:1px solid var(--gold-border);border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--gold);background:linear-gradient(145deg,#241f15,#131612);font-weight:700}.tier-card.claimed .tier-number{border-color:#32644a;background:#14271d;color:var(--green)}.tier-main strong{font-size:10px;display:block}.tier-main span{font-size:9px;color:var(--muted);display:block;margin-top:3px}.tier-progress{height:3px;background:#27303a;border-radius:8px;margin-top:7px;overflow:hidden}.tier-progress i{display:block;background:var(--gold);height:100%;border-radius:8px}.tier-status{font-size:8px;letter-spacing:.04em;color:var(--gold);font-weight:700}.tier-card.claimed .tier-status{color:var(--green)}.ad-grid{grid-template-columns:1fr;align-items:stretch}.ad-card{padding:17px}.ad-icon{width:33px;height:33px;border:1px solid var(--gold-border);background:linear-gradient(145deg,#241f15,#131612);color:var(--gold);border-radius:9px;display:grid;place-items:center;margin-bottom:15px}.ad-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7}.ad-card h2{font-size:12px;margin:0 0 5px;font-weight:800}.ad-card p{color:var(--muted);font-size:9px;line-height:1.6;margin:0 0 15px}.daily-count{font-family:var(--mono);font-size:10px;color:var(--text);margin-bottom:12px}.daily-count b{color:var(--gold);font-weight:700}.wheel-layout{display:flex;flex-direction:column;gap:20px;align-items:center;max-width:480px;margin:0 auto}.wheel-card{padding:25px;text-align:center;width:100%}.wheel-stage{width:min(100%,280px);aspect-ratio:1;position:relative;margin:10px auto 20px}.wheel-ring{position:absolute;inset:0;border-radius:50%;border:10px solid var(--surface3);background:conic-gradient(from 0deg,#858b92 0 40%,#40bb83 40% 70%,#5a9bd2 70% 85%,#a277d1 85% 95%,#e2bd72 95% 100%);box-shadow:0 0 0 1px var(--gold-border),0 10px 40px rgba(0,0,0,0.6);transition:transform 4.8s cubic-bezier(.12,.72,.12,1);will-change:transform}.wheel-ring:before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none}.wheel-sector-label{position:absolute;z-index:1;left:50%;top:50%;width:0;height:0;transform:rotate(var(--angle)) translateY(-86px);transform-origin:0 0;pointer-events:none}.wheel-sector-label span{display:block;width:95px;text-align:center;transform:translate(-50%,-50%) rotate(calc(90deg));color:#f6f5ec;font-size:9px;font-weight:800;letter-spacing:.035em;text-shadow:0 1px 3px #111;white-space:nowrap}.wheel-pointer{position:absolute;z-index:4;left:50%;top:-9px;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--gold);filter:drop-shadow(0 3px 4px rgba(0,0,0,0.8))}.wheel-center{position:absolute;z-index:3;inset:31%;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,#241f15,#101311 72%);box-shadow:0 3px 18px rgba(0,0,0,0.8)}.wheel-center b{font-family:var(--mono);font-size:20px;color:var(--gold);font-weight:700}.wheel-center span{font-size:7px;color:var(--muted);letter-spacing:.1em}.prize-panel{padding:20px;width:100%}.prize-panel h2{margin:0 0 14px;font-size:12px;font-weight:800}.prize-list{display:grid;gap:8px}.prize-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);background:var(--surface2);border-radius:8px}.prize-label{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600}.crown-icon{width:14px;height:14px;fill:var(--gold)}.stats-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat-tile{padding:16px}.stat-tile span{font-size:9px;color:var(--muted);display:block}.stat-tile strong{font-family:var(--mono);font-size:19px;letter-spacing:-.04em;display:block;margin-top:11px;font-weight:700;color:var(--gold)}.stat-tile em{font-style:normal;color:var(--green);font-size:8px;display:block;margin-top:6px}.toast{position:fixed;z-index:50;bottom:calc(25px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);opacity:0;pointer-events:none;padding:11px 15px;background:#16221c;border:1px solid var(--gold-border);border-radius:9px;box-shadow:0 10px 35px rgba(0,0,0,0.8);color:var(--gold);font-size:10px;font-weight:700;max-width:calc(100vw - 32px);transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:rgba(3,5,8,.82);z-index:40;display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}.modal{max-width:380px;width:100%;padding:22px;background:var(--surface);border:1px solid var(--gold-border);border-radius:14px;box-shadow:0 20px 80px rgba(0,0,0,0.9)}.modal h2{margin:0 0 9px;font-size:15px;color:var(--gold);font-weight:800}.modal p{font-size:10px;line-height:1.65;color:var(--muted);margin:0 0 18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.mobile-nav{display:none}
 
-    /* Catálogo de Hardware 3D Profesional (TotalHash Style) Ajustado */
+    /* Estilos del Menú MIDASO y Tareas Avanzadas */
+    .vych-dashboard{padding:22px;display:grid;gap:16px}
+    .vych-chart-card{padding:18px;background:var(--surface2);border:1px solid var(--line);border-radius:12px}
+    .chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .chart-header h3{font-size:12px;margin:0;color:var(--gold);font-weight:800}
+    .chart-visual{width:100%;height:110px;display:flex;align-items:flex-end;gap:6px;padding-top:10px;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
+    .chart-bar{flex:1;background:linear-gradient(180deg,var(--green),rgba(70,216,155,0.1));border-radius:4px 4px 0 0;transition:height .3s ease}
+    .airdrop-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .airdrop-tile{background:var(--surface3);border:1px solid var(--line);padding:14px;border-radius:10px}
+    .airdrop-tile span{font-size:9px;color:var(--muted);display:block}
+    .airdrop-tile strong{font-family:var(--mono);font-size:17px;color:var(--gold);display:block;margin-top:5px;font-weight:700}
+
+    .midaso-task-box{background:linear-gradient(145deg,#131a22,#0d121b);border:1px solid var(--gold-border);border-radius:14px;padding:18px;margin-bottom:16px}
+    .midaso-task-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:var(--gold);margin-bottom:8px}
+    .midaso-task-step{font-size:9.5px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+    .midaso-action-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+    .reward-pill{font-family:var(--mono);font-size:11px;color:var(--gold);background:rgba(226,189,114,0.1);border:1px solid var(--gold-border);padding:5px 10px;border-radius:8px;font-weight:700}
+
+    /* Tarjetas de Maratón de Anuncios y Servidores Temporales */
+    .ad-marathon-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+    .marathon-card{background:linear-gradient(145deg,#17211b,#0e1411);border:1px solid #32644a;border-radius:12px;padding:16px}
+    .marathon-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .marathon-head h3{margin:0;font-size:11.5px;color:var(--green);font-weight:800}
+    .marathon-track{width:100%;height:6px;background:#1d2b23;border-radius:99px;overflow:hidden;margin:10px 0}
+    .marathon-fill{height:100%;background:var(--green);border-radius:99px}
+    .marathon-meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-bottom:10px}
+
     .manage-actions{display:grid;gap:8px;margin-top:14px}
     .manage-tile{display:flex;flex-direction:column;align-items:flex-start;padding:13px 15px;background:var(--surface2);border:1px solid var(--line);border-radius:11px;width:100%;text-align:left;position:relative;transition:border-color .15s}
     .manage-tile:hover{border-color:var(--gold)}
@@ -51,7 +75,6 @@
     .hardware-card{background:var(--surface2);border:1px solid var(--line);border-radius:11px;padding:13px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;position:relative;overflow:hidden}
     .hardware-card:hover{border-color:var(--gold-border)}
     
-    /* Servidores 3D Visuales Únicos y Graduales (Basset -> Atlas -> Zenith -> Elite) */
     .hw-box-basset{width:72px;height:72px;border-radius:10px;background:linear-gradient(145deg,#141916,#090c0b);border:1px solid #2d3b32;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
     .hw-box-atlas{width:72px;height:72px;border-radius:10px;background:linear-gradient(145deg,#132226,#0a1114);border:1px solid #264a52;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 0 12px rgba(64,187,131,0.15),0 4px 10px rgba(0,0,0,0.5)}
     .hw-box-zenith{width:72px;height:72px;border-radius:10px;background:linear-gradient(145deg,#1e1c26,#0e0c13);border:1px solid #55447a;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 0 15px rgba(162,119,209,0.25),0 4px 10px rgba(0,0,0,0.6)}
@@ -91,7 +114,6 @@
     .milestone-item-compact.done{border-color:#315640;background:#142119;color:var(--green)}
     .milestone-item-compact.done strong{color:var(--green)}
     
-    /* Baterías 3D Representativas en Tienda de Energía */
     .energy-pack-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .energy-pack{padding:12px 9px;border:1px solid var(--gold-border);border-radius:9px;background:var(--surface2);text-align:center;position:relative}
     .battery-icon-3d{width:32px;height:18px;border:2px solid var(--gold);border-radius:4px;margin:0 auto 6px;position:relative;display:flex;align-items:center;padding:2px;background:linear-gradient(135deg,#241f15,#101311)}
@@ -115,7 +137,6 @@
     @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.offer-grid{grid-template-columns:repeat(3,1fr)}.multiplier-offers{grid-template-columns:repeat(3,1fr)}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   </style>
-  <!-- AdsGram SDK Integration Hook -->
   <script src="https://sad.adsgram.ai/js/sad.js" async></script>
 </head>
 <body>
@@ -150,7 +171,7 @@
   <script>
   (function(){
     "use strict";
-    const STORAGE_KEY = "vych-coin-miner-demo-v2", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
+    const STORAGE_KEY = "vych-coin-miner-demo-v5", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
     const SUPPORTED_LANGS = ["en","es","zh","ru","pt"], LOCALE_FORMATS = {en:"en-US",es:"es-ES",zh:"zh-CN",ru:"ru-RU",pt:"pt-BR"};
     
     const ADSGRAM_BLOCK_ID = "58047"; 
@@ -162,24 +183,6 @@
       }
     } catch (e) {
       console.warn("AdsGram SDK initialization fallback active.", e);
-    }
-
-    let tonConnectUI = null;
-    try {
-      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://coin-vych.vercel.app/tonconnect-manifest.json',
-        uiPreferences: { theme: 'DARK' }
-      });
-      
-      tonConnectUI.onStatusChange(wallet => {
-        state.walletConnected = !!wallet;
-        save();
-        if(active === "cartera") {
-          render();
-        }
-      });
-    } catch(err) {
-      console.warn("TonConnect initialization note:", err);
     }
 
     async function triggerRewardedAd() {
@@ -243,7 +246,7 @@
       ["navRefs","Referrals","Referidos","推荐","Indicações"],
       ["navTasks","Tasks","Tareas","任务","Tarefas"],
       ["navStats","Stats","Estadísticas","统计","Estatísticas"],
-      ["navWallet","Wallet","Cartera","钱包","Carteira"],
+      ["navMid","MIDASO","MIDASO","MIDASO","MIDASO"],
       ["navigationMain","Main navigation","Navegación principal","主导航","Navegação principal"],
       ["navigationBottom","Bottom navigation","Navegación inferior","底部导航","Navegação inferior"],
       ["demoProfile","Profile","Perfil","资料","Perfil"],
@@ -340,7 +343,7 @@
       ["resetUtc","Resets 00:00 UTC","Reinicio 00:00 UTC","UTC 00:00 重置","Reinício às 00:00 UTC"],
       ["energyBoost","Energy boost","Impulso de energía","能量补充","Impulso de energia"],
       ["energyAdDesc","Watch an ad to receive 300–500 energy. Energy cannot exceed your capacity.","Mira un anuncio para recibir 300–500 de energía. No puede superar tu capacidad.","观看广告可获得 300–500 能量。不能超过能量上限。","Assista a um anúncio para receber 300–500 de energia. Não pode exceder sua capacidade."],
-      ["usesToday","Uses today","Usos de hoy","今日次数","Usos hoje"],
+      ["usesToday","Uses today","Uses today","今日次数","Usos hoje"],
       ["simulateReward","Claim reward","Reclamar recompensa","领取奖励","Resgatar recompensa"],
       ["extraSpins","Wheel spins","Giros de la rueda","转盘次数","Giros da roleta"],
       ["spinAdDesc","One free spin daily and up to 15 ad spins per day.","Un giro gratis al día y hasta 15 giros con anuncio al día.","每日一次免费抽奖，每日最多 15 次广告抽奖。","Um giro grátis por dia e até 15 giros com anúncio por dia."],
@@ -383,27 +386,30 @@
       ["globalProgress","Global progress (Distributed mining)","Avance global (Minería distribuida)","全局进度（分布式挖矿）","Progresso global (Mineração distribuída)"],
       ["personalProgress","Personal progress","Avance personal","个人进度","Progresso pessoal"],
       ["globalDemoNote","Global progress increases dynamically with ecosystem activity and community miners.","El avance global aumenta dinámicamente con la actividad del ecosistema y mineros.","全局进度随生态系统活动和矿工动态增加。","O progresso global aumenta dinámicamente com a atividade da comunidade."],
-      ["walletKicker","Wallet center","Centro de cartera","钱包中心","Central de carteira"],
-      ["walletTitle","Connection & asset information","Información de conexión y activos","连接与资产信息","Informações de conexão e ativos"],
-      ["walletDesc","Check your connection state. Web3 integration prepared for TGE.","Comprueba el estado de tu conexión. Integración Web3 preparada para el TGE.","检查您的连接状态。为 TGE 准备的 Web3 集成。","Verifique o estado da sua conexão. Integração Web3 preparada para o TGE."],
-      ["noBlockchain","Connected network","Red conectada","已连接网络","Rede conectada"],
-      ["walletConnected","Wallet connected","Cartera conectada","钱包已连接","Carteira conectada"],
-      ["walletDisconnected","Not connected","Sin conexión","未连接","Desconectada"],
-      ["walletTesting","Active session","Sesión activa","活动会话","Sessão ativa"],
-      ["controlYourVych","Your VYCH, under your control","Tu VYCH, bajo tu control","你的 VYCH，由你掌控","Seu VYCH, sob seu controle"],
-      ["localConnText","Your wallet session is active and secure.","La sesión de tu cartera está activa y segura.","您的钱包会话处于活动且安全状态。","A sessão da sua carteira está ativa e segura."],
-      ["notRequired","Connect your Web3 wallet for official claims and transfers.","Conecta tu cartera Web3 para reclamaciones y transferencias oficiales.","连接您的 Web3 钱包以进行官方领取和转账。","Conecte sua carteira Web3 para resgates e transferências oficiais."],
-      ["simulateConnection","Connect wallet","Conectar cartera","连接钱包","Conectar carteira"],
-      ["disconnectDemo","Disconnect","Desconectar","断开连接","Desconectar"],
-      ["important","Important:","Importante:","重要：","Importante:"],
-      ["walletDisclaimer","Your assets are secured on the network. Conversion ratio is 1:1. VYCH has a defined utility ecosystem.","Tus activos están seguros en la red. Conversión 1:1. VYCH tiene un ecosistema de utilidad definido.","您的资产在网络上受到保护。兑换比例为 1:1。VYCH 拥有明确的实用生态系统。","Seus ativos estão protegidos na rede. A conversão é 1:1. VYCH possui ecossistema de utilidade."],
-      ["stateExperience","Experience status","Estado de la experiencia","体验状态","Status da experiência"],
-      ["blockchainNetwork","Blockchain network","Red blockchain","区块链网络","Rede blockchain"],
-      ["notConnected","Connected","Conectado","已连接","Conectado"],
-      ["withdrawals","Withdrawals","Retiros","提现","Saques"],
-      ["noWithdrawals","Available upon TGE","Disponible en el TGE","TGE 时开放","Disponível no TGE"],
-      ["storage","Storage","Almacenamiento","存储","Armazenamento"],
-      ["activeLabel","ACTIVE","ACTIVO","运行中","ATIVO"],
+      ["midasoKicker","MIDASO Ecosystem","Ecosistema MIDASO","MIDASO 生态系统","Ecossistema MIDASO"],
+      ["midasoTitle","MIDASO & Token Chart & Wallet","Gráficos y Cartera MIDASO","MIDASO 代币与钱包","Gráficos e Carteira MIDASO"],
+      ["midasoDesc","Real-time simulated chart tracking, market valuation, and Airdrop snapshot metrics.","Seguimiento de gráficos simulados en tiempo real y métricas de Airdrop.","实时模拟图表跟踪、市值与空投快照指标。","Gráficos simulados em tempo real e métricas de Airdrop."],
+      ["chartSimTitle","Token Price Action (MIDASO / USDT)","Acción de precio del token (MIDASO / USDT)","代币价格走势 (MIDASO / USDT)","Ação de preço do token (MIDASO / USDT)"],
+      ["airdropPoolTitle","Airdrop Allocation Snapshot","Instantánea de asignación de Airdrop","空投分配快照","Instantâneo de alocação de Airdrop"],
+      ["airdropBalanceLabel","Your \$MIDASO Balance","Tu saldo de \$MIDASO","您的 \$MIDASO 余额","Seu saldo de \$MIDASO"],
+      ["estimatedTgeValue","Estimated TGE Value","Valor estimado en TGE","预计 TGE 价值","Valor estimado no TGE"],
+      
+      /* Textos de Wallet / Conexión Tentadora */
+      ["connectWalletTitle","Connect TON Wallet","Conectar TON Wallet","连接 TON 钱包","Conectar TON Wallet"],
+      ["connectWalletDesc","Link your TON wallet to sign in, verify your profile and receive +10,000 \$MIDASO instant bonus!","Vincula tu cartera TON para iniciar sesión y recibe un bono instantáneo de +10,000 \$MIDASO.","绑定您的 TON 钱包以登录并獲得 +10,000 \$MIDASO 奖励！","Vincule sua carteira TON para receber +10,000 \$MIDASO de bônus!"],
+      ["connectWalletBtn","Connect TON Wallet (+10k VYCH)","Conectar TON Wallet (+10k VYCH)","连接 TON 钱包 (+10k VYCH)","Conectar TON Wallet (+10k VYCH)"],
+      ["walletConnectedBadge","Wallet Connected ✓","Wallet Conectada ✓","钱包已连接 ✓","Carteira Conectada ✓"],
+      ["walletConnectedToast","TON Wallet successfully linked! +10,000 VYCH credited.","¡TON Wallet vinculada con éxito! +10,000 VYCH acreditados.","TON 钱包绑定成功！已发放 +10,000 VYCH。","Carteira TON vinculada! +10,000 VYCH creditados."],
+
+      /* Textos de Metas de Anuncios y Servidores Temporales */
+      ["marathonTitle","Ad Marathon & Server Rewards","Maratón de Anuncios y Servidores","广告马拉松与服务器奖励","Maratona de Anúncios e Servidores"],
+      ["atlasMarathon","Atlas Server (20 Ads) - 20 min lease","Servidor Atlas (20 Anuncios) - 20 min de renta","Atlas 服务器 (20个广告) - 租期20分钟","Servidor Atlas (20 Anúncios) - 20 min"],
+      ["zenithMarathon","Zenith Server (100 Ads) - 30 min lease","Servidor Zenith (100 Anuncios) - 30 min de renta","Zenith 服务器 (100个广告) - 租期30分钟","Servidor Zenith (100 Anúncios) - 30 min"],
+      ["eliteMarathon","Elite Legend Server (500 Ads) - 1h lease","Servidor Elite Legendario (500 Anuncios) - 1h de renta","精英传奇服务器 (500个广告) - 租期1小时","Servidor Elite Legendário (500 Anúncios) - 1h"],
+      ["watchAdBtn","Watch Ad ({count}/")","Ver Anuncio ({count}/","观看广告 ({count}/","Assistir Anúncio ({count}/"],
+      ["claimLeaseBtn","Claim Server Lease","Reclamar Renta","领取服务器租约","Resgatar Servidor"],
+      ["leaseActiveToast","Server node successfully rented via ad marathon!","¡Nodo de servidor rentado con éxito mediante el maratón de anuncios!","通过广告马拉松成功租用服务器节点！","Servidor alugado com sucesso via maratona de anúncios!"],
+
       ["saveError","Could not save changes.","No se pudieron guardar los cambios.","无法保存更改。","Não foi possível salvar as alterações."],
       ["insufficientEnergy","Not enough energy. It regenerates at +10 per minute.","Energía insuficiente. Se regenera +10 por minuto.","能量不足。每分钟恢复 10 点。","Energia insuficiente. Regenera +10 por minuto."],
       ["blockMined","Block mined · +{amount} VYCH","Bloque minado · +{amount} VYCH","区块已挖出 · +{amount} VYCH","Bloco minerado · +{amount} VYCH"],
@@ -442,7 +448,7 @@
     const RU_TRANSLATIONS={
       controlCenter:"Центр управления",simulationEnvironment:"Среда производства",deviceStorage:"Прогресс защищен. Коэффициент 1:1.",
       localDemo:"Живая сеть",miningCenter:"Центр майнинга",language:"Язык",
-      navMine:"Майнинг",navRefs:"Рефералы",navTasks:"Задания",navStats:"Статистика",navWallet:"Кошелёк",
+      navMine:"Майнинг",navRefs:"Рефералы",navTasks:"Задания",navStats:"Статистика",navMid:"MIDASO",
       navigationMain:"Основная навигация",navigationBottom:"Нижняя навигация",demoProfile:"Профиль",
       miningKicker:"Профессиональный майнинг",miningTitle:"Центр майнинга",miningDesc:"Добывайте блоки на высокопроизводительном оборудовании.",
       activeProgress:"Текущий прогресс",balanceAvailable:"Доступный баланс",demoBalance:"Виртуальный баланс майнинга",
@@ -495,16 +501,10 @@
       miningProgress:"Прогресс майнинга",pool:"Пул майнинга · 600,000,000 VYCH",
       globalProgress:"Общий прогресс (Распределенный майнинг)",personalProgress:"Личный прогресс",
       globalDemoNote:"Общий прогресс динамически увеличивается при активности экосистемы.",
-      walletKicker:"Центр кошелька",walletTitle:"Информация о подключении и активах",
-      walletDesc:"Проверьте статус подключения. Web3 интеграция подготовлена для TGE.",
-      noBlockchain:"Подключенная сеть",walletConnected:"Кошелёк подключен",walletDisconnected:"Не подключено",
-      walletTesting:"Активная сессия",controlYourVych:"Ваши VYCH под вашим контролем",
-      localConnText:"Сессия вашего кошелька активна и безопасна.",
-      notRequired:"Подключите Web3 кошелёк для официальных выплат и переводов.",
-      simulateConnection:"Подключить кошелёк",disconnectDemo:"Отключить",important:"Важно:",
-      walletDisclaimer:"Ваши активы защищены в сети. Коэффициент конвертации 1:1.",
-      stateExperience:"Статус приложения",blockchainNetwork:"Сеть блокчейна",notConnected:"Connected",
-      withdrawals:"Выводы",noWithdrawals:"Доступно при TGE",storage:"Хранилище",activeLabel:"АКТИВНО",
+      midasoKicker:"Экосистема MIDASO",midasoTitle:"Центр MIDASO & Wallet",
+      midasoDesc:"Интерактивный график цены и метрики Airdrop распределения.",
+      chartSimTitle:"График котировок (MIDASO / USDT)",airdropPoolTitle:"Срез аллокации Airdrop",
+      airdropBalanceLabel:"Ваш баланс \$MIDASO",estimatedTgeValue:"Оценка стоимости на TGE",
       saveError:"Не удалось сохранить изменения.",insufficientEnergy:"Недостаточно энергии. Восстановление: +10 в минуту.",
       blockMined:"Блок добыт · +{amount} VYCH",serverDialogTitle:"Активировать сервер",
       serverDialogBody:"Активировать {server} на {duration}. Цена: {price}⭐ Stars. AutoMine начислит {reward} VYCH.",
@@ -536,7 +536,7 @@
       {id:"refs",labelKey:"navRefs",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a6 6 0 0 1 12 0v1M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>'},
       {id:"tareas",labelKey:"navTasks",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h12M8 12h12M8 19h12"/><path d="m3 5 1 1 2-2M3 12l1 1 2-2M3 19l1 1 2-2"/></svg>'},
       {id:"stats",labelKey:"navStats",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h17"/><path d="m7 15 4-4 3 2 6-7"/></svg>'},
-      {id:"cartera",labelKey:"navWallet",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg>'}
+      {id:"midaso",labelKey:"navMid",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>'}
     ];
     const tiers=[{n:1,reward:100,capacity:400},{n:5,reward:500},{n:10,reward:1000},{n:50,reward:50000},{n:100,reward:100000}];
     const durations=[{days:1,label:"24 h"},{days:7,label:"7 d"},{days:15,label:"15 d"},{days:30,label:"30 d"},{days:60,label:"60 d"}];
@@ -564,16 +564,23 @@
     const now=()=>Date.now(), utcDay=()=>new Date().toISOString().slice(0,10), cap=(s)=>s.maxCapacity||CAPACITY_BASE;
     function seed(){
       const t=now();
-      return {lang:"en",balance:2832414.42,lifetime:962402.58,today:1458.74,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:12,claimedTiers:[1,5],refCapacity:800,
-        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:2,walletConnected:false,blocksTotal:972,blocks:[]};
+      return {lang:"en",balance:69320.42,lifetime:962402.58,today:1458.74,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:12,claimedTiers:[1,5],refCapacity:800,
+        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:2,dramaCompleted:false,
+        walletConnected:false, adMarathonCount:0, atlasClaimed:false, zenithClaimed:false, eliteClaimed:false,
+        blocksTotal:972,blocks:[]};
     }
     function normalize(raw){
       const d=seed(); if(!raw||typeof raw!=="object")return d;
       const s={...d,...raw};
       if(!SUPPORTED_LANGS.includes(s.lang))s.lang="en";
-      ["balance","lifetime","today","energy","maxCapacity","referrals","refCapacity","adEnergyCount","adSpinCount","multiplier","wheelRotation","blocksTotal"].forEach(k=>{if(!Number.isFinite(Number(s[k])))s[k]=d[k];else s[k]=Number(s[k])});
+      ["balance","lifetime","today","energy","maxCapacity","referrals","refCapacity","adEnergyCount","adSpinCount","multiplier","wheelRotation","blocksTotal","adMarathonCount"].forEach(k=>{if(!Number.isFinite(Number(s[k])))s[k]=d[k];else s[k]=Number(s[k])});
       s.balance=Math.max(0,s.balance);s.energy=Math.max(0,s.energy);s.maxCapacity=Math.max(CAPACITY_BASE,s.maxCapacity);s.referrals=Math.max(0,Math.floor(s.referrals));
-      if(s.todayKey!==utcDay()){s.todayKey=utcDay();s.today=0;s.adEnergyCount=0;s.freeSpinUsed=false;s.adSpinCount=0;}
+      s.dramaCompleted = !!s.dramaCompleted;
+      s.walletConnected = !!s.walletConnected;
+      s.atlasClaimed = !!s.atlasClaimed;
+      s.zenithClaimed = !!s.zenithClaimed;
+      s.eliteClaimed = !!s.eliteClaimed;
+      if(s.todayKey!==utcDay()){s.todayKey=utcDay();s.today=0;s.adEnergyCount=0;s.freeSpinUsed=false;s.adSpinCount=0;s.adMarathonCount=0;}
       if(!Array.isArray(s.blocks))s.blocks=[];
       if(!Array.isArray(s.claimedTiers))s.claimedTiers=[];
       if(!s.autoMine||typeof s.autoMine!=="object"||!Number.isFinite(Number(s.autoMine.startedAt))||!Number.isFinite(Number(s.autoMine.endsAt))||!Number.isFinite(Number(s.autoMine.rewardTotal)))s.autoMine=null;
@@ -624,7 +631,7 @@
 
     function syncDaily(){
       const day=utcDay();
-      if(state.todayKey!==day){state.todayKey=day;state.today=0;state.adEnergyCount=0;state.freeSpinUsed=false;state.adSpinCount=0;if(state.autoMine)state.autoMine.todayPaid=0;save();return true}
+      if(state.todayKey!==day){state.todayKey=day;state.today=0;state.adEnergyCount=0;state.freeSpinUsed=false;state.adSpinCount=0;state.adMarathonCount=0;if(state.autoMine)state.autoMine.todayPaid=0;save();return true}
       return false;
     }
     function updateAutoMine(){
@@ -727,7 +734,6 @@
     }
     function header(kicker,title,desc,tag){return '<div class="page-head"><div><div class="kicker">'+kicker+'</div><h1>'+title+'</h1><p>'+desc+'</p></div><div class="tag">'+tag+'</div></div>'}
     
-    // Catálogo Visual de Servidores 3D Diferenciados por Modelo
     function renderServerMenu(){
       return '<section class="card manage-menu" aria-label="'+t("serverMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("serverMenuTitle")+'</h2><p>'+t("serverMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="server-hardware-grid">'+servers.map((server, idx)=>'<article class="hardware-card"><div class="'+server.boxClass+'">'+server.leds+'<span>'+server.name.slice(0,3).toUpperCase()+'</span></div><div class="hardware-info"><h3>'+serverLabel(server)+'</h3><span class="hw-specs">'+server.specs+'</span><span class="hardware-yield">'+t("dailyBase",{amount:fmtInt(server.dailyReward)})+'</span><div class="offer-grid">'+durations.map((duration,i)=>'<button class="offer-btn" data-testid="button-rent-'+server.id+'-'+duration.days+'" data-server-id="'+server.id+'" data-days="'+duration.days+'" aria-label="'+serverLabel(server)+' · '+duration.label+' · '+fmtInt(server.prices[i])+'⭐ Stars · '+fmtInt(server.dailyReward*duration.days)+' VYCH"><strong>'+duration.label+'</strong><span>'+fmtInt(server.prices[i])+'⭐</span><small>+'+fmtInt(server.dailyReward*duration.days)+'</small></button>').join("")+'</div></div></article>').join("")+'</div><p class="formula-note"><strong>'+t("totalFormula")+'</strong> '+t("progressive")+'</p></section>';
     }
@@ -735,7 +741,6 @@
       return '<section class="card manage-menu" aria-label="'+t("multiplierMenuTitle")+'"><div class="manage-menu-head"><div><h2>'+t("multiplierMenuTitle")+'</h2><p>'+t("multiplierMenuDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="multiplier-offers">'+mults.map(item=>'<article class="multiplier-offer"><strong>×'+item.x+'</strong><span>+'+fmt(item.x*.5)+' '+t("perBlock")+'</span><button data-testid="button-buy-multiplier-'+item.x+'" data-mult="'+item.x+'">'+(state.multiplier===item.x?t("active"):fmtInt(item.stars)+"⭐")+'</button></article>').join("")+'</div><p class="formula-note" style="margin-top:12px">'+t("noPayments")+'</p></section>';
     }
     
-    // Tienda de Energía con Baterías 3D Visuales
     function renderEnergyMenu(){
       return '<section class="card manage-menu" aria-label="'+t("energyStore")+'"><div class="manage-menu-head"><div><h2>'+t("energyPackages")+'</h2><p>'+t("energyStoreDesc")+'</p></div><button class="menu-close" data-close-menu="true">'+t("close")+'</button></div><div class="energy-pack-grid">'+energyPacks.map((pack,i)=>'<article class="energy-pack"><div class="battery-icon-3d"><div class="battery-fill-level"></div></div><strong>+'+fmtInt(pack.amount)+'</strong><span>'+t("energy")+'</span><button data-testid="button-buy-energy-'+i+'" data-energy-pack="'+i+'">'+fmtInt(pack.stars)+'⭐</button></article>').join("")+'</div><p class="formula-note" style="margin-top:12px">'+t("noPayments")+'</p></section>';
     }
@@ -767,7 +772,6 @@
       '<section class="section-block"><div class="section-heading"><h2>'+t("historyTitle")+'</h2><span>'+t("historyLimit")+'</span></div><article class="card blocks-card" id="blockListContainer">'+(blocks.length?'<div class="block-list"><div class="block-row head"><span>'+t("blockLevel")+'</span><span>'+t("blockPower")+'</span><span>'+t("blockServer")+'</span><span>'+t("blockMiner")+'</span><span>'+t("blockReward")+'</span><span>'+t("blockTime")+'</span></div>'+blocks.map((b,i)=>'<div class="block-row" data-testid="row-block-'+i+'"><span>'+t("level")+' '+b.level+'</span><span>×'+b.multiplier+'</span><span>'+historyServerLabel(b.server)+'</span><span style="color:var(--text);font-weight:600">'+(b.miner||"Tú")+'</span><strong>+'+fmt(b.reward)+'</strong><span>'+timeAgo(b.time)+'</span></div>').join("")+'</div>':'<div class="block-empty">'+t("historyEmpty")+'</div>')+'</article></section></section>';
     }
     
-    // Menú de Referidos Reorganizado con Código Único Visible
     function renderRefsView(){
       const sum=state.claimedTiers.reduce((total,n)=>total+(tiers.find(tier=>tier.n===n)?.reward||0),0);
       const tg = window.Telegram && window.Telegram.WebApp;
@@ -786,18 +790,39 @@
       return spin.rewardLabel||t("spinResultFallback");
     }
     
-    // Panel de Tareas con la Ruleta y Recuadro de Recompensas Justo Abajo
+    // Tareas Avanzadas (AdsGram Tasks + Maratón de Anuncios para Servidores Temporales)
     function renderTasksView(){
       const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
+      const adCount = state.adMarathonCount || 0;
+      
+      const atlasReady = adCount >= 20 && !state.atlasClaimed;
+      const zenithReady = adCount >= 100 && !state.zenithClaimed;
+      const eliteReady = adCount >= 500 && !state.eliteClaimed;
+
       return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
-      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
-      '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
+      
+      // Maratón de Anuncios para Servidores Temporales
+      '<article class="card midaso-task-box"><div class="midaso-task-title"><span>🚀 '+t("marathonTitle")+'</span></div>'+
+      '<div class="ad-marathon-grid">'+
+        // Servidor Atlas (20 ads -> 20 min)
+        '<div class="marathon-card"><div class="marathon-head"><h3>'+t("atlasMarathon")+'</h3><span style="font-family:var(--mono);color:var(--gold)">'+Math.min(20, adCount)+'/20</span></div><div class="marathon-track"><div class="marathon-fill" style="width:'+Math.min(100, (adCount/20)*100)+'%"></div></div><button class="primary-btn" id="watchMarathonAd" data-testid="button-watch-marathon" style="width:100%;margin-bottom:6px">'+t("watchAdBtn").replace("{count}", Math.min(20, adCount))+'20)</span></button>'+(state.atlasClaimed?'<div style="font-size:9px;color:var(--green);text-align:center">Claimed ✓</div>':atlasReady?'<button class="secondary-btn" id="claimAtlas" data-testid="button-claim-atlas" style="width:100%">'+t("claimLeaseBtn")+' (Atlas 20m)</button>':'')+'+</div>'+
+        
+        // Servidor Zenith (100 ads -> 30 min)
+        '<div class="marathon-card"><div class="marathon-head"><h3>'+t("zenithMarathon")+'</h3><span style="font-family:var(--mono);color:var(--gold)">'+Math.min(100, adCount)+'/100</span></div><div class="marathon-track"><div class="marathon-fill" style="width:'+Math.min(100, (adCount/100)*100)+'%"></div></div><button class="primary-btn" id="watchMarathonAd" data-testid="button-watch-marathon-2" style="width:100%;margin-bottom:6px">'+t("watchAdBtn").replace("{count}", Math.min(100, adCount))+'100)</span></button>'+(state.zenithClaimed?'<div style="font-size:9px;color:var(--green);text-align:center">Claimed ✓</div>':zenithReady?'<button class="secondary-btn" id="claimZenith" data-testid="button-claim-zenith" style="width:100%">'+t("claimLeaseBtn")+' (Zenith 30m)</button>':'')+'+</div>'+
+
+        // Servidor Elite Legendario (500 ads -> 1h)
+        '<div class="marathon-card"><div class="marathon-head"><h3>'+t("eliteMarathon")+'</h3><span style="font-family:var(--mono);color:var(--gold)">'+Math.min(500, adCount)+'/500</span></div><div class="marathon-track"><div class="marathon-fill" style="width:'+Math.min(100, (adCount/500)*100)+'%"></div></div><button class="primary-btn" id="watchMarathonAd" data-testid="button-watch-marathon-3" style="width:100%;margin-bottom:6px">'+t("watchAdBtn").replace("{count}", Math.min(500, adCount))+'500)</span></button>'+(state.eliteClaimed?'<div style="font-size:9px;color:var(--green);text-align:center">Claimed ✓</div>':eliteReady?'<button class="secondary-btn" id="claimElite" data-testid="button-claim-elite" style="width:100%">'+t("claimLeaseBtn")+' (Elite 1h)</button>':'')+'+</div>'+
+      '</div></article>'+
+
+      '<article class="card midaso-task-box"><div class="midaso-task-title"><span>🎬 JOIN ILOVEDRAMA</span></div><div class="midaso-task-step">Open iLoveDrama, watch 2 episodes, come back and press claim.</div><div class="midaso-action-row"><div class="reward-pill">+250 VYCH</div><button class="primary-btn" id="openDramaBtn" data-testid="button-open-drama">Open iLoveDrama</button></div><button class="secondary-btn" id="claimDramaBtn" data-testid="button-claim-drama" style="width:100%;margin-top:10px" '+(state.dramaCompleted?'disabled':'' )+'>'+(state.dramaCompleted?'Completed ✓':'Claim +250 VYCH')+'</button></article>'+
+
+      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article></div>'+
       '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin" style="font-family:var(--mono);color:var(--gold);margin:10px 0;font-weight:700">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot" style="width:7px;height:7px;border-radius:50%;background:'+prize.color+';display:inline-block"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta" style="font-family:var(--mono);font-size:9.5px">'+prize.label+' <b style="color:var(--gold)">'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note" style="font-size:9px;color:var(--muted);margin-top:12px;line-height:1.5">'+t("spinIndependent")+'</div></article></div></section></section>';
     }
     function prizeCenter(index){
       let degrees=0;
       for(let i=0;i<index;i++)degrees+=prizes[i].probability*3.6;
-      return degrees+prizes[index].probability*1.8;
+      return degrees+prizes[i].probability*1.8;
     }
     function renderStatsView(){
       const share=state.balance/TOTAL_SUPPLY*100;
@@ -827,28 +852,28 @@
       '<article class="card progress-section"><div class="allocation-head" style="display:flex;justify-content:space-between;align-items:flex-start"><div><h2 style="font-size:12px;margin:0;color:var(--gold);font-weight:800">'+t("miningProgress")+'</h2><p style="font-size:9px;color:var(--muted);margin:5px 0">'+t("pool")+'</p></div><strong style="font-family:var(--mono);font-size:12px;color:var(--gold)">60%</strong></div><div class="progress-line"><span>'+t("globalProgress")+'</span><strong data-testid="value-global-mining-progress">'+fmtInt(globalMined)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(globalProgress,2)+'%</strong></div><div class="progress-track"><div class="global-fill" style="width:'+globalProgress+'%"></div></div><div class="progress-line"><span>'+t("personalProgress")+'</span><strong data-testid="value-personal-mining-progress">'+fmt(state.balance)+' / '+fmtInt(MINING_ALLOCATION)+' VYCH · '+fmt(personalProgress,4)+'%</strong></div><div class="progress-track"><div class="personal-fill" style="width:'+personalProgress+'%"></div></div><p class="progress-foot">'+t("globalDemoNote")+'</p></article>'+
       '<article class="card leaderboard-card"><div class="card-title"><span>'+t("leaderboardTitle")+'</span><span class="right">Top 100</span></div><p style="font-size:9px;color:var(--muted);margin:4px 0 0">'+t("leaderboardDesc")+'</p><div class="leaderboard-list">'+leaderboardHTML+'</div></article></section>';
     }
-    function renderWalletView(){
-      return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("noBlockchain"))+
-      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(state.walletConnected?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p></div><div id="ton-connect-button" class="wallet-connect"></div></article>'+
-      '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
-      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>TGE</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("activeLabel")+'</span></div></article></section>';
+
+    // Menú MIDASO con Gráfica Simulada de Token y el Botón Tentador de Conectar Wallet (+10k VYCH)
+    function renderMidasoView(){
+      const simulatedPrice = 1873.26;
+      const estTgeUsd = state.balance * 0.045;
+      const chartBars = [45, 30, 60, 48, 75, 52, 88, 65, 90, 78];
+      
+      return '<section class="page">'+header(t("midasoKicker"),t("midasoTitle"),t("midasoDesc"),"MIDASO ECOSYSTEM")+
+      '<div class="vych-dashboard grid">'+
+      
+      // Bloque de Conexión Tentadora de Wallet
+      '<article class="card" style="padding:18px;border-color:var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3 style="font-size:13px;color:var(--gold);margin:0">👛 '+t("connectWalletTitle")+'</h3>'+(state.walletConnected?'<span style="font-size:9px;color:var(--green);font-weight:700">'+t("walletConnectedBadge")+'</span>':'')+'</div><p style="font-size:9.5px;color:var(--muted);line-height:1.6;margin:0 0 12px">'+t("connectWalletDesc")+'</p><button class="primary-btn" id="connectWalletBtn" data-testid="button-connect-wallet" style="width:100%" '+(state.walletConnected?'disabled':'')+'>'+(state.walletConnected?t("walletConnectedBadge"):t("connectWalletBtn"))+'</button></article>'+
+
+      '<article class="card vych-chart-card"><div class="chart-header"><h3>'+t("chartSimTitle")+'</h3><span style="font-family:var(--mono);color:var(--green);font-size:12px;font-weight:700">$'+simulatedPrice+' USDT (-0.97%)</span></div><div class="chart-visual">'+chartBars.map(h=>'<div class="chart-bar" style="height:'+h+'%"></div>').join("")+'</div><div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:var(--muted)"><span>1h ago</span><span>now</span></div></article>'+
+      '<div class="airdrop-stats-grid"><article class="card airdrop-tile"><span>'+t("airdropBalanceLabel")+'</span><strong data-testid="value-airdrop-balance">'+fmt(state.balance)+' $MIDASO</strong></article><article class="card airdrop-tile"><span>'+t("estimatedTgeValue")+'</span><strong style="color:var(--green)">$'+fmt(estTgeUsd)+' USDT</strong></article></div>'+
+      '<article class="card" style="padding:18px"><h3 style="font-size:12px;color:var(--gold);margin:0 0 8px">Round 1 Snapshot</h3><p style="font-size:9.5px;color:var(--muted);line-height:1.6;margin:0">Round 1 has ended · what comes next is announced soon. Keep participating in AdsGram tasks and partner bots to secure your allocation.</p></article></div></section>';
     }
+
     function render(){
       updateEnergy();applyLanguageShell();setupNav();
       const view=document.getElementById("view");
-      view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderWalletView();
-      if(active==="cartera" && tonConnectUI){
-        setTimeout(() => {
-          try {
-            const btnContainer = document.getElementById('ton-connect-button');
-            if (btnContainer && !btnContainer.hasChildNodes()) {
-              tonConnectUI.renderButton('#ton-connect-button');
-            }
-          } catch(e) {
-            console.warn("TonConnect render notice:", e);
-          }
-        }, 50);
-      }
+      view.innerHTML=active==="minar"?renderMinar():active==="refs"?renderRefsView():active==="tareas"?renderTasksView():active==="stats"?renderStatsView():renderMidasoView();
       bindActions();
     }
     function earn(amount){
@@ -916,6 +941,74 @@
       state.energyAt=now();state.adEnergyCount++;save();render();
       showToast(t("energyRewardOutcome",{amount:fmtInt(gained)})+" · "+t("simulateReward"));
     }
+
+    // Acción para Conectar Wallet Tentadora (+10k VYCH de bono)
+    async function handleConnectWallet(){
+      if(state.walletConnected) return;
+      showToast("Connecting TON Wallet...");
+      await triggerRewardedAd(); // Genera visualización y monetización al conectar
+      state.walletConnected = true;
+      earn(10000); // Bono tentador de 10k VYCH
+      save();
+      render();
+      showToast(t("walletConnectedToast"));
+    }
+
+    // Funciones del Maratón de Anuncios y Renta de Servidores Temporales
+    async function handleWatchMarathonAd(){
+      syncDaily();
+      showToast("Loading marathon ad...");
+      await triggerRewardedAd();
+      state.adMarathonCount = (state.adMarathonCount || 0) + 1;
+      save();
+      render();
+      showToast("Ad viewed! Progress: " + state.adMarathonCount + " ads.");
+    }
+
+    async function claimServerLease(serverType, durationMinutes, rewardTotal) {
+      const nowTime = now();
+      const endsAt = nowTime + durationMinutes * 60000;
+      state.autoMine = {
+        serverId: serverType,
+        serverName: serverType.toUpperCase() + " Lease",
+        dailyReward: Math.floor(rewardTotal * (1440 / durationMinutes)),
+        days: durationMinutes / 1440,
+        priceStars: 0,
+        rewardTotal: rewardTotal,
+        startedAt: nowTime,
+        endsAt: endsAt,
+        paid: 0,
+        todayPaid: 0
+      };
+      if(serverType === 'atlas') state.atlasClaimed = true;
+      if(serverType === 'zenith') state.zenithClaimed = true;
+      if(serverType === 'elite') state.eliteClaimed = true;
+      save();
+      render();
+      showToast(t("leaseActiveToast"));
+    }
+
+    async function handleOpenDrama(){
+      showToast("Opening iLoveDrama partner bot...");
+      await triggerRewardedAd();
+      const tg = window.Telegram && window.Telegram.WebApp;
+      const targetUrl = "https://t.me/ilovedrama_bot";
+      if(tg && tg.openTelegramLink) {
+        tg.openTelegramLink(targetUrl);
+      } else {
+        window.open(targetUrl, '_blank');
+      }
+    }
+
+    async function handleClaimDrama(){
+      if(state.dramaCompleted) return;
+      state.dramaCompleted = true;
+      earn(250);
+      save();
+      render();
+      showToast("Task completed! +250 VYCH credited.");
+    }
+
     async function buyEnergyPack(index){
       updateEnergy();const pack=energyPacks[index];if(!pack)return;
       const newMax=cap(state)+pack.amount;
@@ -980,11 +1073,20 @@
       const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
       const shareTg=document.getElementById("shareTelegram");if(shareTg)shareTg.onclick=shareTelegram;
       const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
+      
+      const connectWalletBtn=document.getElementById("connectWalletBtn");if(connectWalletBtn)connectWalletBtn.onclick=handleConnectWallet;
+      
+      document.querySelectorAll("#watchMarathonAd").forEach(b=>b.onclick=handleWatchMarathonAd);
+      const claimAtlas=document.getElementById("claimAtlas");if(claimAtlas)claimAtlas.onclick=()=>claimServerLease("atlas", 20, 6940);
+      const claimZenith=document.getElementById("claimZenith");if(claimZenith)claimZenith.onclick=()=>claimServerLease("zenith", 30, 15600);
+      const claimElite=document.getElementById("claimElite");if(claimElite)claimElite.onclick=()=>claimServerLease("elite", 60, 41650);
+
+      const openDrama=document.getElementById("openDramaBtn");if(openDrama)openDrama.onclick=handleOpenDrama;
+      const claimDrama=document.getElementById("claimDramaBtn");if(claimDrama)claimDrama.onclick=handleClaimDrama;
       const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
     }
     
-    // Inicialización segura con protección contra pantallas negras
     try {
       if(window.Telegram&&window.Telegram.WebApp){
         const tg=window.Telegram.WebApp;

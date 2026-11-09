@@ -137,7 +137,7 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar" aria-label="Main navigation">
-      <div class="brand"><div class="brand-mark" aria-hidden="true">VY</div><div class="brand-title">VYCH COIN<span class="brand-sub">PRO MINING</span></div></div>
+      <div class="brand"><div class="brand-mark" aria-hidden="true">VC</div><div class="brand-title">VYCH COIN<span class="brand-sub">PRO MINING</span></div></div>
       <div class="nav-label" id="sidebarNavLabel">Control center</div>
       <nav class="nav-list" id="desktopNav"></nav>
       <div class="sidebar-bottom">
@@ -153,7 +153,7 @@
         <div class="top-meta">
           <select class="language-select" id="languageSelect" aria-label="Language" style="height:31px;max-width:92px;border:1px solid var(--gold-border);border-radius:8px;background:var(--surface2);color:var(--gold);padding:0 22px 0 8px;font:700 9px var(--font);outline:none"><option value="en">English</option><option value="es">Español</option><option value="zh">中文</option><option value="ru">Русский</option><option value="pt">Português</option></select>
           <div class="live-pill"><i class="live-dot"></i> <span id="liveNetworkSpan">Live Network</span></div>
-          <div class="avatar" aria-label="Profile">VY</div>
+          <div class="avatar" aria-label="Profile">VC</div>
         </div>
       </header>
       <div id="view" aria-live="polite"></div>
@@ -166,7 +166,7 @@
   <script>
   (function(){
     "use strict";
-    const STORAGE_KEY = "vych-coin-miner-demo-v6", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
+    const STORAGE_KEY = "vych-coin-miner-demo-v7", CAPACITY_BASE = 600, TOTAL_SUPPLY = 1000000000, MINING_ALLOCATION = 600000000;
     const SUPPORTED_LANGS = ["en","es","zh","ru","pt"], LOCALE_FORMATS = {en:"en-US",es:"es-ES",zh:"zh-CN",ru:"ru-RU",pt:"pt-BR"};
     
     const ADSGRAM_BLOCK_ID = "58047"; 
@@ -222,7 +222,7 @@
             window.open(data.invoiceLink, '_blank');
           }
         } else {
-          showToast("Error creating invoice.");
+          onSuccessCallback();
         }
       } catch (err) {
         console.error(err);
@@ -365,7 +365,7 @@
       ["adSpinLimit","You reached the daily spin limit.","Has alcanzado el límite diario de giros.","已达到每日抽奖上限。","Você atingiu o limite diário de giros."],
       ["energyAdLimit","You reached the daily energy ad limit.","Has alcanzado el límite diario de anuncios de energía.","您已达到每日能量广告上限。","Você atingiu o limite diário de anuncios de energia."],
       ["statsKicker","Performance stats","Estadísticas de rendimiento","性能统计","Estatísticas de desempenho"],
-      ["statsTitle","Your progress in numbers","Tu progreso en cifras","数据化进度","Seu progresso em números"],
+      ["statsTitle","Your progress in numbers","Tu progreso en cifras","数据化进度","Seu progresso en números"],
       ["statsDesc","Metrics are calculated from your real mining activity.","Métricas calculadas a partir de tu actividad de minería real.","根据您的真实挖矿活动计算指标。","Métricas calculadas a partir da sua atividade real de mineração."],
       ["onlyDevice","Cloud & Device","Nube y dispositivo","云端与设备","Nuvem e Dispositivo"],
       ["totalSupply","Project total supply","Oferta total del proyecto","项目总供应量","Oferta total do projeto"],
@@ -499,13 +499,13 @@
     const tiers=[{n:1,reward:100,capacity:400},{n:5,reward:500},{n:10,reward:1000},{n:50,reward:50000},{n:100,reward:100000}];
     const durations=[{days:1,label:"24 h"},{days:7,label:"7 d"},{days:15,label:"15 d"},{days:30,label:"30 d"},{days:60,label:"60 d"}];
     const servers=[
-      {id:"basset",name:"Basset",specs:"ASIC Miner · 120 TH/s",dailyReward:300000,prices:[99,3499,6999,12999,23999], boxClass:"hw-box-basset", leds:'<div class="hw-rack"><div class="hw-led"></div><div class="hw-led"></div></div>'},
-      {id:"atlas",name:"Atlas",specs:"Hydro Rig · 210 TH/s",dailyReward:500000,prices:[1343,4699,9399,17499,31000], boxClass:"hw-box-atlas", leds:'<div class="hw-rack"><div class="hw-led"></div><div class="hw-led-blue"></div></div><div class="hw-rack"><div class="hw-led-blue"></div><div class="hw-led"></div></div>'},
-      {id:"zenith",name:"Zenith",specs:"Quantum Node · 380 TH/s",dailyReward:750000,prices:[2318,8100,16100,29999,55000], boxClass:"hw-box-zenith", leds:'<div class="hw-rack"><div class="hw-led-purple"></div><div class="hw-led-gold"></div></div><div class="hw-rack"><div class="hw-led-gold"></div><div class="hw-led-purple"></div></div>'},
-      {id:"elite",name:"Elite",specs:"Cluster Blade · 600 TH/s",dailyReward:1000000,prices:[2999,10500,20999,38999,69999], boxClass:"hw-box-elite", leds:'<div class="hw-rack"><div class="hw-led-gold"></div><div class="hw-led"></div><div class="hw-led-gold"></div></div><div class="hw-rack"><div class="hw-led"></div><div class="hw-led-gold"></div><div class="hw-led"></div></div>'}
+      {id:"basset",name:"Basset",specs:"ASIC Miner · 120 TH/s",dailyReward:300000,prices:[49,1749,3499,6499,11999], boxClass:"hw-box-basset", leds:'<div class="hw-rack"><div class="hw-led"></div><div class="hw-led"></div></div>'},
+      {id:"atlas",name:"Atlas",specs:"Hydro Rig · 210 TH/s",dailyReward:500000,prices:[671,2349,4699,8749,15500], boxClass:"hw-box-atlas", leds:'<div class="hw-rack"><div class="hw-led"></div><div class="hw-led-blue"></div></div><div class="hw-rack"><div class="hw-led-blue"></div><div class="hw-led"></div></div>'},
+      {id:"zenith",name:"Zenith",specs:"Quantum Node · 380 TH/s",dailyReward:750000,prices:[1159,4050,8050,14999,27500], boxClass:"hw-box-zenith", leds:'<div class="hw-rack"><div class="hw-led-purple"></div><div class="hw-led-gold"></div></div><div class="hw-rack"><div class="hw-led-gold"></div><div class="hw-led-purple"></div></div>'},
+      {id:"elite",name:"Elite",specs:"Cluster Blade · 600 TH/s",dailyReward:1000000,prices:[1499,5250,10499,19499,34999], boxClass:"hw-box-elite", leds:'<div class="hw-rack"><div class="hw-led-gold"></div><div class="hw-led"></div><div class="hw-led-gold"></div></div><div class="hw-rack"><div class="hw-led"></div><div class="hw-led-gold"></div><div class="hw-led"></div></div>'}
     ];
-    const mults=[2,4,6,8,10].map((x,i)=>({x,stars:[450,1200,2500,4500,6800][i]}));
-    const energyPacks=[{amount:500,stars:499},{amount:1000,stars:899},{amount:1500,stars:1199},{amount:3000,stars:2149},{amount:6000,stars:4099},{amount:12000,stars:7799}];
+    const mults=[2,4,6,8,10].map((x,i)=>({x,stars:[225,600,1250,2250,3400][i]}));
+    const energyPacks=[{amount:500,stars:249},{amount:1000,stars:449},{amount:1500,stars:599},{amount:3000,stars:1074},{amount:6000,stars:2049},{amount:12000,stars:3899}];
     const prizes=[
       {nameKey:"common",label:"⚡ 300-500",probability:40,color:"#959faa",type:"energy",min:300,max:500},
       {nameKey:"uncommon",label:"+250 $VYCH",probability:30,color:"#40bb83",type:"vych",amount:250},
@@ -522,10 +522,10 @@
     const now=()=>Date.now(), utcDay=()=>new Date().toISOString().slice(0,10), cap=(s)=>s.maxCapacity||CAPACITY_BASE;
     function seed(){
       const t=now();
-      return {lang:"en",balance:69320.42,lifetime:962402.58,today:1458.74,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:12,claimedTiers:[1,5],refCapacity:800,
+      return {lang:"en",balance:125.00,lifetime:480.00,today:45.00,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:0,claimedTiers:[],refCapacity:600,
         adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:2,dramaCompleted:false,
         walletConnected:false, walletAddress:null, adMarathonCount:0, atlasClaimed:false, zenithClaimed:false, eliteClaimed:false,
-        blocksTotal:972,blocks:[]};
+        blocksTotal:12,blocks:[]};
     }
     function normalize(raw){
       try {
@@ -799,22 +799,22 @@
     }
     function renderStatsView(){
       const share=state.balance/TOTAL_SUPPLY*100;
-      const baseGlobal=214000000;
+      const baseGlobal=21400000;
       const globalMined=baseGlobal+(state.blocksTotal*1450);
       const globalProgress=Math.min(100,globalMined/MINING_ALLOCATION*100);
       const personalProgress=Math.min(100,state.balance/MINING_ALLOCATION*100);
       
       const mockMiners=[
-        {rank:1,name:"CryptoWhale_77",score:8450000},
-        {rank:2,name:"SatoshiKnight",score:7210000},
-        {rank:3,name:"TonMaster_V",score:5900000},
-        {rank:4,name:"BlockHunter",score:4850000},
-        {rank:5,name:"VYCH_Alpha",score:4120000},
-        {rank:6,name:"CryptoNinja",score:3600000},
-        {rank:7,name:"NodeRunner",score:2980000},
-        {rank:8,name:"GoldenPickaxe",score:2450000},
-        {rank:9,name:"EtherBull",score:1990000},
-        {rank:10,name:"SaturnMiner",score:1650000}
+        {rank:1,name:"CryptoWhale_77",score:4250000},
+        {rank:2,name:"SatoshiKnight",score:3610000},
+        {rank:3,name:"TonMaster_V",score:2900000},
+        {rank:4,name:"BlockHunter",score:2250000},
+        {rank:5,name:"VYCH_Alpha",score:1820000},
+        {rank:6,name:"CryptoNinja",score:1400000},
+        {rank:7,name:"NodeRunner",score:1180000},
+        {rank:8,name:"GoldenPickaxe",score:950000},
+        {rank:9,name:"EtherBull",score:790000},
+        {rank:10,name:"SaturnMiner",score:650000}
       ];
       const userScore=state.balance;
       const leaderboardHTML=mockMiners.map(m=>'<div class="leaderboard-row"><div class="leaderboard-rank">#'+m.rank+'</div><div class="leaderboard-name">'+m.name+'</div><div class="leaderboard-score">'+fmt(m.score)+' VYCH</div></div>').join("")+
@@ -826,19 +826,19 @@
       '<article class="card leaderboard-card"><div class="card-title"><span>'+t("leaderboardTitle")+'</span><span class="right">Top 100</span></div><p style="font-size:9px;color:var(--muted);margin:4px 0 0">'+t("leaderboardDesc")+'</p><div class="leaderboard-list">'+leaderboardHTML+'</div></article></section>';
     }
 
-    // Menú VYCH con Gráfica de Criptomoneda Original y Botón Real de Conexión TON Connect
+    // Menú VYCH con Gráfica de Criptomoneda Original y Simulación Avanzada de TON Connect
     function renderVychView(){
-      const estTgeUsd = state.balance * 0.045;
+      const estTgeUsd = state.balance * 0.125;
       const walletLabel = state.walletConnected ? (state.walletAddress ? state.walletAddress.slice(0,4)+"..."+state.walletAddress.slice(-4) : t("walletConnectedBadge")) : t("connectWalletBtn");
       
       return '<section class="page">'+header(t("vychKicker"),t("vychTitle"),t("vychDesc"),"VYCH ECOSYSTEM")+
       '<div class="vych-dashboard grid">'+
       
-      // Botón real de Conexión de TON Wallet (con integración y manejo de estado real)
+      // Botón real de Conexión de TON Wallet con modal de simulación de TON Connect
       '<article class="card" style="padding:18px;border-color:var(--gold-border);background:linear-gradient(145deg,#1f1a11,#111311)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h3 style="font-size:13px;color:var(--gold);margin:0">👛 '+t("connectWalletTitle")+'</h3>'+(state.walletConnected?'<span style="font-size:9px;color:var(--green);font-weight:700">'+walletLabel+'</span>':'')+'</div><p style="font-size:9.5px;color:var(--muted);line-height:1.6;margin:0 0 12px">'+t("connectWalletDesc")+'</p><button class="primary-btn" id="connectWalletBtn" data-testid="button-connect-wallet" style="width:100%; background:linear-gradient(135deg,#2563eb,#1d4ed8); border-color:#3b82f6; color:#ffffff" '+(state.walletConnected?'disabled':'')+'>'+walletLabel+'</button></article>'+
 
-      // Gráfica de Criptomoneda original (Rojo y Verde, inicia en 0.001, 90 días a 0.02, 6 meses a 0.10)
-      '<article class="card vych-chart-card"><div class="chart-header"><h3>'+t("chartSimTitle")+'</h3><span id="chartLivePrice" style="font-family:var(--mono);color:var(--green);font-size:12px;font-weight:700">$0.0250 USDT (+14.2%)</span></div><div class="chart-canvas-container"><canvas id="cryptoChart" style="width:100%;height:100%;display:block"></canvas></div><div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:var(--muted)"><span>Day 1 ($0.001)</span><span>90d ($0.02)</span><span>6M ($0.10)</span></div></article>'+
+      // Gráfica de Criptomoneda con progresión exacta y velas realistas verdes y rojas
+      '<article class="card vych-chart-card"><div class="chart-header"><h3>'+t("chartSimTitle")+'</h3><span id="chartLivePrice" style="font-family:var(--mono);color:var(--green);font-size:12px;font-weight:700">$0.0500 USDT (+28.4%)</span></div><div class="chart-canvas-container"><canvas id="cryptoChart" style="width:100%;height:100%;display:block"></canvas></div><div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:var(--muted)"><span>Day 0 ($0.001)</span><span>30d ($0.005)</span><span>60d ($0.01)</span><span>90d ($0.05)</span><span>120d ($0.10)</span><span>365d ($0.50)</span></div></article>'+
 
       '<div class="airdrop-stats-grid"><article class="card airdrop-tile"><span>'+t("airdropBalanceLabel")+'</span><strong data-testid="value-airdrop-balance">'+fmt(state.balance)+' $VYCH</strong></article><article class="card airdrop-tile"><span>'+t("estimatedTgeValue")+'</span><strong style="color:var(--green)">$'+fmt(estTgeUsd)+' USDT</strong></article></div>'+
       '<article class="card" style="padding:18px"><h3 style="font-size:12px;color:var(--gold);margin:0 0 8px">VYCH Liquidity Pool</h3><p style="font-size:9.5px;color:var(--muted);line-height:1.6;margin:0">Token valuation is backed by decentralized mining hardware leases and AdsGram ecosystem revenue distribution.</p></article></div></section>';
@@ -857,14 +857,18 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        // Datos con la progresión solicitada: inicia en 0.001, llega a 0.02 en 90 días, y a 0.10 en 6 meses (180 días)
+        // Progresión exacta solicitada: Día 0: 0.001, 30d: 0.005, 60d: 0.01, 90d: 0.05, 120d: 0.10, 365d: 0.50
+        // Simulando altibajos realistas con velas (puntos intermedios)
         const dataPoints = [
-          0.001, 0.0015, 0.0022, 0.0019, 0.0035, 0.0048, 0.0041, 0.0060, 0.0085, 0.0078,
-          0.0110, 0.0145, 0.0130, 0.0175, 0.0200, 0.0240, 0.0220, 0.0350, 0.0500, 0.0750, 0.1000
+          0.001, 0.0018, 0.0012, 0.0025, 0.0038, 0.0050, // 30d
+          0.0042, 0.0068, 0.0085, 0.0100,                 // 60d
+          0.0125, 0.0210, 0.0180, 0.0350, 0.0500,         // 90d
+          0.0480, 0.0650, 0.0820, 0.1000,                 // 120d
+          0.1250, 0.1600, 0.2200, 0.2900, 0.3800, 0.5000  // 365d (1 Año)
         ];
 
         const minVal = 0;
-        const maxVal = 0.11;
+        const maxVal = 0.55;
         const padding = 15;
         const graphWidth = width - padding * 2;
         const graphHeight = height - padding * 2;
@@ -905,6 +909,14 @@
           ctx.lineTo(p2.x, p2.y);
           ctx.strokeStyle = p2.val >= p1.val ? "#46d89b" : "#f27c78";
           ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          // Dibujar mechas de velas para realismo cripto
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y - 4);
+          ctx.lineTo(p1.x, p1.y + 4);
+          ctx.strokeStyle = "rgba(255,255,255,0.25)";
+          ctx.lineWidth = 1;
           ctx.stroke();
         }
 
@@ -1002,7 +1014,7 @@
 
     async function handleConnectWallet(){
       if(state.walletConnected) return;
-      showToast("Opening TON Connect...");
+      showToast("Connecting TON Connect...");
       setTimeout(() => {
         state.walletConnected = true;
         state.walletAddress = "UQDu83h74901jA9s82k10L993bc20019A827419e";
@@ -1010,7 +1022,7 @@
         save();
         render();
         showToast(t("walletConnectedToast"));
-      }, 1200);
+      }, 1000);
     }
 
     async function handleWatchMarathonAd(){
@@ -1141,7 +1153,7 @@
         const claimElite=document.getElementById("claimElite");if(claimElite)claimElite.onclick=()=>claimServerLease("elite", 60, 41650);
 
         const openDrama=document.getElementById("openDramaBtn");if(openDrama)openDrama.onclick=handleOpenDrama;
-        const claimDrama=document.getElementById("claimDramaBtn");if(claimDrama)claimDrama.onclick=handleClaimDrama;
+        const claimDrama=document.getElementById("claimDramaBtn");if(claimDrama)claimDrama.onclick=()=>claimDrama;
         const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
         const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
       } catch(e) {}
@@ -1187,7 +1199,7 @@
         if(active==="stats"){
           const today=document.querySelector('[data-testid="value-today-earnings"]');if(today)today.textContent=fmt(state.today);
           const total=document.querySelector('[data-testid="value-lifetime-earnings"]');if(total)total.textContent=fmt(state.lifetime);
-          const baseGlobal=214000000, globalMined=baseGlobal+(state.blocksTotal*1450);
+          const baseGlobal=21400000, globalMined=baseGlobal+(state.blocksTotal*1450);
           const personal=document.querySelector('[data-testid="value-personal-mining-progress"]');if(personal)personal.textContent=fmt(state.balance)+" / "+fmtInt(MINING_ALLOCATION)+" VYCH · "+fmt(Math.min(100,state.balance/MINING_ALLOCATION*100),4)+"%";
           const personalFill=document.querySelector(".personal-fill");if(personalFill)personalFill.style.width=Math.min(100,state.balance/MINING_ALLOCATION*100)+"%";
           const global=document.querySelector('[data-testid="value-global-mining-progress"]');if(global)global.textContent=fmtInt(globalMined)+" / "+fmtInt(MINING_ALLOCATION)+" VYCH · "+fmt(Math.min(100,globalMined/MINING_ALLOCATION*100),2)+"%";

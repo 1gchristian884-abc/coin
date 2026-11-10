@@ -210,40 +210,74 @@
       });
     }
 
-    async function requestTelegramStarsPayment(title, starsAmount, onSuccessCallback) {
+    const API_BASE = 'https://coin-qv1j.onrender.com';
+
+    async function api(path, options = {}) {
       const tg = window.Telegram && window.Telegram.WebApp;
-      const userId = tg?.initDataUnsafe?.user?.id || 12345;
-      
-      showToast("Generating invoice...");
-      try {
-        const response = await fetch('https://coin-qv1j.onrender.com/create-invoice', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title: title, stars: starsAmount, userId: userId })
-        });
-        const data = await response.json();
-        if (data.invoiceLink) {
-          if (tg && tg.openInvoice) {
-            tg.openInvoice(data.invoiceLink, (status) => {
-              if (status === "paid") {
-                onSuccessCallback();
-              } else {
-                showToast("Payment canceled.");
-              }
-            });
-          } else {
-            window.open(data.invoiceLink, '_blank');
-          }
-        } else {
-          onSuccessCallback();
-        }
-      } catch (err) {
-        console.error(err);
-        onSuccessCallback();
+      const initData = tg && tg.initData;
+      if (!initData) throw new Error("no_telegram");
+      const res = await fetch(API_BASE + path, {
+        ...options,
+        headers: { 'Content-Type': 'application/json', 'X-Telegram-Init-Data': initData, ...(options.headers || {}) }
+      });
+      if (!res.ok) throw new Error("http_" + res.status);
+      return res.json();
+    }
+
+    function applyServerState(me) {
+      if (!me) return;
+      state.multiplier = Number(me.multiplier) || 1;
+      const newMax = Math.max(CAPACITY_BASE, Number(me.max_capacity) || CAPACITY_BASE);
+      const delta = newMax - cap(state);
+      state.maxCapacity = newMax;
+      if (delta > 0) state.energy = Math.min(newMax, state.energy + delta);
+      state.referrals = Number(me.referrals) || 0;
+      const a = me.automine;
+      if (a && (!state.autoMine || state.autoMine.startedAt !== a.startedAt)) {
+        const srv = servers.find(s => s.id === a.serverId);
+        state.autoMine = {
+          serverId: a.serverId, serverName: srv ? srv.name : a.serverId,
+          dailyReward: srv ? srv.dailyReward : 0, days: a.days, priceStars: 0,
+          rewardTotal: a.rewardTotal, startedAt: a.startedAt, endsAt: a.endsAt, paid: 0, todayPaid: 0
+        };
       }
     }
 
-    const TRANSLATIONS_MAP = [
+    async function syncFromServer() {
+      try { applyServerState(await api('/api/me')); save(); render(); }
+      catch (e) { console.warn("Server sync skipped:", e.message); }
+    }
+
+    // itemKey: "srv:basset:7" | "mul:4" | "eng:2"  (el servidor pone el precio)
+    async function requestTelegramStarsPayment(itemKey) {
+      const tg = window.Telegram && window.Telegram.WebApp;
+      if (!tg || !tg.initData) { showToast("Open this app from Telegram."); return; }
+      showToast("Generating invoice...");
+      try {
+        const before = (await api('/api/me')).purchases;
+        const { invoiceLink } = await api('/api/invoice', { method: 'POST', body: JSON.stringify({ itemKey }) });
+        tg.openInvoice(invoiceLink, async (status) => {
+          if (status !== "paid") { showToast("Payment canceled."); return; }
+          showToast("Confirming payment...");
+          for (let i = 0; i < 12; i++) {
+            await new Promise(r => setTimeout(r, 1500));
+            try {
+              const me = await api('/api/me');
+              if (me.purchases > before) {
+                applyServerState(me); openPanel = null; save(); render();
+                showToast("Purchase confirmed.");
+                return;
+              }
+            } catch (e) {}
+          }
+          showToast("Payment received. It may take a moment to appear.");
+        });
+      } catch (err) {
+        console.error(err);
+        showToast("Connection error with payment server.");
+      }
+    }
+
       ["controlCenter","Control center","Centro de control","控制中心","Central de controle"],
       ["simulationEnvironment","Production environment","Entorno de producción","生产环境","Ambiente de produção"],
       ["deviceStorage","Progress is secure. Conversion ratio is 1:1.","El progreso es seguro. La conversión es 1:1.","进度安全。兑换比例为 1:1。","O progresso é seguro. A conversão é 1:1."],

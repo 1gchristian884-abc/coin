@@ -680,23 +680,26 @@
     }
     function closeDialog(ok){document.getElementById("modalRoot").innerHTML="";if(modalResolver){modalResolver(ok);modalResolver=null}}
     function applyLanguageShell(){
+      const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+      const setAttr=(sel,k,v)=>{const el=document.querySelector(sel);if(el)el.setAttribute(k,v)};
       document.documentElement.lang=state.lang==="zh"?"zh-CN":state.lang;
       document.title="VYCH COIN MINER — "+t("miningCenter");
-      document.getElementById("sidebarNavLabel").textContent=t("controlCenter");
-      document.getElementById("demoNoteTitle").textContent=t("simulationEnvironment");
-      document.getElementById("demoNoteBody").textContent=t("deviceStorage");
-      document.getElementById("topSubtitle").textContent=t("miningCenter");
-      document.getElementById("localDemoLabel").textContent=t("localDemo");
-      document.querySelector(".avatar").setAttribute("aria-label",t("demoProfile"));
-      document.getElementById("languageSelect").value=state.lang;
-      document.getElementById("languageSelect").setAttribute("aria-label",t("language"));
-      document.getElementById("sidebar").setAttribute("aria-label",t("navigationMain"));
-      document.getElementById("mobileNav").setAttribute("aria-label",t("navigationBottom"));
+      setText("sidebarNavLabel",t("controlCenter"));
+      setText("demoNoteTitle",t("simulationEnvironment"));
+      setText("demoNoteBody",t("deviceStorage"));
+      setText("topSubtitle",t("miningCenter"));
+      setText("localDemoLabel",t("localDemo"));
+      setAttr(".avatar","aria-label",t("demoProfile"));
+      const langSel=document.getElementById("languageSelect");
+      if(langSel){langSel.value=state.lang;langSel.setAttribute("aria-label",t("language"))}
+      setAttr("#sidebar","aria-label",t("navigationMain"));
+      setAttr("#mobileNav","aria-label",t("navigationBottom"));
       const description="VYCH Coin Miner — "+t("miningDesc");
-      document.querySelector('meta[name="description"]').content=description;
-      document.querySelector('meta[property="og:title"]').content="VYCH Coin Miner — "+t("miningCenter");
-      document.querySelector('meta[property="og:description"]').content=description;
+      const metaDesc=document.querySelector('meta[name="description"]');if(metaDesc)metaDesc.content=description;
+      const ogTitle=document.querySelector('meta[property="og:title"]');if(ogTitle)ogTitle.content="VYCH Coin Miner — "+t("miningCenter");
+      const ogDesc=document.querySelector('meta[property="og:description"]');if(ogDesc)ogDesc.content=description;
     }
+
     function navMarkup(){return NAV.map(x=>'<button class="nav-item '+(active===x.id?"active":"")+'" data-nav="'+x.id+'" data-testid="nav-'+x.id+'" aria-current="'+(active===x.id?"page":"false")+'">'+x.icon+'<span>'+t(x.labelKey)+'</span></button>').join("")}
     function setupNav(){
       document.getElementById("desktopNav").innerHTML=navMarkup();document.getElementById("mobileNav").innerHTML=navMarkup();

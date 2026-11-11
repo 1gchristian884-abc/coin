@@ -19,12 +19,15 @@ for (const [k, v] of Object.entries({ BOT_TOKEN, DATABASE_URL, WEBAPP_URL, PUBLI
 }
 
 const pool = new Pool({ connectionString: DATABASE_URL, ssl: { rejectUnauthorized: false } });
+pool.on('error', (e) => console.error('Error en el pool de Postgres:', e.message));
+process.on('unhandledRejection', (e) => console.error('unhandledRejection:', e));
+process.on('uncaughtException', (e) => console.error('uncaughtException:', e));
 const bot = new Telegraf(BOT_TOKEN);
 
 // ---------- Catálogo (los precios los define el SERVIDOR) ----------
 const DAYS = [1, 7, 15, 30, 60];
 const SERVERS = {
-  basset: { name: 'Basset', daily: 300000, prices: [99, 3499, 6999, 12999, 23999] },
+  basset: { name: 'Basset', daily: 300000, prices: [499, 3499, 6999, 12999, 23999] },
   atlas:  { name: 'Atlas',  daily: 500000, prices: [1343, 4699, 9399, 17499, 31000] },
   zenith: { name: 'Zenith', daily: 750000, prices: [2318, 8100, 16100, 29999, 55000] },
   elite:  { name: 'Elite',  daily: 1000000, prices: [2999, 10500, 20999, 38999, 69999] },
@@ -91,14 +94,13 @@ async function ensureUser(user) {
 // ---------- Express ----------
 const app = express();
 app.use(express.json({ limit: '10kb' }));
-app.use(cors({ origin: WEBAPP_URL }));
+app.use(cors({ origin: WEBAPP_URL.replace(/\/+$/, '') }));
 
 // NO se sirve todo el directorio (antes exponía server.js). Solo lo necesario:
-app.get('/tonconnect-manifest.json', (req, res) =>
-  res.sendFile(path.join(__dirname, 'tonconnect-manifest.json')));
 app.get('/health', (req, res) => res.send('ok'));
 
 app.get('/api/me', auth, async (req, res) => {
+  try {
   await ensureUser(req.tgUser);
   const { rows } = await pool.query(
     `SELECT multiplier, max_capacity, automine,
@@ -106,6 +108,10 @@ app.get('/api/me', auth, async (req, res) => {
             (SELECT COUNT(*) FROM payments WHERE user_id = $1)::int AS purchases
      FROM users WHERE id = $1`, [req.tgUser.id]);
   res.json(rows[0]);
+  } catch (e) {
+    console.error('/api/me falló:', e.message);
+    res.status(500).json({ error: 'db_error' });
+  }
 });
 
 app.post('/api/invoice', auth, async (req, res) => {
@@ -125,7 +131,7 @@ app.post('/api/invoice', auth, async (req, res) => {
     });
     res.json({ invoiceLink });
   } catch (e) {
-    console.error(e);
+    console.error('/api/invoice falló:', e.message);
     res.status(500).json({ error: 'invoice_failed' });
   }
 });
@@ -204,8 +210,24 @@ bot.start(async (ctx) => {
 const hookPath = `/telegram/${WEBHOOK_SECRET}`;
 app.use(bot.webhookCallback(hookPath));
 
+const SCHEMA = `
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT PRIMARY KEY, username TEXT,
+  multiplier INT NOT NULL DEFAULT 1, max_capacity INT NOT NULL DEFAULT 600,
+  automine JSONB, created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS payments (
+  charge_id TEXT PRIMARY KEY, user_id BIGINT NOT NULL REFERENCES users(id),
+  item_key TEXT NOT NULL, stars INT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS referrals (
+  referred_id BIGINT PRIMARY KEY REFERENCES users(id),
+  referrer_id BIGINT NOT NULL REFERENCES users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now());
+`;
+
 app.listen(PORT, async () => {
   console.log(`Servidor activo en el puerto ${PORT}`);
+  try { await pool.query(SCHEMA); console.log('Tablas listas'); }
+  catch (e) { console.error('Error creando tablas:', e.message); }
   await bot.telegram.setWebhook(`${PUBLIC_URL}${hookPath}`, {
     allowed_updates: ['message', 'pre_checkout_query'],
   });

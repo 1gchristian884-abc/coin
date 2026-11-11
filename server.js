@@ -94,10 +94,19 @@ async function ensureUser(user) {
 // ---------- Express ----------
 const app = express();
 app.use(express.json({ limit: '10kb' }));
-app.use(cors({ origin: WEBAPP_URL.replace(/\/+$/, '') }));
+// La autenticación va por el initData firmado (no por cookies), así que CORS abierto es seguro.
+app.use(cors());
 
 // NO se sirve todo el directorio (antes exponía server.js). Solo lo necesario:
 app.get('/health', (req, res) => res.send('ok'));
+
+// Manifiesto de TonConnect servido desde aquí (siempre público, con CORS abierto)
+app.get('/tonconnect-manifest.json', (req, res) => res.json({
+  url: WEBAPP_URL.replace(/\/+$/, ''),
+  name: 'VYCH Coin Miner',
+  iconUrl: PUBLIC_URL.replace(/\/+$/, '') + '/icon.png',
+}));
+app.get('/icon.png', (req, res) => res.sendFile(path.join(__dirname, 'icon.png')));
 
 app.get('/api/me', auth, async (req, res) => {
   try {

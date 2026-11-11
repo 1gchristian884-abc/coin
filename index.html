@@ -21,6 +21,9 @@
     @media(max-width:600px){body{font-size:13px}.main{padding:15px 14px 101px}.topbar{height:auto;margin-bottom:21px}.live-pill{font-size:9px;padding:6px 8px}.page-head{align-items:flex-start;margin-bottom:16px}.page-head h1{font-size:22px}.page-head p{font-size:10px;max-width:270px;line-height:1.5}.tag{font-size:8px;padding:6px 8px}.hero-grid,.mine-grid,.panel-grid,.wheel-layout{grid-template-columns:1fr}.balance-card{padding:17px}.balance-value{font-size:29px}.energy-card{padding:15px 17px}.energy-value{margin-top:12px}.mine-grid{gap:10px}.mine-card{min-height:278px;padding:16px}.side-stack{grid-template-columns:1fr 1fr;gap:10px}.server-current{padding:13px}.progress-card{padding:13px}.progress-head strong{font-size:9px}.purchase-grid{grid-template-columns:1fr}.section-block{margin-top:22px}.section-heading{margin-bottom:10px}.block-row{grid-template-columns:.55fr .65fr .65fr .7fr .9fr;gap:4px;padding:10px 8px;font-size:8px}.block-row.head{font-size:7px;letter-spacing:.03em}.block-row strong{font-size:8px}.ref-hero{grid-template-columns:1fr;padding:17px}.big-stat{font-size:29px}.ref-action{width:100%}.ref-action button{flex:1}.ref-sim{align-items:flex-start}.ref-sim .secondary-btn{white-space:nowrap}.tier-card{padding:10px 11px}.ad-grid{grid-template-columns:1fr 1fr;gap:9px}.ad-card{padding:13px}.ad-card h2{font-size:11px}.ad-card p{min-height:54px}.wheel-layout{grid-template-columns:1fr}.wheel-stage{width:min(85vw,310px)}.wheel-card{padding:17px}.wheel-ring{border-width:8px}.wheel-center b{font-size:18px}.stats-tiles{grid-template-columns:1fr 1fr;gap:9px}.stat-tile{padding:13px}.stat-tile strong{font-size:17px}.wallet-card{grid-template-columns:1fr;gap:12px;padding:18px}.wallet-connect{width:100%}.top-meta{gap:7px}}
     @media(max-width:360px){.main{padding-left:10px;padding-right:10px}.block-row{font-size:7px}.block-row.head{font-size:6px}.side-stack{grid-template-columns:1fr}.tag{display:none}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  
+    .streak-card{padding:18px;margin-bottom:13px}.streak-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.streak-head h2{font-size:12px;margin:0 0 5px;font-weight:800}.streak-head p{font-size:9px;color:var(--muted);margin:0;line-height:1.6;max-width:430px}.streak-count{font-family:var(--mono);font-size:10px;color:var(--gold);white-space:nowrap;font-weight:700}.streak-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0}.streak-day{border:1px solid var(--line);background:var(--surface2);border-radius:9px;padding:8px 2px;text-align:center;font-size:8px;color:var(--muted);line-height:1.4}.streak-day b{display:block;font:700 12px var(--mono);color:var(--text);margin-bottom:2px}.streak-day.done{border-color:#315640;background:#142119;color:var(--green)}.streak-day.done b{color:var(--green)}.streak-day.today{border-color:var(--gold);background:linear-gradient(145deg,#1f1a11,#111311);color:var(--gold)}.streak-day.today b{color:var(--gold)}
+    .wallet-clean{padding:20px}.wc-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.wc-title{display:flex;align-items:center;gap:12px}.wc-title .wallet-symbol{margin:0;width:42px;height:42px;border-radius:12px}.wc-title strong{display:block;font-size:14px;font-weight:800}.wc-title span{display:block;font-size:10px;color:var(--muted);margin-top:2px}.wc-pill{font-size:9px;font-weight:700;color:var(--muted);border:1px solid var(--line);background:var(--surface2);border-radius:99px;padding:6px 11px;white-space:nowrap}.wc-pill.on{color:var(--green);border-color:#2a5a40;background:#12201a}.wc-address{margin-top:16px;padding:12px 14px;border:1px solid var(--line);background:var(--surface2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}.wc-address small{display:block;font-size:9px;color:var(--muted);margin-bottom:5px}.wc-address code{font-family:var(--mono);font-size:12px;color:var(--text)}.wc-hint{margin:16px 0 0;font-size:10px;color:var(--muted);line-height:1.6}.wc-actions{margin-top:14px;display:flex;gap:8px}.wc-actions .primary-btn,.wc-actions .secondary-btn{flex:1}
   </style>
   <style>
     .language-select{height:31px;max-width:92px;border:1px solid #303a45;border-radius:8px;background:#111720;color:#d7e0e5;padding:0 22px 0 8px;font:600 9px var(--font);outline:none}
@@ -183,6 +186,11 @@
       catch (e) { return ""; }
     }
     function shortAddr(a) { return a ? a.slice(0, 6) + "…" + a.slice(-6) : ""; }
+    function friendlyAddr() {
+      const raw = walletAddress(); if (!raw) return "";
+      try { if (window.TON_CONNECT_UI && TON_CONNECT_UI.toUserFriendlyAddress) return TON_CONNECT_UI.toUserFriendlyAddress(raw); } catch (e) {}
+      return raw;
+    }
 
     async function api(path, options = {}) {
       const tg = window.Telegram && window.Telegram.WebApp;
@@ -216,13 +224,14 @@
       if (delta > 0) state.energy = Math.min(newMax, state.energy + delta);
       state.referrals = Number(me.referrals) || 0;
       const a = me.automine;
-      if (!a) { state.autoMine = null; }
-      else if (!state.autoMine || state.autoMine.startedAt !== a.startedAt) {
+      const streakActive = state.autoMine && state.autoMine.source === "streak" && state.autoMine.endsAt > Date.now();
+      if (!a) { if (state.autoMine && state.autoMine.source !== "streak") state.autoMine = null; }
+      else if (!(streakActive && a.endsAt <= Date.now()) && (!state.autoMine || state.autoMine.startedAt !== a.startedAt)) {
         const srv = servers.find(x => x.id === a.serverId);
         state.autoMine = {
           serverId: a.serverId, serverName: srv ? srv.name : a.serverId,
           dailyReward: srv ? srv.dailyReward : 0, days: a.days, priceStars: 0,
-          rewardTotal: a.rewardTotal, startedAt: a.startedAt, endsAt: a.endsAt, paid: 0, todayPaid: 0
+          rewardTotal: a.rewardTotal, startedAt: a.startedAt, endsAt: a.endsAt, paid: a.endsAt <= Date.now() ? a.rewardTotal : 0, todayPaid: 0
         };
       }
     }
@@ -263,6 +272,19 @@
     }
 
     const TRANSLATIONS_MAP = [
+      ["streakTitle","Daily streak","Racha diaria","每日连续签到","Sequência diária"],
+      ["streakDesc","Claim every day for 7 days in a row and earn VYCH each day. On day 7 you also get a Basset server for 30 minutes.","Reclama cada día durante 7 días seguidos y gana VYCH diario. El día 7 recibes además un servidor Basset por 30 minutos.","连续 7 天每天领取，每天获得 VYCH。第 7 天还可获得 Basset 服务器 30 分钟。","Resgate todos os dias por 7 dias seguidos e ganhe VYCH diário. No dia 7 você ainda recebe um servidor Basset por 30 minutos."],
+      ["streakProgress","{n} / 7 days","{n} / 7 días","{n} / 7 天","{n} / 7 dias"],
+      ["streakClaim","Claim day {n}","Reclamar día {n}","领取第 {n} 天","Resgatar dia {n}"],
+      ["streakClaimed","Claimed today · come back tomorrow","Reclamado hoy · vuelve mañana","今日已领取 · 明天再来","Resgatado hoje · volte amanhã"],
+      ["streakDayToast","Day {n} claimed · +{amount} VYCH","Día {n} reclamado · +{amount} VYCH","第 {n} 天已领取 · +{amount} VYCH","Dia {n} resgatado · +{amount} VYCH"],
+      ["streakRewardToast","Day 7 · +{amount} VYCH and Basset server active for 30 minutes","Día 7 · +{amount} VYCH y servidor Basset activo por 30 minutos","第 7 天 · +{amount} VYCH，Basset 服务器已启用 30 分钟","Dia 7 · +{amount} VYCH e servidor Basset ativo por 30 minutos"],
+      ["streakCreditToast","Day 7 · +{amount} VYCH (a rental was already active)","Día 7 · +{amount} VYCH (ya había un alquiler activo)","第 7 天 · +{amount} VYCH（已有进行中的租赁）","Dia 7 · +{amount} VYCH (já havia um aluguel ativo)"],
+      ["walletTonLabel","TON Wallet","TON Wallet","TON 钱包","Carteira TON"],
+      ["walletAddressLabel","Address","Dirección","地址","Endereço"],
+      ["walletConnectHint","Connect your TON wallet to link it with your account.","Conecta tu wallet TON para vincularla a tu cuenta.","连接您的 TON 钱包以绑定账户。","Conecte sua carteira TON para vinculá-la à sua conta."],
+      ["copyAddress","Copy","Copiar","复制","Copiar"],
+      ["addressCopied","Address copied","Dirección copiada","地址已复制","Endereço copiado"],
       ["controlCenter","Control center","Centro de control","控制中心","Central de controle"],
       ["simulationEnvironment","Local demo","Demostración local","本地演示","Demonstração local"],
       ["deviceStorage","Stored locally in this browser on this device; not cloud-synced.","Guardado localmente en este navegador y dispositivo; no se sincroniza en la nube.","保存在此设备的本地浏览器中；不会云同步。","Armazenado localmente neste navegador e dispositivo; sem sincronização na nuvem."],
@@ -477,6 +499,12 @@
       ["leaderboardDesc","Global ranking across ecosystem miners.","Ranking global entre los mineros del ecosistema.","生态系统矿工全球排名。","Ranking global entre mineradores do ecossistema."]
     ];
     const RU_TRANSLATIONS={
+      streakTitle:"Ежедневная серия",streakDesc:"Забирайте награду каждый день 7 дней подряд и получайте VYCH ежедневно. На 7-й день — ещё и сервер Basset на 30 минут.",
+      streakProgress:"{n} / 7 дней",streakClaim:"Забрать день {n}",streakClaimed:"Получено сегодня · приходите завтра",
+      streakDayToast:"День {n} получен · +{amount} VYCH",streakRewardToast:"День 7 · +{amount} VYCH и сервер Basset активен 30 минут",
+      streakCreditToast:"День 7 · +{amount} VYCH (аренда уже была активна)",
+      walletTonLabel:"Кошелёк TON",walletAddressLabel:"Адрес",walletConnectHint:"Подключите кошелёк TON, чтобы привязать его к аккаунту.",
+      copyAddress:"Копировать",addressCopied:"Адрес скопирован",
       controlCenter:"Центр управления",simulationEnvironment:"Среда производства",deviceStorage:"Данные хранятся локально в браузере на этом устройстве; облачной синхронизации нет.",
       resetDemo:"",reset:"",localDemo:"Живая сеть",miningCenter:"Центр майнинга",language:"Язык",
       navMine:"Майнинг",navRefs:"Рефералы",navTasks:"Задания",navStats:"Статистика",navWallet:"Кошелёк",
@@ -570,7 +598,7 @@
       return template.replace(/\{(\w+)\}/g,(_,name)=>String(values[name]??""));
     }
     const NAV=[
-      {id:"minar",labelKey:"navMine",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 16l4-5 3 3 5-8"/><path d="M15 6h3v3"/></svg>'},
+      {id:"minar",labelKey:"navMine",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5 17 7"/><path d="M5.5 4.5Q21 2.5 20.5 18.5"/></svg>'},
       {id:"refs",labelKey:"navRefs",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a6 6 0 0 1 12 0v1M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>'},
       {id:"tareas",labelKey:"navTasks",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h12M8 12h12M8 19h12"/><path d="m3 5 1 1 2-2M3 12l1 1 2-2M3 19l1 1 2-2"/></svg>'},
       {id:"stats",labelKey:"navStats",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h17"/><path d="m7 15 4-4 3 2 6-7"/></svg>'},
@@ -603,7 +631,7 @@
     function seed(){
       const t=now();
       return {lang:"en",balance:0,lifetime:0,today:0,todayKey:utcDay(),energy:600,maxCapacity:600,energyAt:t,referrals:0,claimedTiers:[],refCapacity:0,
-        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:1,walletConnected:false,blocksTotal:0,blocks:[]};
+        adEnergyCount:0,freeSpinUsed:false,adSpinCount:0,autoMine:null,wheelRotation:0,lastSpin:null,multiplier:1,walletConnected:false,blocksTotal:0,blocks:[],streak:{count:0,last:""}};
     }
     function normalize(raw){
       const d=seed(); if(!raw||typeof raw!=="object")return d;
@@ -614,6 +642,7 @@
       if(s.todayKey!==utcDay()){s.todayKey=utcDay();s.today=0;s.adEnergyCount=0;s.freeSpinUsed=false;s.adSpinCount=0;}
       if(!Array.isArray(s.blocks))s.blocks=[];
       if(!Array.isArray(s.claimedTiers))s.claimedTiers=[];
+      if(!s.streak||typeof s.streak!=="object"||!Number.isFinite(Number(s.streak.count)))s.streak={count:0,last:""};else{s.streak={count:Math.max(0,Math.min(7,Math.floor(Number(s.streak.count)))),last:String(s.streak.last||"")}}
       if(!s.autoMine||typeof s.autoMine!=="object"||!Number.isFinite(Number(s.autoMine.startedAt))||!Number.isFinite(Number(s.autoMine.endsAt))||!Number.isFinite(Number(s.autoMine.rewardTotal)))s.autoMine=null;
       else{s.autoMine.paid=Number(s.autoMine.paid)||0;s.autoMine.todayPaid=Number(s.autoMine.todayPaid)||0;}
       if(!s.lastSpin||typeof s.lastSpin!=="object")s.lastSpin=null;
@@ -786,10 +815,45 @@
       if(spin.type==="vych")return "+"+fmtInt(spin.amount||0)+" vVYCH";
       return spin.rewardLabel||t("spinResultFallback");
     }
+    const STREAK_REWARDS=[100,150,200,300,400,500,1000]; // VYCH por día (el día 7 además da Basset 30 min)
+    function streakInfo(){
+      const today=utcDay(),yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+      const st=state.streak||{count:0,last:""};
+      if(st.last===today)return {claimedToday:true,shown:st.count,next:st.count};
+      if(st.last===yesterday&&st.count<7)return {claimedToday:false,shown:st.count,next:st.count+1};
+      return {claimedToday:false,shown:0,next:1};
+    }
+    function renderStreakCard(){
+      const info=streakInfo();
+      const days=[1,2,3,4,5,6,7].map(n=>{
+        const done=n<=info.shown,isToday=!info.claimedToday&&n===info.next;
+        const label=(done?"✓":"+"+fmtInt(STREAK_REWARDS[n-1]))+(n===7?"<br>Basset":"");
+        return '<div class="streak-day '+(done?"done":isToday?"today":"")+'"><b>'+n+'</b>'+label+'</div>';
+      }).join("");
+      return '<article class="card streak-card"><div class="streak-head"><div><h2>'+t("streakTitle")+'</h2><p>'+t("streakDesc")+'</p></div><div class="streak-count" data-testid="value-streak">'+t("streakProgress",{n:info.shown})+'</div></div><div class="streak-days">'+days+'</div><button class="primary-btn" id="claimStreak" data-testid="button-claim-streak" style="width:100%" '+(info.claimedToday?'disabled':'')+'>'+(info.claimedToday?t("streakClaimed"):t("streakClaim",{n:info.next}))+'</button></article>';
+    }
+    function claimStreak(){
+      syncDaily();
+      const info=streakInfo();
+      if(info.claimedToday){showToast(t("streakClaimed"));return}
+      state.streak={count:info.next,last:utcDay()};
+      const dayReward=STREAK_REWARDS[info.next-1];
+      earn(dayReward);
+      if(info.next===7){
+        const basset=servers.find(x=>x.id==="basset"),ms=30*60000,rental=basset.dailyReward*ms/86400000,t0=now();
+        updateEnergy();
+        if(state.autoMine&&state.autoMine.endsAt>t0){
+          earn(rental);save();render();showToast(t("streakCreditToast",{amount:fmtInt(dayReward+rental)}));
+        }else{
+          state.autoMine={serverId:"basset",serverName:"Basset",dailyReward:basset.dailyReward,days:0,priceStars:0,rewardTotal:rental,startedAt:t0,endsAt:t0+ms,paid:0,todayPaid:0,source:"streak"};
+          save();render();showToast(t("streakRewardToast",{amount:fmtInt(dayReward)}));
+        }
+      }else{save();render();showToast(t("streakDayToast",{n:info.next,amount:fmtInt(dayReward)}))}
+    }
     function renderTasksView(){
       const last=state.lastSpin?t(state.lastSpin.nameKey||"common")+" · "+spinRewardText(state.lastSpin):t("spinResultFallback");
       return '<section class="page">'+header(t("tasksKicker"),t("tasksTitle"),t("tasksDesc"),t("resetUtc"))+
-      '<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
+      renderStreakCard()+'<div class="grid ad-grid"><article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM8 7l2-3h4l2 3"/><path d="m10 11 4 2-4 2z"/></svg></div><h2>'+t("energyBoost")+'</h2><p>'+t("energyAdDesc")+'</p><div class="daily-count">'+t("usesToday")+': <b data-testid="value-ad-energy-count">'+state.adEnergyCount+'</b> / 100</div><button class="primary-btn" id="claimEnergy" data-testid="button-claim-energy" '+(state.adEnergyCount>=100?'disabled':'')+'>'+t("simulateReward")+'</button></article>'+
       '<article class="card ad-card"><div class="ad-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="5"/></svg></div><h2>'+t("extraSpins")+'</h2><p>'+t("spinAdDesc")+'</p><div class="daily-count">'+t("adSpins")+': <b data-testid="value-ad-spin-count">'+state.adSpinCount+'</b> / 15</div><div class="daily-count">'+t("freeSpin")+': <b>'+(state.freeSpinUsed?t("used"):t("availableSpin"))+'</b></div><button class="secondary-btn" id="adSpin" data-testid="button-ad-spin" '+(state.adSpinCount>=15||spinBusy?'disabled':'')+'>'+t("simulateAdSpin")+'</button></article></div>'+
       '<section class="section-block"><div class="section-heading"><h2>'+t("dailyWheel")+'</h2><span>'+t("fixedProbDemo")+'</span></div><div class="wheel-layout"><article class="card wheel-card"><div class="wheel-stage" aria-label="'+t("wheelAria")+'"><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-ring" id="wheelRing" style="transform:rotate('+(Number(state.wheelRotation)||0)+'deg)" aria-hidden="true">'+prizes.map((prize,i)=>'<div class="wheel-sector-label" style="--angle:'+prizeCenter(i)+'deg"><span>'+prize.label+'</span></div>').join("")+'</div><div class="wheel-center"><b>VYCH</b><span>'+t("dailyWheel")+'</span></div></div><h2>'+t("nextPrize")+'</h2><p>'+t("spinExplainer")+'</p><div class="wheel-result" data-testid="value-last-spin">'+last+'</div><button class="primary-btn" id="spinWheel" data-testid="button-spin-wheel" '+(!state.freeSpinUsed&&!spinBusy?'':'disabled')+'>'+(spinBusy?t("spinning"):state.freeSpinUsed?t("freeUsed"):t("freeSpinButton"))+'</button></article><article class="card prize-panel"><h2>'+t("prizeTable")+'</h2><div class="prize-list">'+prizes.map((prize,i)=>'<div class="prize-row"><div class="prize-label"><i class="prize-dot"></i>'+(i===4?'<svg class="crown-icon" viewBox="0 0 24 24" aria-label="'+t("legendary")+'"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z"/><path d="M5 16h14"/></svg>':"")+t(prize.nameKey)+'</div><div class="prize-meta">'+prize.label+' <b>'+prize.probability+'%</b></div></div>').join("")+'</div><div class="chance-note">'+t("spinIndependent")+'</div></article></div></section></section>';
     }
@@ -815,9 +879,13 @@
     }
     function renderWalletView(){
       return '<section class="page">'+header(t("walletKicker"),t("walletTitle"),t("walletDesc"),t("informative"))+
-      '<article class="card wallet-card"><div><div class="wallet-symbol"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg></div><div class="wallet-status" data-testid="status-wallet">'+(walletAddress()?t("walletConnected"):t("walletDisconnected"))+'</div><h2>'+t("walletTesting")+'</h2><p>'+t("localConnText")+'</p><div style="margin-top:14px">'+(walletAddress()?'<div style="font-family:var(--mono);font-size:10px;color:var(--gold);margin-bottom:10px" data-testid="value-wallet-address">'+shortAddr(walletAddress())+'</div><button class="secondary-btn" id="walletDisconnect" data-testid="button-wallet-disconnect">'+t("disconnectDemo")+'</button>':'<button class="primary-btn" id="walletConnect" data-testid="button-wallet-connect">'+t("simulateConnection")+'</button>')+'</div></div></article>'+
-      '<article class="card wallet-disclaimer"><b>'+t("important")+'</b> '+t("walletDisclaimer")+'</article>'+
-      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+t("notConnected")+'</span></div><span>TON · '+t("notAvailable")+'</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>'+t("notAvailable")+'</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("localOnly")+'</span></div></article></section>';
+      (function(){
+        const addr=friendlyAddr(),icon='<svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v16H6a3 3 0 0 1-3-3V6.5Z"/><path d="M3 7h17M15 13h5"/><circle cx="15" cy="13" r=".7" fill="currentColor"/></svg>';
+        return '<article class="card wallet-clean"><div class="wc-head"><div class="wc-title"><div class="wallet-symbol">'+icon+'</div><div><strong>'+t("walletTonLabel")+'</strong><span>TON</span></div></div><div class="wc-pill '+(addr?'on':'')+'" data-testid="status-wallet">'+(addr?t("walletConnected"):t("walletDisconnected"))+'</div></div>'+
+        (addr?'<div class="wc-address"><div><small>'+t("walletAddressLabel")+'</small><code data-testid="value-wallet-address">'+shortAddr(addr)+'</code></div><button class="secondary-btn" id="walletCopy" data-testid="button-wallet-copy">'+t("copyAddress")+'</button></div><div class="wc-actions"><button class="secondary-btn" id="walletDisconnect" data-testid="button-wallet-disconnect">'+t("disconnectDemo")+'</button></div>'
+             :'<p class="wc-hint">'+t("walletConnectHint")+'</p><div class="wc-actions"><button class="primary-btn" id="walletConnect" data-testid="button-wallet-connect">'+t("simulateConnection")+'</button></div>')+'</article>';
+      })()+
+      '<article class="card wallet-details"><div class="card-title"><span>'+t("stateExperience")+'</span><span class="right">'+t("informative")+'</span></div><div class="server-row"><div><strong>'+t("blockchainNetwork")+'</strong><span>'+(walletAddress()?t("walletConnected"):t("walletDisconnected"))+'</span></div><span>TON</span></div><div class="server-row"><div><strong>'+t("withdrawals")+'</strong><span>'+t("noWithdrawals")+'</span></div><span>'+t("notAvailable")+'</span></div><div class="server-row"><div><strong>'+t("storage")+'</strong><span>'+t("deviceStorage")+'</span></div><span>'+t("localOnly")+'</span></div></article></section>';
     }
     function render(){
       updateEnergy();applyLanguageShell();setupNav();
@@ -943,10 +1011,13 @@
       document.querySelectorAll("[data-energy-pack]").forEach(b=>b.onclick=()=>buyEnergyPack(Number(b.dataset.energyPack)));
       const wConnect=document.getElementById("walletConnect");
       if(wConnect)wConnect.onclick=()=>{if(!tonConnectUI){showToast("Wallet service unavailable. Reload the app.");return}tonConnectUI.openModal()};
+      const wCopy=document.getElementById("walletCopy");
+      if(wCopy)wCopy.onclick=async()=>{const v=friendlyAddr();try{await navigator.clipboard.writeText(v)}catch(e){const ta=document.createElement("textarea");ta.value=v;document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(err){}ta.remove()}showToast(t("addressCopied"))};
       const wDisconnect=document.getElementById("walletDisconnect");
       if(wDisconnect)wDisconnect.onclick=async()=>{try{await tonConnectUI.disconnect()}catch(e){}};
       const copy=document.getElementById("copyInvite");if(copy)copy.onclick=copyInvite;
       const energy=document.getElementById("claimEnergy");if(energy)energy.onclick=claimEnergy;
+      const streakBtn=document.getElementById("claimStreak");if(streakBtn)streakBtn.onclick=claimStreak;
       const adSpin=document.getElementById("adSpin");if(adSpin)adSpin.onclick=()=>spin(true);
       const wheel=document.getElementById("spinWheel");if(wheel)wheel.onclick=()=>spin(false);
       

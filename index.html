@@ -171,7 +171,7 @@
     try {
       if (window.TON_CONNECT_UI) {
         tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-          manifestUrl: 'https://coin-vych.vercel.app/tonconnect-manifest.json',
+          manifestUrl: 'https://coin-qv1j.onrender.com/tonconnect-manifest.json',
           uiPreferences: { theme: 'DARK' },
           actionsConfiguration: { twaReturnUrl: 'https://t.me/vychminer_bot' }
         });
@@ -188,10 +188,20 @@
       const tg = window.Telegram && window.Telegram.WebApp;
       const initData = tg && tg.initData;
       if (!initData) throw new Error("no_telegram");
-      const res = await fetch(API_BASE + path, {
-        ...options,
-        headers: { 'Content-Type': 'application/json', 'X-Telegram-Init-Data': initData, ...(options.headers || {}) }
-      });
+      let res, lastErr;
+      for (let attempt = 0; attempt < 4; attempt++) {
+        try {
+          res = await fetch(API_BASE + path, {
+            ...options,
+            headers: { 'Content-Type': 'application/json', 'X-Telegram-Init-Data': initData, ...(options.headers || {}) }
+          });
+          break;
+        } catch (e) {
+          lastErr = e;
+          await new Promise(r => setTimeout(r, 5000)); // el servidor gratuito puede tardar en despertar
+        }
+      }
+      if (!res) throw new Error("network_" + ((lastErr && lastErr.message) || "failed"));
       if (!res.ok) throw new Error("http_" + res.status);
       return res.json();
     }
